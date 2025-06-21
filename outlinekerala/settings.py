@@ -67,8 +67,13 @@ GRAPHENE = {
 }
 
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000",
-    "https://backend.outlinekerala.com"
+    "*"
+]
+CSRF_TRUSTED_ORIGINS = [
+    'https://localhost:3000',
+    'https://backend.outlinekerala.com',
+    'https://www.backend.outlinekerala.com',  # (optional, if you use www)
+    'https://outlinekerala.com',  # add actual frontend URL if different
 ]
 
 
