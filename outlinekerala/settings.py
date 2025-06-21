@@ -67,7 +67,11 @@ GRAPHENE = {
 }
 
 CORS_ALLOWED_ORIGINS = [
-    "*"
+
+    'https://localhost:3000',
+    'https://backend.outlinekerala.com',
+    'https://www.backend.outlinekerala.com',  # (optional, if you use www)
+    'https://outlinekerala.com'
 ]
 CSRF_TRUSTED_ORIGINS = [
     'https://localhost:3000',
@@ -112,7 +116,7 @@ DATABASES = {
         'HOST': '103.253.178.26',
         'PORT': '5432',
         'OPTIONS': {
-            'sslmode': 'require',  # or 'prefer'
+            'sslmode': 'disable',  # or 'prefer'
         }
     }
 }
