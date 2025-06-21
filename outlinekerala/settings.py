@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'graphene_django',
+    'corsheaders',
     'user_app',
     'ckeditor',
     'ckeditor_uploader',
@@ -47,6 +48,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -63,6 +65,12 @@ GRAPHENE = {
         "graphql_jwt.middleware.JSONWebTokenMiddleware",
     ],
 }
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",
+    "https://backend.outlinekerala.com"
+]
+
 
 AUTH_USER_MODEL = 'user_app.CustomUser'
 ROOT_URLCONF = 'outlinekerala.urls'
@@ -92,10 +100,19 @@ WSGI_APPLICATION = 'outlinekerala.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'outline_db',
+        'USER': 'outline_user',
+        'PASSWORD': 'outline@123',
+        'HOST': '103.253.178.26',
+        'PORT': '5432',
+        'OPTIONS': {
+            'sslmode': 'require',  # or 'prefer'
+        }
     }
 }
+
+
 
 
 # Password validation
