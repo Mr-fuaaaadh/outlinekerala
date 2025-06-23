@@ -67,18 +67,19 @@ GRAPHENE = {
 }
 
 CORS_ALLOWED_ORIGINS = [
+    'http://localhost:3000',   # ← Use http, not https
+    'https://backend.outlinekerala.com',
+    'https://www.backend.outlinekerala.com',
+    'https://outlinekerala.com',
+]
 
-    'https://localhost:3000',
-    'https://backend.outlinekerala.com',
-    'https://www.backend.outlinekerala.com',  # (optional, if you use www)
-    'https://outlinekerala.com'
-]
 CSRF_TRUSTED_ORIGINS = [
-    'https://localhost:3000',
+    'http://localhost:3000',   # ← Use http here too
     'https://backend.outlinekerala.com',
-    'https://www.backend.outlinekerala.com',  # (optional, if you use www)
-    'https://outlinekerala.com',  # add actual frontend URL if different
+    'https://www.backend.outlinekerala.com',
+    'https://outlinekerala.com',
 ]
+
 
 
 AUTH_USER_MODEL = 'user_app.CustomUser'
