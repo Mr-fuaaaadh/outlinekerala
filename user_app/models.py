@@ -23,6 +23,7 @@ class Category(models.Model):
     name = models.CharField(max_length=100)
     slug = models.SlugField(unique=True)
     image = models.ImageField(upload_to='categories/', blank=True, null=True)
+    subcategory = models.ForeignKey('self', null=True, blank=True, on_delete=models.CASCADE, related_name='subcategories')
 
     def __str__(self):
         return self.name
