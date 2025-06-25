@@ -46,7 +46,7 @@ class Tag(models.Model):
     def __str__(self):
         return self.name
 
-# News model
+# News modeleerfefee
 class News(models.Model):
     STATUS_CHOICES = [
         ('draft', 'Draft'),
@@ -57,7 +57,7 @@ class News(models.Model):
     slug = models.SlugField(unique=True, blank=True)  
     content = RichTextField(config_name='default')
     image = models.ImageField(upload_to='news/')
-    category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='category')
+    category = models.ForeignKey(SubCategory, on_delete=models.CASCADE, related_name='news')
     tags = models.ManyToManyField(Tag)
     author = models.ForeignKey(CustomUser, on_delete=models.SET_NULL, null=True)
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='draft')
