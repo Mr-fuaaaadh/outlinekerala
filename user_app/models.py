@@ -46,7 +46,6 @@ class Tag(models.Model):
     def __str__(self):
         return self.name
 
-# News modeleerfefee
 class News(models.Model):
     STATUS_CHOICES = [
         ('draft', 'Draft'),
@@ -57,7 +56,7 @@ class News(models.Model):
     slug = models.SlugField(unique=True, blank=True, max_length=255)  
     content = RichTextField(config_name='default')
     image = models.ImageField(upload_to='news/')
-    category = models.ForeignKey(SubCategory, on_delete=models.CASCADE, related_name='categotries')
+    category = models.ForeignKey(SubCategory, on_delete=models.CASCADE, related_name='news')
     tags = models.ManyToManyField(Tag)
     author = models.ForeignKey(CustomUser, on_delete=models.SET_NULL, null=True)
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='draft')
@@ -65,19 +64,24 @@ class News(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    class Meta:
+        ordering = ['-publish_date']
+
     def save(self, *args, **kwargs):
         if not self.slug:
             base_slug = slugify(self.title)
             unique_slug = base_slug
             counter = 1
             while News.objects.filter(slug=unique_slug).exists():
-                unique_slug = f"{base_slug}-{counter}"
+                suffix = f"-{counter}"
+                unique_slug = f"{base_slug[:255 - len(suffix)]}{suffix}"
                 counter += 1
             self.slug = unique_slug
         super().save(*args, **kwargs)
 
     def __str__(self):
         return self.title
+
 
 
 # Comment model
