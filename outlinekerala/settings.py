@@ -120,7 +120,6 @@ DATABASES = {
 }
 
 
-# myproject/settings.py
 
 # DATABASES = {
 #     'default': {
