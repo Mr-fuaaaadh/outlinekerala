@@ -116,11 +116,20 @@ DATABASES = {
         'PASSWORD': 'outline@123',
         'HOST': '103.253.178.26',
         'PORT': '5432',
-        'OPTIONS': {
-            'sslmode': 'disable',  # or 'prefer'
-        }
     }
 }
+
+
+# myproject/settings.py
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / "db.sqlite3",
+#     }
+# }
+
+
 
 
 

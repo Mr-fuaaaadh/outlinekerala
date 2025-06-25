@@ -23,11 +23,22 @@ class Category(models.Model):
     name = models.CharField(max_length=100)
     slug = models.SlugField(unique=True)
     image = models.ImageField(upload_to='categories/', blank=True, null=True)
-    subcategory = models.ForeignKey('self', null=True, blank=True, on_delete=models.CASCADE, related_name='subcategories')
+    def __str__(self):
+        return self.name
+    
+
+
+class SubCategory(models.Model):
+    name = models.CharField(max_length=100)
+    slug = models.SlugField(unique=True)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='subcategories')
+    image = models.ImageField(upload_to='subcategories/', blank=True, null=True)
 
     def __str__(self):
         return self.name
+    
 
+    
 # Tag model
 class Tag(models.Model):
     name = models.CharField(max_length=50)
@@ -43,7 +54,7 @@ class News(models.Model):
     ]
 
     title = models.CharField(max_length=255)
-    slug = models.SlugField(unique=True, blank=True)  # allow blank so we can auto-fill it
+    slug = models.SlugField(unique=True, blank=True)  
     content = RichTextField(config_name='default')
     image = models.ImageField(upload_to='news/')
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='category')

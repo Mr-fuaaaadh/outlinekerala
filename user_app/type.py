@@ -17,6 +17,13 @@ class CategoryType(DjangoObjectType):
         fields = "__all__"
 
 
+
+class SubCategoryType(DjangoObjectType):
+    class Meta:
+        model = SubCategory
+        fields = "__all__"
+        
+
 class TagType(DjangoObjectType):
     class Meta:
         model = Tag

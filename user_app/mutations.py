@@ -2,8 +2,8 @@ import graphene
 from django.contrib.auth import get_user_model
 from graphql_jwt.shortcuts import get_token
 from graphql import GraphQLError
-from .type import UserType, CategoryType, TagType , NewsType, CommentType, LikeType
-from .models import Category, Tag ,News, Comment, Like
+from .type import UserType, CategoryType, TagType , NewsType, CommentType, LikeType, SubCategoryType
+from .models import Category, Tag ,News, Comment, Like, SubCategory
 from django.contrib.auth import authenticate
 
 User = get_user_model()
@@ -133,6 +133,10 @@ class Query(graphene.ObjectType):
     categories = graphene.List(CategoryType)
     category = graphene.Field(CategoryType, id=graphene.Int(required=True))
 
+
+    subcategories = graphene.List(SubCategoryType)
+    subcategory = graphene.Field(SubCategoryType, id=graphene.Int(required=True))
+
     tags = graphene.List(TagType)
     tag = graphene.Field(TagType, id=graphene.Int(required=True))
 
@@ -151,6 +155,16 @@ class Query(graphene.ObjectType):
             return Category.objects.get(id=id)
         except Category.DoesNotExist:
             raise GraphQLError("Category not found.")
+        
+
+    def resolve_subcategories(self, info):
+        return SubCategory.objects.all()
+    
+    def resolve_subcategory(self, info, id):
+        try:
+            return SubCategory.objects.get(id=id)
+        except SubCategory.DoesNotExist:
+            raise GraphQLError("SubCategory not found.")
         
 
     def resolve_tags(self, info):
