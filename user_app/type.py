@@ -46,9 +46,6 @@ class LikeType(DjangoObjectType):
 
 
 class NewsType(DjangoObjectType):
-    comments = graphene.Field(CommentType)
-    likes = graphene.Field(LikeType)
-
     class Meta:
         model = News
         fields = "__all__"
