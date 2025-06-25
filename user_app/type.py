@@ -22,7 +22,7 @@ class SubCategoryType(DjangoObjectType):
     class Meta:
         model = SubCategory
         fields = "__all__"
-        
+
 
 class TagType(DjangoObjectType):
     class Meta:
@@ -30,16 +30,6 @@ class TagType(DjangoObjectType):
         fields = "__all__"
 
 
-class NewsType(DjangoObjectType):
-    category = graphene.Field(CategoryType)
-    comments = graphene.List(lambda: CommentType)
-
-    class Meta:
-        model = News
-        fields = "__all__"
-
-    def resolve_comments(self, info):
-        return self.comments.all()
 
 
 class CommentType(DjangoObjectType):
@@ -51,4 +41,15 @@ class CommentType(DjangoObjectType):
 class LikeType(DjangoObjectType):
     class Meta:
         model = Like
+        fields = "__all__"
+
+
+
+class NewsType(DjangoObjectType):
+    news = graphene.Field(SubCategoryType)
+    comments = graphene.Field(CommentType)
+    likes = graphene.Field(LikeType)
+
+    class Meta:
+        model = News
         fields = "__all__"
