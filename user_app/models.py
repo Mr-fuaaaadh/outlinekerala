@@ -54,7 +54,7 @@ class News(models.Model):
     ]
 
     title = models.CharField(max_length=255)
-    slug = models.SlugField(unique=True, blank=True)  
+    slug = models.SlugField(unique=True, blank=True, max_length=255)  
     content = RichTextField(config_name='default')
     image = models.ImageField(upload_to='news/')
     category = models.ForeignKey(SubCategory, on_delete=models.CASCADE, related_name='news')
