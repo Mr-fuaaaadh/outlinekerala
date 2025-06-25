@@ -46,7 +46,6 @@ class LikeType(DjangoObjectType):
 
 
 class NewsType(DjangoObjectType):
-    news = graphene.Field(SubCategoryType)
     comments = graphene.Field(CommentType)
     likes = graphene.Field(LikeType)
 
