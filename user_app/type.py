@@ -44,7 +44,6 @@ class LikeType(DjangoObjectType):
         fields = "__all__"
 
 
-
 class NewsType(DjangoObjectType):
     class Meta:
         model = News

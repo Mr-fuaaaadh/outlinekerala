@@ -71,6 +71,7 @@ CORS_ALLOWED_ORIGINS = [
     'https://backend.outlinekerala.com',
     'https://www.backend.outlinekerala.com',
     'https://outlinekerala.com',
+    'https://outline-kerala.vercel.app'
 ]
 
 CSRF_TRUSTED_ORIGINS = [
@@ -78,6 +79,7 @@ CSRF_TRUSTED_ORIGINS = [
     'https://backend.outlinekerala.com',
     'https://www.backend.outlinekerala.com',
     'https://outlinekerala.com',
+    'https://outline-kerala.vercel.app/'
 ]
 
 
