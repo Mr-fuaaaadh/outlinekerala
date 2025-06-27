@@ -74,12 +74,15 @@ CORS_ALLOWED_ORIGINS = [
     'https://outline-kerala.vercel.app'
 ]
 
+CORS_ALLOW_CREDENTIALS = True
+
+
 CSRF_TRUSTED_ORIGINS = [
     'http://localhost:3000',   # ← Use http here too
     'https://backend.outlinekerala.com',
     'https://www.backend.outlinekerala.com',
     'https://outlinekerala.com',
-    'https://outline-kerala.vercel.app/'
+    'https://outline-kerala.vercel.app'
 ]
 
 
