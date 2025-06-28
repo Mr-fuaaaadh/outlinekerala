@@ -42,7 +42,8 @@ class SubCategory(models.Model):
 
 class Tag(models.Model):
     name = models.CharField(max_length=50)
-    slug = models.SlugField(unique=True, blank=True)
+    slug = models.SlugField(unique=True, blank=True, null=True)
+
 
     def save(self, *args, **kwargs):
         if not self.slug:
