@@ -124,6 +124,18 @@ class LikeNews(graphene.Mutation):
             raise GraphQLError("You have already liked this news article.")
 
         return LikeNews(like=like)
+    
+
+
+class LoggedInUser(graphene.ObjectType):
+    user = graphene.Field(UserType)
+
+    def resolve_user(self, info):
+        user = info.context.user
+        if user.is_authenticated:
+            return user
+        raise GraphQLError("User is not authenticated.")
+    
 
     
 
@@ -145,6 +157,9 @@ class Query(graphene.ObjectType):
 
     comment = graphene.List(CommentType, news_id=graphene.Int(required=True))
     comments = graphene.List(CommentType)
+
+
+    me = graphene.Field(UserType)
 
 
     def resolve_categories(self, info):
@@ -196,6 +211,13 @@ class Query(graphene.ObjectType):
         
     def resolve_comments(self, info):
         return Comment.objects.all()
+    
+
+    def resolve_me(self, info):
+        user = info.context.user
+        if user.is_authenticated:
+            return user
+        raise GraphQLError("User is not authenticated.")
     
     
 
