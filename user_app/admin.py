@@ -6,7 +6,7 @@ from .models import *
 admin.site.register(CustomUser)
 # admin.site.register(Category)
 # admin.site.register(Tag)
-admin.site.register(News)
+# admin.site.register(News)
 admin.site.register(Comment)
 admin.site.register(Like)
 # admin.site.register(SubCategory)
@@ -35,3 +35,10 @@ class SubCategoryAdmin(admin.ModelAdmin):
 @admin.register(Tag)
 class TagAdmin(ImportExportModelAdmin):
     list_display = ['name', 'slug']
+
+
+@admin.register(News)
+class NewsAdmin(ImportExportModelAdmin):
+    list_display = ['title', 'category', 'created_at']
+    search_fields = ['title', 'content']
+    list_filter = ['category', 'created_at']
