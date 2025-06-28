@@ -42,12 +42,17 @@ class SubCategory(models.Model):
 
 class Tag(models.Model):
     name = models.CharField(max_length=50)
-    slug = models.SlugField(unique=True, blank=True, null=True)
-
+    slug = models.SlugField(blank=True, null=True)  # ← No unique=True here
 
     def save(self, *args, **kwargs):
         if not self.slug:
-            self.slug = slugify(self.name)
+            base_slug = slugify(self.name)
+            slug = base_slug
+            count = 1
+            while Tag.objects.filter(slug=slug).exclude(pk=self.pk).exists():
+                slug = f"{base_slug}-{count}"
+                count += 1
+            self.slug = slug
         super().save(*args, **kwargs)
 
     def __str__(self):
