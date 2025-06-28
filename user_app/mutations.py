@@ -100,6 +100,52 @@ class CommentNews(graphene.Mutation):
         return CommentNews(comment=comment)
 
 
+class UpdateUserProfile(graphene.Mutation):
+    user = graphene.Field(UserType)
+
+    class Arguments:
+        username = graphene.String()
+        email = graphene.String()
+        bio = graphene.String()
+        password = graphene.String()
+
+    def mutate(self, info, username=None, email=None, bio=None, password=None):
+        user = info.context.user
+
+        if not user or not user.is_authenticated:
+            raise GraphQLError("Authentication required to update profile.")
+
+        if username:
+            if User.objects.filter(username=username).exclude(id=user.id).exists():
+                raise GraphQLError("Username already taken.")
+            user.username = username
+
+        if email:
+            if User.objects.filter(email=email).exclude(id=user.id).exists():
+                raise GraphQLError("Email already in use.")
+            user.email = email
+
+        if bio is not None:
+            user.bio = bio
+
+        if password:
+            user.set_password(password)
+
+        user.save()
+        return UpdateUserProfile(user=user)
+
+
+class LogoutUser(graphene.Mutation):
+    success = graphene.Boolean()
+
+    def mutate(self, info):
+        user = info.context.user
+        if user.is_authenticated:
+
+            # Invalidate the user's session or token here if needed
+            return LogoutUser(success=True)
+        raise GraphQLError("User is not authenticated.")
+
 
 class LikeNews(graphene.Mutation):
     like = graphene.Field(LikeType)
