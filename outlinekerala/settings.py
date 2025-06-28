@@ -43,7 +43,8 @@ INSTALLED_APPS = [
     'user_app',
     'ckeditor',
     'ckeditor_uploader',
-    'graphql_jwt'
+    'graphql_jwt',
+    'import_export'
 
 ]
 

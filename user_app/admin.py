@@ -1,10 +1,11 @@
+from import_export.admin import ImportExportModelAdmin
 from django.contrib import admin
 from .models import *
 
 
 admin.site.register(CustomUser)
 # admin.site.register(Category)
-admin.site.register(Tag)
+# admin.site.register(Tag)
 admin.site.register(News)
 admin.site.register(Comment)
 admin.site.register(Like)
@@ -27,3 +28,10 @@ class CategoryAdmin(admin.ModelAdmin):
 class SubCategoryAdmin(admin.ModelAdmin):
     list_display = ['name', 'slug', 'category']
     prepopulated_fields = {'slug': ('name',)}
+
+
+
+
+@admin.register(Tag)
+class TagAdmin(ImportExportModelAdmin):
+    list_display = ['name', 'slug']
