@@ -31,6 +31,12 @@ class SubCategoryAdmin(admin.ModelAdmin):
 
 
 
+@admin.register(CustomUser)
+class CustomUserAdmin(admin.ModelAdmin):
+    list_display = ('id', 'username', 'email', 'is_active')  # Add the fields you want to show
+    search_fields = ('username', 'email')  # Optional: Add search box
+    list_filter = ('is_active', 'is_staff')  # Optional: Add filters
+
 
 @admin.register(Tag)
 class TagAdmin(ImportExportModelAdmin):
