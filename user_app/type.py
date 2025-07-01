@@ -7,21 +7,20 @@ from .models import CustomUser as User
 
 class UserType(DjangoObjectType):
     profile_picture_url = graphene.String()
-
     class Meta:
         model = User
         fields = "__all__"
 
-    def resolve_profile_picture_url(self, info):
-        request = info.context
-        if self.profile_picture:
-            return request.build_absolute_uri(self.profile_picture.url)
-        return None
 
 class CategoryType(DjangoObjectType):
     class Meta:
         model = Category
         fields = "__all__"
+
+    def resolve_profile_picture_url(self, info):
+        if self.profile_picture:
+            return f"{settings.MEDIA_URL}{self.profile_picture}"
+        return None
 
 
 
