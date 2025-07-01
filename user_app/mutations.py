@@ -5,6 +5,9 @@ from graphql import GraphQLError
 from .type import UserType, CategoryType, TagType , NewsType, CommentType, LikeType, SubCategoryType
 from .models import Category, Tag ,News, Comment, Like, SubCategory
 from django.contrib.auth import authenticate
+import base64
+import uuid
+from django.core.files.base import ContentFile
 
 User = get_user_model()
 
@@ -100,6 +103,7 @@ class CommentNews(graphene.Mutation):
         return CommentNews(comment=comment)
 
 
+
 class UpdateUserProfile(graphene.Mutation):
     user = graphene.Field(UserType)
 
@@ -108,8 +112,9 @@ class UpdateUserProfile(graphene.Mutation):
         email = graphene.String()
         bio = graphene.String()
         password = graphene.String()
+        profile_picture = graphene.String()  # Expecting a base64-encoded image string
 
-    def mutate(self, info, username=None, email=None, bio=None, password=None):
+    def mutate(self, info, username=None, email=None, bio=None, password=None, profile_picture=None):
         user = info.context.user
 
         if not user or not user.is_authenticated:
@@ -131,8 +136,18 @@ class UpdateUserProfile(graphene.Mutation):
         if password:
             user.set_password(password)
 
+        if profile_picture:
+            try:
+                format, imgstr = profile_picture.split(';base64,')  # e.g., data:image/png;base64,iVBORw0KG...
+                ext = format.split('/')[-1]
+                file_name = f"profile_{uuid.uuid4()}.{ext}"
+                user.profile_picture = ContentFile(base64.b64decode(imgstr), name=file_name)
+            except Exception as e:
+                raise GraphQLError(f"Invalid profile picture format: {str(e)}")
+
         user.save()
         return UpdateUserProfile(user=user)
+
 
 
 class LogoutUser(graphene.Mutation):
