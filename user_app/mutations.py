@@ -6,12 +6,11 @@ from .type import UserType, CategoryType, TagType , NewsType, CommentType, LikeT
 from .models import Category, Tag ,News, Comment, Like, SubCategory
 from django.contrib.auth import authenticate
 from graphql_jwt.utils import jwt_encode, jwt_payload
-
-import base64
-import uuid
 from django.core.files.base import ContentFile
 from graphene_file_upload.scalars import Upload
 from graphql_jwt.decorators import login_required
+from .service import *
+from user_app.db_utils import get_object_or_error
 
 User = get_user_model()
 
@@ -27,23 +26,15 @@ class RegisterUser(graphene.Mutation):
         bio = graphene.String()
 
     def mutate(self, info, username, email, password, role, bio=None):
-        if User.objects.filter(username=username).exists():
-            raise GraphQLError("Username already exists.")
-        if User.objects.filter(email=email).exists():
-            raise GraphQLError("Email already registered.")
-
-        user = User(
+        user, token = AuthService.register_user(
             username=username,
             email=email,
+            password=password,
             role=role,
             bio=bio or ""
         )
-        user.set_password(password)
-        user.save()
-
-        token = get_token(user)
-
         return RegisterUser(user=user, token=token)
+
 
 class LoginUser(graphene.Mutation):
     user = graphene.Field(UserType)
@@ -54,19 +45,15 @@ class LoginUser(graphene.Mutation):
         password = graphene.String(required=True)
 
     def mutate(self, info, username, password):
-        user = authenticate(username=username, password=password)
-
-        if user is None:
-            raise GraphQLError("Invalid username or password.")
-
-        if not user.is_active:
-            raise GraphQLError("User account is inactive.")
-
-        # Generate JWT token
-        payload = jwt_payload(user)
-        token = jwt_encode(payload)
-
+        user, token = AuthService.login_user(username, password)
         return LoginUser(user=user, token=token)
+    
+
+
+
+
+
+
     
 class CommentNews(graphene.Mutation):
     comment = graphene.Field(CommentType)
@@ -79,36 +66,11 @@ class CommentNews(graphene.Mutation):
     def mutate(self, info, news_id, content, parent_id=None):
         user = info.context.user
 
-        if not user or not user.is_authenticated:
-            raise GraphQLError("Authentication required to add a comment.")
-
-        if not content.strip():
-            raise GraphQLError("Comment content cannot be empty.")
-
-        try:
-            news = News.objects.get(id=news_id)
-        except News.DoesNotExist:
-            raise GraphQLError("The specified news article was not found.")
-
-        parent = None
-        if parent_id is not None:
-            try:
-                parent = Comment.objects.get(id=parent_id)
-                if parent.news_id != news_id:
-                    raise GraphQLError("Parent comment does not belong to the same news article.")
-            except Comment.DoesNotExist:
-                raise GraphQLError("Parent comment not found.")
-
-        try:
-            comment = Comment(
-                news=news,
-                user=user,
-                content=content.strip(),
-                parent=parent
-            )
-            comment.save()
-        except Exception as e:
-            raise GraphQLError(f"Failed to add comment: {str(e)}")
+        # Validation and comment creation via service
+        CommentService.validate_user(user)
+        news = CommentService.get_news(news_id)
+        parent = CommentService.get_parent_comment(parent_id, news_id) if parent_id else None
+        comment = CommentService.create_comment(news, user, content, parent)
 
         return CommentNews(comment=comment)
 
@@ -128,75 +90,42 @@ class UpdateUserProfile(graphene.Mutation):
     @login_required
     def mutate(self, info, username=None, email=None, bio=None, password=None, profile_picture=None):
         user = info.context.user
+        updated_user, token = UserService.update_user_profile(
+            user=user,
+            username=username,
+            email=email,
+            bio=bio,
+            password=password,
+            profile_picture=profile_picture
+        )
+        return UpdateUserProfile(user=updated_user, token=token)
+    
 
-        if username and User.objects.filter(username=username).exclude(id=user.id).exists():
-            raise GraphQLError("Username already taken.")
-        if username:
-            user.username = username
 
-        if email and User.objects.filter(email=email).exclude(id=user.id).exists():
-            raise GraphQLError("Email already in use.")
-        if email:
-            user.email = email
-
-        if bio is not None:
-            user.bio = bio
-
-        if password:
-            user.set_password(password)
-
-        if profile_picture:
-            user.profile_picture = profile_picture  # file-like object
-
-        user.save()
-
-        # 🔁 Return new token in case username or password changed
-        payload = jwt_payload(user)
-        new_token = jwt_encode(payload)
-
-        return UpdateUserProfile(user=user, token=new_token)
 
 
 class LogoutUser(graphene.Mutation):
     success = graphene.Boolean()
 
+    @login_required
     def mutate(self, info):
         user = info.context.user
-        if user.is_authenticated:
-
-            # Invalidate the user's session or token here if needed
-            return LogoutUser(success=True)
-        raise GraphQLError("User is not authenticated.")
+        AuthService.logout_user(user)
+        return LogoutUser(success=True)
 
 
 class LikeNews(graphene.Mutation):
     like = graphene.Field(LikeType)
-    liked = graphene.Boolean()  # True if liked, False if unliked
+    liked = graphene.Boolean()
 
     class Arguments:
         news_id = graphene.Int(required=True)
 
+    @login_required
     def mutate(self, info, news_id):
         user = info.context.user
-
-        if not user or not user.is_authenticated:
-            raise GraphQLError("Authentication required to like/unlike a news article.")
-
-        try:
-            news = News.objects.get(id=news_id)
-        except News.DoesNotExist:
-            raise GraphQLError("The specified news article was not found.")
-
-        like = Like.objects.filter(user=user, news=news).first()
-
-        if like:
-            # Already liked → unlike
-            like.delete()
-            return LikeNews(like=None, liked=False)
-        else:
-            # Not liked yet → like it
-            new_like = Like.objects.create(user=user, news=news)
-            return LikeNews(like=new_like, liked=True)
+        like, liked = LikeService.toggle_like(user, news_id)
+        return LikeNews(like=like, liked=liked)
 
 
 
@@ -214,10 +143,8 @@ class LoggedInUser(graphene.ObjectType):
 
 
 class Query(graphene.ObjectType):
-
     categories = graphene.List(CategoryType)
     category = graphene.Field(CategoryType, id=graphene.Int(required=True))
-
 
     subcategories = graphene.List(SubCategoryType)
     subcategory = graphene.Field(SubCategoryType, id=graphene.Int(required=True))
@@ -228,67 +155,45 @@ class Query(graphene.ObjectType):
     newses = graphene.List(NewsType)
     news = graphene.Field(NewsType, id=graphene.Int(required=True))
 
-    comment = graphene.List(CommentType, news_id=graphene.Int(required=True))
     comments = graphene.List(CommentType)
-
+    comment = graphene.List(CommentType, news_id=graphene.Int(required=True))
 
     me = graphene.Field(UserType)
-
 
     def resolve_categories(self, info):
         return Category.objects.all()
 
     def resolve_category(self, info, id):
-        try:
-            return Category.objects.get(id=id)
-        except Category.DoesNotExist:
-            raise GraphQLError("Category not found.")
-        
+        return get_object_or_error(Category, id=id)
 
     def resolve_subcategories(self, info):
         return SubCategory.objects.all()
-    
+
     def resolve_subcategory(self, info, id):
-        try:
-            return SubCategory.objects.get(id=id)
-        except SubCategory.DoesNotExist:
-            raise GraphQLError("SubCategory not found.")
-        
+        return get_object_or_error(SubCategory, id=id)
 
     def resolve_tags(self, info):
         return Tag.objects.all()
-    
+
     def resolve_tag(self, info, id):
-        try:
-            return Tag.objects.get(id=id)
-        except Tag.DoesNotExist:
-            raise GraphQLError("Tag not found.")
-        
+        return get_object_or_error(Tag, id=id)
 
     def resolve_newses(self, info):
         return News.objects.all()
-    
-    def resolve_news(self, info, id):
-        try:
-            return News.objects.get(id=id)
-        except News.DoesNotExist:
-            raise GraphQLError("News not found.")
-        
 
-    def resolve_comment(self, info, news_id):
-        try:
-            news = News.objects.get(id=news_id)
-            return news.comment.all()
-        except News.DoesNotExist:
-            raise GraphQLError("News not found.")
-        
+    def resolve_news(self, info, id):
+        return get_object_or_error(News, id=id)
+
     def resolve_comments(self, info):
         return Comment.objects.all()
-    
+
+    def resolve_comment(self, info, news_id):
+        news = get_object_or_error(News, id=news_id)
+        return news.comment.all()
 
     def resolve_me(self, info):
         user = info.context.user
-        if user.is_authenticated:
+        if user and user.is_authenticated:
             return user
         raise GraphQLError("User is not authenticated.")
     
