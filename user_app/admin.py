@@ -3,6 +3,11 @@ from django.contrib import admin
 from .models import *
 
 
+#admin.site.register(CustomUser)
+# admin.site.register(Category)
+# admin.site.register(Tag)
+# admin.site.register(News)
+
 admin.site.register(Comment)
 admin.site.register(Like)
 
@@ -26,15 +31,12 @@ class SubCategoryAdmin(admin.ModelAdmin):
 
 
 
-<<<<<<< HEAD
-=======
 @admin.register(CustomUser)
 class CustomUserAdmin(admin.ModelAdmin):
     list_display = ('id', 'username', 'email', 'is_active')  # Add the fields you want to show
     search_fields = ('username', 'email')  # Optional: Add search box
     list_filter = ('is_active', 'is_staff')  # Optional: Add filters
 
->>>>>>> eca0cc0d752d91affd5d9eee45764fc3fb5eecc3
 
 @admin.register(Tag)
 class TagAdmin(ImportExportModelAdmin):
