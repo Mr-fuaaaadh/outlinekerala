@@ -1,12 +1,8 @@
 import graphene
 from django.contrib.auth import get_user_model
-from graphql_jwt.shortcuts import get_token
 from graphql import GraphQLError
 from .type import UserType, CategoryType, TagType , NewsType, CommentType, LikeType, SubCategoryType
 from .models import Category, Tag ,News, Comment, Like, SubCategory
-from django.contrib.auth import authenticate
-from graphql_jwt.utils import jwt_encode, jwt_payload
-from django.core.files.base import ContentFile
 from graphene_file_upload.scalars import Upload
 from graphql_jwt.decorators import login_required
 from .service import *
@@ -26,7 +22,7 @@ class RegisterUser(graphene.Mutation):
         bio = graphene.String()
 
     def mutate(self, info, username, email, password, role, bio=None):
-        user, token = AuthService.register_user(
+        user, token = register_user(
             username=username,
             email=email,
             password=password,
@@ -45,7 +41,7 @@ class LoginUser(graphene.Mutation):
         password = graphene.String(required=True)
 
     def mutate(self, info, username, password):
-        user, token = AuthService.login_user(username, password)
+        user, token = login_user(username, password)
         return LoginUser(user=user, token=token)
     
 
@@ -79,6 +75,7 @@ class CommentNews(graphene.Mutation):
 class UpdateUserProfile(graphene.Mutation):
     user = graphene.Field(UserType)
     token = graphene.String()
+    message = graphene.String()
 
     class Arguments:
         username = graphene.String()
@@ -90,7 +87,7 @@ class UpdateUserProfile(graphene.Mutation):
     @login_required
     def mutate(self, info, username=None, email=None, bio=None, password=None, profile_picture=None):
         user = info.context.user
-        updated_user, token = UserService.update_user_profile(
+        updated_user, token, message = UserService.update_user_profile(
             user=user,
             username=username,
             email=email,
@@ -98,7 +95,8 @@ class UpdateUserProfile(graphene.Mutation):
             password=password,
             profile_picture=profile_picture
         )
-        return UpdateUserProfile(user=updated_user, token=token)
+        return UpdateUserProfile(user=updated_user, token=token, message=message)
+
     
 
 

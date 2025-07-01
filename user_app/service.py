@@ -7,35 +7,35 @@ from graphql_jwt.utils import jwt_encode, jwt_payload
 
 User = get_user_model()
 
-class AuthService:
-    @staticmethod
-    def register_user(username, email, password, role, bio=""):
-        if User.objects.filter(username=username).exists():
-            raise GraphQLError("Username already exists.")
+@staticmethod
+def register_user(username, email, password, role, bio=""):
+    if User.objects.filter(username=username).exists():
+        raise GraphQLError("Username already exists.")
 
-        if User.objects.filter(email=email).exists():
-            raise GraphQLError("Email already registered.")
+    if User.objects.filter(email=email).exists():
+        raise GraphQLError("Email already registered.")
 
-        user = User(username=username, email=email, role=role, bio=bio)
-        user.set_password(password)
-        user.save()
+    user = User(username=username, email=email, role=role, bio=bio)
+    user.set_password(password)
+    user.save()
 
-        token = jwt_encode(jwt_payload(user))
-        return user, token
+    token = jwt_encode(jwt_payload(user))
+    return user, token
 
-    @staticmethod
-    def login_user(username, password):
-        user = authenticate(username=username, password=password)
+@staticmethod
+def login_user(username, password):
+    print(f"Attempting to authenticate user: {username}")
+    user = authenticate(username=username, password=password)
 
-        if user is None:
-            raise GraphQLError("Invalid username or password.")
+    if user is None:
+        raise GraphQLError("Invalid username or password.")
 
-        if not user.is_active:
-            raise GraphQLError("User account is inactive.")
+    if not user.is_active:
+        raise GraphQLError("User account is inactive.")
 
-        token = jwt_encode(jwt_payload(user))
-        return user, token
-    
+    token = jwt_encode(jwt_payload(user))
+    return user, token
+
 
 
 class CommentService:
@@ -85,12 +85,17 @@ class UserService:
     @staticmethod
     def update_user_profile(user, username=None, email=None, bio=None, password=None, profile_picture=None):
         sensitive_change = False
+        username_changed = False
+        password_changed = False
+
+        print(f"Updating profile for user: {email}")
 
         if username:
             if User.objects.filter(username=username).exclude(id=user.id).exists():
                 raise GraphQLError("Username already taken.")
             user.username = username
             sensitive_change = True
+            username_changed = True
 
         if email:
             if User.objects.filter(email=email).exclude(id=user.id).exists():
@@ -103,6 +108,7 @@ class UserService:
         if password:
             user.set_password(password)
             sensitive_change = True
+            password_changed = True
 
         if profile_picture:
             user.profile_picture = profile_picture
@@ -110,7 +116,23 @@ class UserService:
         user.save()
 
         token = jwt_encode(jwt_payload(user)) if sensitive_change else None
-        return user, token
+
+        # Set login message and flag
+        message = "Profile updated successfully."
+        redirect_to_login = False
+
+        if username_changed and password_changed:
+            message = "Username and password updated. Please log in again."
+            redirect_to_login = True
+        elif username_changed:
+            message = "Username updated. Please log in again."
+            redirect_to_login = True
+        elif password_changed:
+            message = "Password updated. Please log in again."
+            redirect_to_login = True
+
+        return user, token, message
+
     
 
 

@@ -3,6 +3,8 @@ import graphene
 from graphene_django import DjangoObjectType
 from .models import *
 from .models import CustomUser as User
+from django.conf import settings
+
 
 
 class UserType(DjangoObjectType):
