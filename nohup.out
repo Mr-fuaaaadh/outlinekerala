@@ -1,0 +1,226 @@
+[2025-06-21 13:09:06 +0530] [141813] [INFO] Starting gunicorn 23.0.0
+[2025-06-21 13:09:06 +0530] [141813] [INFO] Listening at: http://0.0.0.0:7005 (141813)
+[2025-06-21 13:09:06 +0530] [141813] [INFO] Using worker: sync
+[2025-06-21 13:09:06 +0530] [141814] [INFO] Booting worker with pid: 141814
+Forbidden (CSRF cookie not set.): /api/graphql/
+Forbidden (CSRF cookie not set.): /api/graphql/
+Forbidden (CSRF cookie not set.): /api/graphql/
+Forbidden (CSRF cookie not set.): /api/graphql/
+Forbidden (CSRF cookie not set.): /api/graphql/
+Forbidden (CSRF cookie not set.): /api/graphql/
+Not Found: /
+[2025-06-21 13:14:05 +0530] [141813] [INFO] Handling signal: hup
+[2025-06-21 13:14:05 +0530] [141813] [INFO] Hang up: Master
+[2025-06-21 13:14:05 +0530] [141813] [ERROR] Worker (pid:141814) was sent SIGHUP!
+[2025-06-21 13:14:05 +0530] [143631] [INFO] Booting worker with pid: 143631
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+[2025-06-21 08:32:21 +0000] [143631] [INFO] Worker exiting (pid: 143631)
+[2025-06-21 14:02:21 +0530] [141813] [INFO] Handling signal: term
+[2025-06-21 14:02:21 +0530] [141813] [INFO] Shutting down: Master
+[2025-06-23 14:10:21 +0530] [7752] [INFO] Starting gunicorn 23.0.0
+[2025-06-23 14:10:21 +0530] [7752] [INFO] Listening at: http://0.0.0.0:7005 (7752)
+[2025-06-23 14:10:21 +0530] [7752] [INFO] Using worker: sync
+[2025-06-23 14:10:21 +0530] [7753] [INFO] Booting worker with pid: 7753
+[2025-06-23 14:15:23 +0530] [7752] [INFO] Handling signal: hup
+[2025-06-23 14:15:23 +0530] [7752] [INFO] Hang up: Master
+[2025-06-23 14:15:23 +0530] [7752] [ERROR] Worker (pid:7753) was sent SIGHUP!
+[2025-06-23 14:15:23 +0530] [8150] [INFO] Booting worker with pid: 8150
+/home/backend.outlinekerala.com/venv/lib/python3.10/site-packages/PIL/Image.py:3570: UserWarning: image file could not be identified because AVIF support not installed
+  warnings.warn(message)
+Not Found: /media/$
+Bad Request: /api/graphql/
+Not Found: /
+[2025-06-23 13:16:12 +0000] [8150] [WARNING] Invalid request from ip=194.165.16.165: Invalid HTTP request line: '\x03\x00\x00/*à\x00\x00\x00\x00\x00Cookie: mstshash=Administr'
+Not Found: /favicon.ico
+Not Found: /
+Not Found: /favicon.ico
+Not Found: /robots.txt
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+[2025-06-24 13:34:18 +0530] [3959] [INFO] Starting gunicorn 23.0.0
+[2025-06-24 13:34:18 +0530] [3959] [INFO] Listening at: http://0.0.0.0:7005 (3959)
+[2025-06-24 13:34:18 +0530] [3959] [INFO] Using worker: sync
+[2025-06-24 13:34:18 +0530] [3960] [INFO] Booting worker with pid: 3960
+Not Found: /favicon.ico
+Not Found: /favicon.ico
+[2025-06-24 08:08:42 +0000] [3960] [INFO] Worker exiting (pid: 3960)
+[2025-06-24 13:38:42 +0530] [3959] [INFO] Handling signal: term
+[2025-06-24 13:38:43 +0530] [3959] [INFO] Shutting down: Master
