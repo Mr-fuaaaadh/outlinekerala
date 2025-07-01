@@ -8,6 +8,7 @@ from django.contrib.auth import authenticate
 import base64
 import uuid
 from django.core.files.base import ContentFile
+from graphene_file_upload.scalars import Upload
 
 User = get_user_model()
 
@@ -112,7 +113,7 @@ class UpdateUserProfile(graphene.Mutation):
         email = graphene.String()
         bio = graphene.String()
         password = graphene.String()
-        profile_picture = graphene.String()  # Expecting a base64-encoded image string
+        profile_picture = Upload()
 
     def mutate(self, info, username=None, email=None, bio=None, password=None, profile_picture=None):
         user = info.context.user
@@ -120,14 +121,14 @@ class UpdateUserProfile(graphene.Mutation):
         if not user or not user.is_authenticated:
             raise GraphQLError("Authentication required to update profile.")
 
+        if username and User.objects.filter(username=username).exclude(id=user.id).exists():
+            raise GraphQLError("Username already taken.")
         if username:
-            if User.objects.filter(username=username).exclude(id=user.id).exists():
-                raise GraphQLError("Username already taken.")
             user.username = username
 
+        if email and User.objects.filter(email=email).exclude(id=user.id).exists():
+            raise GraphQLError("Email already in use.")
         if email:
-            if User.objects.filter(email=email).exclude(id=user.id).exists():
-                raise GraphQLError("Email already in use.")
             user.email = email
 
         if bio is not None:
@@ -137,13 +138,7 @@ class UpdateUserProfile(graphene.Mutation):
             user.set_password(password)
 
         if profile_picture:
-            try:
-                format, imgstr = profile_picture.split(';base64,')  # e.g., data:image/png;base64,iVBORw0KG...
-                ext = format.split('/')[-1]
-                file_name = f"profile_{uuid.uuid4()}.{ext}"
-                user.profile_picture = ContentFile(base64.b64decode(imgstr), name=file_name)
-            except Exception as e:
-                raise GraphQLError(f"Invalid profile picture format: {str(e)}")
+            user.profile_picture = profile_picture  # This is already a file-like object
 
         user.save()
         return UpdateUserProfile(user=user)
@@ -164,6 +159,7 @@ class LogoutUser(graphene.Mutation):
 
 class LikeNews(graphene.Mutation):
     like = graphene.Field(LikeType)
+    liked = graphene.Boolean()  # True if liked, False if unliked
 
     class Arguments:
         news_id = graphene.Int(required=True)
@@ -172,20 +168,24 @@ class LikeNews(graphene.Mutation):
         user = info.context.user
 
         if not user or not user.is_authenticated:
-            raise GraphQLError("Authentication required to like a news article.")
+            raise GraphQLError("Authentication required to like/unlike a news article.")
 
         try:
             news = News.objects.get(id=news_id)
         except News.DoesNotExist:
             raise GraphQLError("The specified news article was not found.")
 
-        like, created = Like.objects.get_or_create(user=user, news=news)
+        like = Like.objects.filter(user=user, news=news).first()
 
-        if not created:
-            raise GraphQLError("You have already liked this news article.")
+        if like:
+            # Already liked → unlike
+            like.delete()
+            return LikeNews(like=None, liked=False)
+        else:
+            # Not liked yet → like it
+            new_like = Like.objects.create(user=user, news=news)
+            return LikeNews(like=new_like, liked=True)
 
-        return LikeNews(like=like)
-    
 
 
 class LoggedInUser(graphene.ObjectType):
