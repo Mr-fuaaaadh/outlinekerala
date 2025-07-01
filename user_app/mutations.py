@@ -5,10 +5,13 @@ from graphql import GraphQLError
 from .type import UserType, CategoryType, TagType , NewsType, CommentType, LikeType, SubCategoryType
 from .models import Category, Tag ,News, Comment, Like, SubCategory
 from django.contrib.auth import authenticate
+from graphql_jwt.utils import jwt_encode, jwt_payload
+
 import base64
 import uuid
 from django.core.files.base import ContentFile
 from graphene_file_upload.scalars import Upload
+from graphql_jwt.decorators import login_required
 
 User = get_user_model()
 
@@ -56,7 +59,13 @@ class LoginUser(graphene.Mutation):
         if user is None:
             raise GraphQLError("Invalid username or password.")
 
-        token = get_token(user)
+        if not user.is_active:
+            raise GraphQLError("User account is inactive.")
+
+        # Generate JWT token
+        payload = jwt_payload(user)
+        token = jwt_encode(payload)
+
         return LoginUser(user=user, token=token)
     
 class CommentNews(graphene.Mutation):
@@ -107,6 +116,7 @@ class CommentNews(graphene.Mutation):
 
 class UpdateUserProfile(graphene.Mutation):
     user = graphene.Field(UserType)
+    token = graphene.String()
 
     class Arguments:
         username = graphene.String()
@@ -115,11 +125,9 @@ class UpdateUserProfile(graphene.Mutation):
         password = graphene.String()
         profile_picture = Upload()
 
+    @login_required
     def mutate(self, info, username=None, email=None, bio=None, password=None, profile_picture=None):
         user = info.context.user
-
-        if not user or not user.is_authenticated:
-            raise GraphQLError("Authentication required to update profile.")
 
         if username and User.objects.filter(username=username).exclude(id=user.id).exists():
             raise GraphQLError("Username already taken.")
@@ -138,11 +146,15 @@ class UpdateUserProfile(graphene.Mutation):
             user.set_password(password)
 
         if profile_picture:
-            user.profile_picture = profile_picture  # This is already a file-like object
+            user.profile_picture = profile_picture  # file-like object
 
         user.save()
-        return UpdateUserProfile(user=user)
 
+        # 🔁 Return new token in case username or password changed
+        payload = jwt_payload(user)
+        new_token = jwt_encode(payload)
+
+        return UpdateUserProfile(user=user, token=new_token)
 
 
 class LogoutUser(graphene.Mutation):
