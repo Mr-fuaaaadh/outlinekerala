@@ -136,11 +136,13 @@ class LoggedInUser(graphene.ObjectType):
             return user
         raise GraphQLError("User is not authenticated.")
     
+    
 
     
 
 
 class Query(graphene.ObjectType):
+    # Existing fields
     categories = graphene.List(CategoryType)
     category = graphene.Field(CategoryType, id=graphene.Int(required=True))
 
@@ -157,6 +159,13 @@ class Query(graphene.ObjectType):
     comment = graphene.List(CommentType, news_id=graphene.Int(required=True))
 
     me = graphene.Field(UserType)
+
+    users = graphene.List(UserType)
+    all_main_categories = graphene.List(CategoryType)
+    all_subcategories = graphene.List(SubCategoryType)
+
+
+    # ---------------- Resolvers ----------------
 
     def resolve_categories(self, info):
         return Category.objects.all()
@@ -194,6 +203,31 @@ class Query(graphene.ObjectType):
         if user and user.is_authenticated:
             return user
         raise GraphQLError("User is not authenticated.")
+
+    def resolve_users(self, info):
+        user = info.context.user
+        if user.is_authenticated and user.role == 'admin':
+            return User.objects.all()
+        raise GraphQLError("You are not authenticated or do not have permission to view all users.")
+    
+
+    def resolve_all_main_categories(self, info):
+        user = info.context.user
+        if not user.is_authenticated:
+            raise GraphQLError("Authentication required.")
+        if getattr(user, "role", None) != "admin":
+            raise GraphQLError("You do not have permission.")
+        return Category.objects.all()
+    
+
+    def resolve_all_subcategories(self, info):
+        user = info.context.user
+        if not user.is_authenticated:
+            raise GraphQLError("Authentication required.")
+        if getattr(user, "role", None) != "admin":
+            raise GraphQLError("You do not have permission.")
+        return SubCategory.objects.all()
+
     
     
 
