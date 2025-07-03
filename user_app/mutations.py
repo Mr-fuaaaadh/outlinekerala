@@ -82,7 +82,7 @@ class UpdateUserProfile(graphene.Mutation):
         email = graphene.String()
         bio = graphene.String()
         password = graphene.String()
-        profile_picture = Upload()
+        profile_picture = Upload(required=True)
 
     @login_required
     def mutate(self, info, username=None, email=None, bio=None, password=None, profile_picture=None):

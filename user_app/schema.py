@@ -10,6 +10,7 @@ class Mutation(graphene.ObjectType):
     like_news = LikeNews.Field()
     update_user_profile = UpdateUserProfile.Field()
 
+
     verify_token = graphql_jwt.Verify.Field()
     refresh_token = graphql_jwt.Refresh.Field()
 
