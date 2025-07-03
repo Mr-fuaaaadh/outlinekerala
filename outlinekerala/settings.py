@@ -64,9 +64,10 @@ GRAPHENE = {
     "SCHEMA": "user_app.schema.schema",
     "MIDDLEWARE": [
         "graphql_jwt.middleware.JSONWebTokenMiddleware",
-        "graphene_file_upload.middleware.FileUploadMiddleware",
+        "graphene_file_upload.middleware.ExtractFilesMiddleware",  
     ],
 }
+
 
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:3000',   # ← Use http, not https

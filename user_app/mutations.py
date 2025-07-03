@@ -47,9 +47,6 @@ class LoginUser(graphene.Mutation):
 
 
 
-
-
-
     
 class CommentNews(graphene.Mutation):
     comment = graphene.Field(CommentType)
