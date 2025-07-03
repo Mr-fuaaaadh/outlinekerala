@@ -64,7 +64,6 @@ GRAPHENE = {
     "SCHEMA": "user_app.schema.schema",
     "MIDDLEWARE": [
         "graphql_jwt.middleware.JSONWebTokenMiddleware",
-        "graphene_file_upload.middleware.ExtractFilesMiddleware",  
     ],
 }
 
