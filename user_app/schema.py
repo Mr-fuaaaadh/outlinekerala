@@ -9,6 +9,7 @@ class Mutation(graphene.ObjectType):
     comment_news = CommentNews.Field()
     like_news = LikeNews.Field()
     update_user_profile = UpdateUserProfile.Field()
+    admin_update_user_profile = AdminUpdateUserProfile.Field()
 
 
     verify_token = graphql_jwt.Verify.Field()
