@@ -79,7 +79,7 @@ class UpdateUserProfile(graphene.Mutation):
         email = graphene.String()
         bio = graphene.String()
         password = graphene.String()
-        profile_picture = Upload(required=True)
+        profile_picture = Upload()
 
     @login_required
     def mutate(self, info, username=None, email=None, bio=None, password=None, profile_picture=None):
@@ -121,6 +121,37 @@ class LikeNews(graphene.Mutation):
         user = info.context.user
         like, liked = LikeService.toggle_like(user, news_id)
         return LikeNews(like=like, liked=liked)
+    
+
+class AdminUpdateUserProfile(graphene.Mutation):
+    user = graphene.Field(UserType)
+    message = graphene.String()
+
+    class Arguments:
+        user_id = graphene.Int(required=True)
+        username = graphene.String()
+        email = graphene.String()
+        role = graphene.String()
+        bio = graphene.String()
+        profile_picture = Upload()  # Optional file
+
+    @login_required
+    def mutate(self, info, user_id, username=None, email=None, role=None, bio=None, profile_picture=None):
+        user = info.context.user
+        if user.role != 'admin':
+            raise GraphQLError("You do not have permission to update user profiles.")
+
+        updated_user, message = UserService.admin_update_user_profile(
+            user=user,
+            user_id=user_id,
+            username=username,
+            email=email,
+            role=role,
+            bio=bio,
+            profile_picture=profile_picture
+        )
+        return AdminUpdateUserProfile(user=updated_user, message=message)
+
 
 
 

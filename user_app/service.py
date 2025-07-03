@@ -83,12 +83,11 @@ class CommentService:
 
 class UserService:
     @staticmethod
-    def update_user_profile(user, username=None, email=None, bio=None, password=None, profile_picture=None):
+    def update_user_profile(user,user_id, username=None, email=None, bio=None, password=None, profile_picture=None):
         sensitive_change = False
         username_changed = False
         password_changed = False
 
-        print(f"Updating profile for user: {email}")
 
         if username:
             if User.objects.filter(username=username).exclude(id=user.id).exists():
@@ -132,7 +131,39 @@ class UserService:
             redirect_to_login = True
 
         return user, token, message
+    
+    @staticmethod
+    def admin_update_user_profile(user, user_id, username=None, email=None, role=None, bio=None, profile_picture=None):
+        if user.role != 'admin':
+            raise GraphQLError("You do not have permission to update user profiles.")
 
+        try:
+            target_user = User.objects.get(id=user_id)
+        except User.DoesNotExist:
+            raise GraphQLError("User not found.")
+
+        if username:
+            if User.objects.filter(username=username).exclude(id=target_user.id).exists():
+                raise GraphQLError("Username already taken.")
+            target_user.username = username
+
+        if email:
+            if User.objects.filter(email=email).exclude(id=target_user.id).exists():
+                raise GraphQLError("Email already in use.")
+            target_user.email = email
+
+        if role:
+            target_user.role = role
+
+        if bio is not None:
+            target_user.bio = bio
+
+        if profile_picture:
+            target_user.profile_picture = profile_picture
+
+        target_user.save()
+
+        return target_user, "User profile updated successfully."
     
 
 
