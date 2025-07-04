@@ -13,7 +13,11 @@ class UserListView(APIView):
         serializer = UserSerializer(users, many=True)
         return Response(serializer.data)
 
-    def post(self, request):
+
+
+
+        
+
         serializer = UserSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
@@ -86,7 +90,7 @@ class CategoryDetailView(APIView):
         category = self.get_object(pk)
         if category is None:
             return Response(status=status.HTTP_404_NOT_FOUND)
-        serializer = CategorySerializer(category, data=request.data)
+        serializer = CategorySerializer(category, data=request.data, partial=True)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
@@ -363,4 +367,3 @@ class UpdateNewsView(APIView):
         return Response(status=status.HTTP_204_NO_CONTENT)
     
 
-    
