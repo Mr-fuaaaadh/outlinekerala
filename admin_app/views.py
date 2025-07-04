@@ -137,7 +137,7 @@ class SubCategoryDetailView(APIView):
         subcategory = self.get_object(pk)
         if subcategory is None:
             return Response(status=status.HTTP_404_NOT_FOUND)
-        serializer = SubCategorySerializer(subcategory, data=request.data)
+        serializer = SubCategorySerializer(subcategory, data=request.data, partial=True)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
