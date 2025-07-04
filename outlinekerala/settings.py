@@ -39,12 +39,14 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'graphene_django',
+    'rest_framework',
     'corsheaders',
     'user_app',
     'ckeditor',
     'ckeditor_uploader',
     'graphql_jwt',
-    'import_export'
+    'import_export',
+    'admin_app',
 
 ]
 
@@ -128,6 +130,14 @@ DATABASES = {
             }
     }
 }
+
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
 
 
 

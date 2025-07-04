@@ -24,6 +24,7 @@ from graphene_file_upload.django import FileUploadGraphQLView
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include('user_app.urls')),
+    path('admin_app/api/', include('admin_app.urls')),
     path("ckeditor/", include("ckeditor_uploader.urls")),
     path("graphql/", FileUploadGraphQLView.as_view(graphiql=True)),
 

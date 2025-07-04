@@ -133,7 +133,7 @@ class AdminUpdateUserProfile(graphene.Mutation):
         email = graphene.String()
         role = graphene.String()
         bio = graphene.String()
-        profile_picture = Upload()  # Optional file
+        profile_picture = Upload()
 
     @login_required
     def mutate(self, info, user_id, username=None, email=None, role=None, bio=None, profile_picture=None):

@@ -83,7 +83,7 @@ class CommentService:
 
 class UserService:
     @staticmethod
-    def update_user_profile(user,user_id, username=None, email=None, bio=None, password=None, profile_picture=None):
+    def update_user_profile(user, username=None, email=None, bio=None, password=None, profile_picture=None):
         sensitive_change = False
         username_changed = False
         password_changed = False
