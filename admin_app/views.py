@@ -278,7 +278,7 @@ class CommentDetailView(APIView):
         comment = self.get_object(pk)
         if comment is None:
             return Response(status=status.HTTP_404_NOT_FOUND)
-        serializer = CommentSerializer(comment, data=request.data)
+        serializer = CommentSerializer(comment, data=request.data, partial=True)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
