@@ -8,6 +8,7 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from django.shortcuts import get_object_or_404
+from rest_framework.permissions import AllowAny
 
 
 # Create your views here.
@@ -24,6 +25,10 @@ class LoginSerializer(serializers.Serializer):
         return data
 
 class LoginUserView(APIView):
+    # 👇 THIS is the fix
+    permission_classes = [AllowAny]
+    authentication_classes = []
+
     def post(self, request):
         serializer = LoginSerializer(data=request.data)
         if serializer.is_valid():
