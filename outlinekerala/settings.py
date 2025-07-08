@@ -91,6 +91,16 @@ CSRF_TRUSTED_ORIGINS = [
     'https://outline-kerala.vercel.app'
 ]
 
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    ),
+}
+
+
 
 
 AUTH_USER_MODEL = 'user_app.CustomUser'

@@ -5,6 +5,10 @@ from rest_framework import status
 from .serializers import *
 from django.contrib.auth import authenticate
 from rest_framework_simplejwt.tokens import RefreshToken
+from rest_framework.permissions import IsAuthenticated
+from rest_framework_simplejwt.authentication import JWTAuthentication
+from django.shortcuts import get_object_or_404
+
 
 # Create your views here.
 
@@ -32,6 +36,9 @@ class LoginUserView(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class UserListView(APIView):
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
+
     def get(self, request):
         users = CustomUser.objects.all()
         serializer = UserSerializer(users, many=True)
@@ -46,24 +53,21 @@ class UserListView(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
 class UserDetailView(APIView):
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
+
     def get_object(self, pk):
-        try:
-            return CustomUser.objects.get(pk=pk)
-        except CustomUser.DoesNotExist:
-            return None
+        # Use only() if serializer does not require all fields
+        return get_object_or_404(CustomUser.objects.only('id', 'username', 'email'), pk=pk)
 
     def get(self, request, pk):
         user = self.get_object(pk)
-        if user is None:
-            return Response(status=status.HTTP_404_NOT_FOUND)
         serializer = UserSerializer(user)
         return Response(serializer.data)
 
     def put(self, request, pk):
         user = self.get_object(pk)
-        if user is None:
-            return Response(status=status.HTTP_404_NOT_FOUND)
-        serializer = UserSerializer(user, data=request.data)
+        serializer = UserSerializer(user, data=request.data, partial=True)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
@@ -71,8 +75,6 @@ class UserDetailView(APIView):
 
     def delete(self, request, pk):
         user = self.get_object(pk)
-        if user is None:
-            return Response(status=status.HTTP_404_NOT_FOUND)
         user.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
     
@@ -80,6 +82,9 @@ class UserDetailView(APIView):
 
 
 class CategoryListView(APIView):
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
+
     def get(self, request):
         categories = Category.objects.all()
         serializer = CategorySerializer(categories, many=True)
@@ -94,6 +99,9 @@ class CategoryListView(APIView):
     
 
 class CategoryDetailView(APIView):
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
+
     def get_object(self, pk):
         try:
             return Category.objects.get(pk=pk)
@@ -127,6 +135,9 @@ class CategoryDetailView(APIView):
 
 
 class SubCategoryListView(APIView):
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
+
     def get(self, request):
         subcategories = SubCategory.objects.all()
         serializer = SubCategorySerializer(subcategories, many=True)
@@ -141,6 +152,9 @@ class SubCategoryListView(APIView):
     
 
 class SubCategoryDetailView(APIView):
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
+
     def get_object(self, pk):
         try:
             return SubCategory.objects.get(pk=pk)
@@ -173,6 +187,9 @@ class SubCategoryDetailView(APIView):
     
 
 class TagListView(APIView):
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
+
     def get(self, request):
         tags = Tag.objects.all()
         serializer = TagSerializer(tags, many=True)
@@ -187,6 +204,9 @@ class TagListView(APIView):
     
 
 class TagDetailView(APIView):
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
+
     def get_object(self, pk):
         try:
             return Tag.objects.get(pk=pk)
@@ -219,6 +239,9 @@ class TagDetailView(APIView):
     
 
 class NewsListView(APIView):
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
+
     def get(self, request):
         news = News.objects.all()
         serializer = NewsSerializer(news, many=True)
@@ -233,6 +256,9 @@ class NewsListView(APIView):
     
 
 class NewsDetailView(APIView):
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
+
     def get_object(self, pk):
         try:
             return News.objects.get(pk=pk)
@@ -267,6 +293,9 @@ class NewsDetailView(APIView):
 
 
 class CommentListView(APIView):
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
+
     def get(self, request):
         comments = Comment.objects.all()
         serializer = CommentSerializer(comments, many=True)
@@ -282,6 +311,9 @@ class CommentListView(APIView):
 
 
 class CommentDetailView(APIView):
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
+
     def get_object(self, pk):
         try:
             return Comment.objects.get(pk=pk)
@@ -315,6 +347,9 @@ class CommentDetailView(APIView):
 
 
 class LikeListView(APIView):
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
+
     def get(self, request):
         likes = Like.objects.all()
         serializer = LikeSerializer(likes, many=True)
@@ -329,6 +364,9 @@ class LikeListView(APIView):
     
 
 class LikeDetailView(APIView):
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
+
     def get_object(self, pk):
         try:
             return Like.objects.get(pk=pk)
@@ -361,6 +399,9 @@ class LikeDetailView(APIView):
     
 
 class CreateNewsView(APIView):
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
+
     def post(self, request):
         serializer = NewsSerializer(data=request.data)
         if serializer.is_valid():
@@ -374,6 +415,9 @@ class CreateNewsView(APIView):
         return Response(serializer.data)
     
 class UpdateNewsView(APIView):
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
+
     def put(self, request, pk):
         news = News.objects.get(pk=pk)
         serializer = NewsSerializer(news, data=request.data)
