@@ -21,6 +21,10 @@ class LoginSerializer(serializers.Serializer):
         user = authenticate(username=data['username'], password=data['password'])
         if user is None:
             raise serializers.ValidationError("Invalid username or password")
+
+        if not hasattr(user, 'role') or user.role != 'admin':
+            raise serializers.ValidationError("You are not authorized to log in")
+
         data['user'] = user
         return data
 
