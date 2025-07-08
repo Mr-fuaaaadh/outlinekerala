@@ -19,8 +19,7 @@ class CustomUser(AbstractUser):
         return f"{self.username} ({self.role})"
     
     def save(self, *args, **kwargs):
-        if self.pk is None or 'pbkdf2_' not in self.password:
-            self.set_password(self.password)
+        self.set_password(self.password)
         super().save(*args, **kwargs)
 
 # Category model

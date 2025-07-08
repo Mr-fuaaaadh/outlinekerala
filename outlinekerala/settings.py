@@ -283,7 +283,7 @@ CKEDITOR_UPLOAD_PATH = 'uploads/'
 
 
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=5),  # You can increase this
+    'ACCESS_TOKEN_LIFETIME': timedelta(days=365),  # You can increase this
     'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
     'ROTATE_REFRESH_TOKENS': False,
     'BLACKLIST_AFTER_ROTATION': True,
