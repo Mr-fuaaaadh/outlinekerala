@@ -77,7 +77,8 @@ CORS_ALLOWED_ORIGINS = [
     'https://backend.outlinekerala.com',
     'https://www.backend.outlinekerala.com',
     'https://outlinekerala.com',
-    'https://outline-kerala.vercel.app'
+    'https://outline-kerala.vercel.app',
+    'https://outline.corusinfo.com',
 ]
 
 CORS_ALLOW_CREDENTIALS = True
@@ -89,7 +90,8 @@ CSRF_TRUSTED_ORIGINS = [
     'https://backend.outlinekerala.com',
     'https://www.backend.outlinekerala.com',
     'https://outlinekerala.com',
-    'https://outline-kerala.vercel.app'
+    'https://outline-kerala.vercel.app',
+    'https://outline.corusinfo.com'
 ]
 
 REST_FRAMEWORK = {

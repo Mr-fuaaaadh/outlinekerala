@@ -1,12 +1,12 @@
 from import_export.admin import ImportExportModelAdmin
 from django.contrib import admin
 from .models import *
+from django.contrib import admin
 
+admin.site.site_header = "Outline Kerala Admin Dashboard"
+admin.site.site_title = "Outline Kerala Admin Portal"
+admin.site.index_title = "Welcome to Outline Kerala Admin"
 
-#admin.site.register(CustomUser)
-# admin.site.register(Category)
-# admin.site.register(Tag)
-# admin.site.register(News)
 
 admin.site.register(Comment)
 admin.site.register(Like)
@@ -14,7 +14,7 @@ admin.site.register(Like)
 
 class SubCategoryInline(admin.TabularInline):
     model = SubCategory
-    extra = 5  # Number of empty subcategory rows shown
+    extra = 5 
     min_num = 1
     verbose_name_plural = "Subcategories"
 
@@ -48,3 +48,5 @@ class NewsAdmin(ImportExportModelAdmin):
     list_display = ['title', 'category', 'created_at']
     search_fields = ['title', 'content']
     list_filter = ['category', 'created_at']
+    readonly_fields = ['created_at']
+    
