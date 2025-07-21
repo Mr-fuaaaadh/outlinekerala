@@ -78,7 +78,7 @@ CORS_ALLOWED_ORIGINS = [
     'https://www.backend.outlinekerala.com',
     'https://outlinekerala.com',
     'https://outline-kerala.vercel.app',
-    'https://outline.corusinfo.com',
+    'https://admin.outlinekerala.com',
 ]
 
 CORS_ALLOW_CREDENTIALS = True
@@ -91,7 +91,7 @@ CSRF_TRUSTED_ORIGINS = [
     'https://www.backend.outlinekerala.com',
     'https://outlinekerala.com',
     'https://outline-kerala.vercel.app',
-    'https://outline.corusinfo.com'
+    'https://admin.outlinekerala.com'
 ]
 
 REST_FRAMEWORK = {
@@ -132,27 +132,27 @@ WSGI_APPLICATION = 'outlinekerala.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'outline_db',
-        'USER': 'outline_user',
-        'PASSWORD': 'outline@123',
-        'HOST': '103.253.178.26',
-        'PORT': '5432',
-        'OPTIONS': {
-            'sslmode': 'require',
-            }
-    }
-}
-
-
 # DATABASES = {
 #     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'outline_db',
+#         'USER': 'outline_user',
+#         'PASSWORD': 'outline@123',
+#         'HOST': '103.253.178.26',
+#         'PORT': '5432',
+#         'OPTIONS': {
+#             'sslmode': 'require',
+#             }
 #     }
 # }
+
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+}
 
 
 
