@@ -7,6 +7,8 @@ from graphene_file_upload.scalars import Upload
 from graphql_jwt.decorators import login_required
 from .service import *
 from user_app.db_utils import get_object_or_error
+import logging
+logger = logging.getLogger(__name__)
 
 User = get_user_model()
 
@@ -84,18 +86,25 @@ class UpdateUserProfile(graphene.Mutation):
     @login_required
     def mutate(self, info, username=None, email=None, bio=None, password=None, profile_picture=None):
         user = info.context.user
-        updated_user, token, message = UserService.update_user_profile(
-            user=user,
-            username=username,
-            email=email,
-            bio=bio,
-            password=password,
-            profile_picture=profile_picture
-        )
-        return UpdateUserProfile(user=updated_user, token=token, message=message)
 
-    
+        logger.info("🛠️ UpdateUserProfile mutation triggered")
+        logger.info(f"Incoming data: username={username}, email={email}, bio={bio}, password={'****' if password else None}, profile_picture={profile_picture}")
 
+        try:
+            updated_user, token, message = UserService.update_user_profile(
+                user=user,
+                username=username,
+                email=email,
+                bio=bio,
+                password=password,
+                profile_picture=profile_picture
+            )
+            logger.info(f"✅ Update successful: user={updated_user.username}, token={token}, message={message}")
+            return UpdateUserProfile(user=updated_user, token=token, message=message)
+
+        except Exception as e:
+            logger.error(f"❌ Error in UpdateUserProfile mutation: {e}")
+            raise GraphQLError(f"Failed to update profile: {str(e)}")
 
 
 

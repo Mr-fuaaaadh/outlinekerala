@@ -83,6 +83,9 @@ class CommentService:
 
 
 
+from django.core.files.uploadedfile import InMemoryUploadedFile, TemporaryUploadedFile
+from graphql import GraphQLError
+
 class UserService:
     @staticmethod
     def update_user_profile(user, username=None, email=None, bio=None, password=None, profile_picture=None):
@@ -92,7 +95,7 @@ class UserService:
 
         # ✅ Username update
         if username and username != user.username:
-            if User.objects.filter(username=username).exclude(id=user.id).exists():
+            if user.__class__.objects.filter(username=username).exclude(id=user.id).exists():
                 raise GraphQLError("Username already taken.")
             user.username = username
             sensitive_change = True
@@ -100,7 +103,7 @@ class UserService:
 
         # ✅ Email update
         if email and email != user.email:
-            if User.objects.filter(email=email).exclude(id=user.id).exists():
+            if user.__class__.objects.filter(email=email).exclude(id=user.id).exists():
                 raise GraphQLError("Email already in use.")
             user.email = email
 
@@ -115,7 +118,9 @@ class UserService:
             password_changed = True
 
         # ✅ Profile picture update
-        if profile_picture and isinstance(profile_picture, InMemoryUploadedFile):
+        print(f"Profile picture received: {profile_picture} (type: {type(profile_picture)})")  # Debug print
+
+        if profile_picture and isinstance(profile_picture, (InMemoryUploadedFile, TemporaryUploadedFile)):
             user.profile_picture = profile_picture
 
         user.save()
@@ -134,6 +139,7 @@ class UserService:
             message = "Profile updated successfully."
 
         return user, token, message
+
     
     @staticmethod
     def admin_update_user_profile(user, user_id, username=None, email=None, role=None, bio=None, profile_picture=None):

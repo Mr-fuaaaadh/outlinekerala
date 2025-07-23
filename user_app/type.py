@@ -8,7 +8,6 @@ from django.conf import settings
 
 
 class UserType(DjangoObjectType):
-    profile_picture_url = graphene.String()
     class Meta:
         model = User
         fields = "__all__"
