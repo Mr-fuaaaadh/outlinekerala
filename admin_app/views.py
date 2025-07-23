@@ -145,8 +145,8 @@ class CategoryDetailView(APIView):
 
 
 class SubCategoryListView(APIView):
-    authentication_classes = [JWTAuthentication]
-    permission_classes = [IsAuthenticated]
+    # authentication_classes = [JWTAuthentication]
+    # permission_classes = [IsAuthenticated]
 
     def get(self, request):
         subcategories = SubCategory.objects.all()
@@ -430,7 +430,7 @@ class UpdateNewsView(APIView):
 
     def put(self, request, pk):
         news = News.objects.get(pk=pk)
-        serializer = NewsSerializer(news, data=request.data)
+        serializer = NewsSerializer(news, data=request.data, partial=True)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)

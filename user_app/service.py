@@ -1,6 +1,8 @@
 from django.contrib.auth import authenticate
 from graphql import GraphQLError
 from .models import *
+from django.contrib.auth import update_session_auth_hash
+from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.contrib.auth import get_user_model
 from graphql_jwt.utils import jwt_encode, jwt_payload
 
@@ -88,47 +90,48 @@ class UserService:
         username_changed = False
         password_changed = False
 
-
-        if username:
+        # ✅ Username update
+        if username and username != user.username:
             if User.objects.filter(username=username).exclude(id=user.id).exists():
                 raise GraphQLError("Username already taken.")
             user.username = username
             sensitive_change = True
             username_changed = True
 
-        if email:
+        # ✅ Email update
+        if email and email != user.email:
             if User.objects.filter(email=email).exclude(id=user.id).exists():
                 raise GraphQLError("Email already in use.")
             user.email = email
 
+        # ✅ Bio update
         if bio is not None:
             user.bio = bio
 
+        # ✅ Password update
         if password:
             user.set_password(password)
             sensitive_change = True
             password_changed = True
 
-        if profile_picture:
+        # ✅ Profile picture update
+        if profile_picture and isinstance(profile_picture, InMemoryUploadedFile):
             user.profile_picture = profile_picture
 
         user.save()
 
+        # ✅ JWT Token
         token = jwt_encode(jwt_payload(user)) if sensitive_change else None
 
-        # Set login message and flag
-        message = "Profile updated successfully."
-        redirect_to_login = False
-
+        # ✅ Message Logic
         if username_changed and password_changed:
             message = "Username and password updated. Please log in again."
-            redirect_to_login = True
         elif username_changed:
             message = "Username updated. Please log in again."
-            redirect_to_login = True
         elif password_changed:
             message = "Password updated. Please log in again."
-            redirect_to_login = True
+        else:
+            message = "Profile updated successfully."
 
         return user, token, message
     
