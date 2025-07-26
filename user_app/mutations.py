@@ -49,8 +49,6 @@ class LoginUser(graphene.Mutation):
         return LoginUser(user=user, token=token)
     
 
-
-
     
 class CommentNews(graphene.Mutation):
     comment = graphene.Field(CommentType)
@@ -168,7 +166,6 @@ class AdminUpdateUserProfile(graphene.Mutation):
 
 class LoggedInUser(graphene.ObjectType):
     user = graphene.Field(UserType)
-
     def resolve_user(self, info):
         user = info.context.user
         if user.is_authenticated:
@@ -250,6 +247,11 @@ class Query(graphene.ObjectType):
     def resolve_comment(self, info, news_id):
         news = get_object_or_error(News, id=news_id)
         return news.comment.all()
+    def resolve_me(self, info):
+        user = info.context.user
+        if user.is_authenticated:
+            return user
+        raise GraphQLError("You are not logged in!")
 
     
 
