@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'graphql_jwt',
     'import_export',
     'admin_app',
+    'django_redis',
 
 ]
 
