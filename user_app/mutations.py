@@ -190,7 +190,7 @@ class Query(graphene.ObjectType):
     tags = graphene.List(TagType)
     tag = graphene.Field(TagType, id=graphene.Int(required=True))
 
-    newses = DjangoFilterConnectionField(NewsType)
+    newses = graphene.List(NewsType)
     news = graphene.Field(NewsType, id=graphene.Int(required=True))
 
     comments = graphene.List(lambda: CommentType, news_id=graphene.ID(required=True))

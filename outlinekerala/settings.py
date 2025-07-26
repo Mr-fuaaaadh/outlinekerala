@@ -131,7 +131,7 @@ WSGI_APPLICATION = 'outlinekerala.wsgi.application'
 
 
 # Database
-# https://docs.djangoproject.com/en/5.1/ref/settings/#databases
+# https://docs.djangoproject.com/en/5.1/ref/settings/#databasesswswswswswsw
 
 DATABASES = {
     'default': {
