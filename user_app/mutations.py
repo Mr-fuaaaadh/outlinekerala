@@ -1,5 +1,7 @@
 import graphene
 from django.contrib.auth import get_user_model
+from django.core.cache import cache
+from graphene_django.filter import DjangoFilterConnectionField
 from graphql import GraphQLError
 from .type import UserType, CategoryType, TagType , NewsType, CommentType, LikeType, SubCategoryType
 from .models import Category, Tag ,News, Comment, Like, SubCategory
@@ -174,25 +176,24 @@ class LoggedInUser(graphene.ObjectType):
         raise GraphQLError("User is not authenticated.")
     
     
-
     
 
 
 class Query(graphene.ObjectType):
-    # Existing fields
-    categories = graphene.List(CategoryType)
+
+    categories = graphene.List(lambda: CategoryType)
     category = graphene.Field(CategoryType, id=graphene.Int(required=True))
 
-    subcategories = graphene.List(SubCategoryType)
+    subcategories = graphene.List(lambda: SubCategoryType)
     subcategory = graphene.Field(SubCategoryType, id=graphene.Int(required=True))
 
     tags = graphene.List(TagType)
     tag = graphene.Field(TagType, id=graphene.Int(required=True))
 
-    newses = graphene.List(NewsType)
+    newses = DjangoFilterConnectionField(NewsType)
     news = graphene.Field(NewsType, id=graphene.Int(required=True))
 
-    comments = graphene.List(CommentType)
+    comments = graphene.List(lambda: CommentType, news_id=graphene.ID(required=True))
     comment = graphene.List(CommentType, news_id=graphene.Int(required=True))
 
     me = graphene.Field(UserType)
@@ -204,20 +205,35 @@ class Query(graphene.ObjectType):
 
     # ---------------- Resolvers ----------------
 
+    # Categories resolver with caching
     def resolve_categories(self, info):
-        return Category.objects.all()
+        categories = cache.get("categories")
+        if categories is None:
+            categories = list(Category.objects.only("id", "name", "slug"))
+            cache.set("categories", categories, 60 * 60)  
+        return categories
 
     def resolve_category(self, info, id):
         return get_object_or_error(Category, id=id)
 
+    # SubCategories resolver with caching and select_related for category
     def resolve_subcategories(self, info):
-        return SubCategory.objects.all()
+        subcategories = cache.get("subcategories")
+        if subcategories is None:
+            subcategories = list(SubCategory.objects.select_related('category').only("id", "name", "slug", "category_id"))
+            cache.set("subcategories", subcategories, 60 * 60)
+        return subcategories
 
     def resolve_subcategory(self, info, id):
         return get_object_or_error(SubCategory, id=id)
 
+    # Tags resolver with caching
     def resolve_tags(self, info):
-        return Tag.objects.all()
+        tags = cache.get("tags")
+        if tags is None:
+            tags = list(Tag.objects.only("id", "name", "slug"))
+            cache.set("tags", tags, 60 * 60)
+        return tags
 
     def resolve_tag(self, info, id):
         return get_object_or_error(Tag, id=id)
@@ -228,42 +244,15 @@ class Query(graphene.ObjectType):
     def resolve_news(self, info, id):
         return get_object_or_error(News, id=id)
 
-    def resolve_comments(self, info):
-        return Comment.objects.all()
+    def resolve_comments(self, info, news_id):
+        return Comment.objects.filter(news_id=news_id, approved=True).select_related('user').order_by('-created_at')
 
     def resolve_comment(self, info, news_id):
         news = get_object_or_error(News, id=news_id)
         return news.comment.all()
 
-    def resolve_me(self, info):
-        user = info.context.user
-        if user and user.is_authenticated:
-            return user
-        raise GraphQLError("User is not authenticated.")
-
-    def resolve_users(self, info):
-        user = info.context.user
-        if user.is_authenticated and user.role == 'admin':
-            return User.objects.all()
-        raise GraphQLError("You are not authenticated or do not have permission to view all users.")
     
 
-    def resolve_all_main_categories(self, info):
-        user = info.context.user
-        if not user.is_authenticated:
-            raise GraphQLError("Authentication required.")
-        if getattr(user, "role", None) != "admin":
-            raise GraphQLError("You do not have permission.")
-        return Category.objects.all()
-    
-
-    def resolve_all_subcategories(self, info):
-        user = info.context.user
-        if not user.is_authenticated:
-            raise GraphQLError("Authentication required.")
-        if getattr(user, "role", None) != "admin":
-            raise GraphQLError("You do not have permission.")
-        return SubCategory.objects.all()
 
     
     

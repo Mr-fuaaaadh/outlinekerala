@@ -54,4 +54,5 @@ class LikeType(DjangoObjectType):
 class NewsType(DjangoObjectType):
     class Meta:
         model = News
-        fields = "__all__"
+        interfaces = (graphene.relay.Node,)  # <-- Add this for connection support
+        filter_fields = ['status', 'category__slug', 'tags__slug', 'author__username', 'publish_date']
