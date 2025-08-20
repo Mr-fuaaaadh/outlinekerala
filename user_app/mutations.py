@@ -204,10 +204,7 @@ class Query(graphene.ObjectType):
 
     # Categories resolver with caching
     def resolve_categories(self, info):
-        categories = cache.get("categories")
-        if categories is None:
-            categories = list(Category.objects.only("id", "name", "slug"))
-            cache.set("categories", categories, 60 * 60)  
+        categories = list(Category.objects.only("id", "name", "slug"))
         return categories
 
     def resolve_category(self, info, id):
@@ -215,10 +212,7 @@ class Query(graphene.ObjectType):
 
     # SubCategories resolver with caching and select_related for category
     def resolve_subcategories(self, info):
-        subcategories = cache.get("subcategories")
-        if subcategories is None:
-            subcategories = list(SubCategory.objects.select_related('category').only("id", "name", "slug", "category_id"))
-            cache.set("subcategories", subcategories, 60 * 60)
+        subcategories = list(SubCategory.objects.select_related('category').only("id", "name", "slug", "category_id"))
         return subcategories
 
     def resolve_subcategory(self, info, id):
