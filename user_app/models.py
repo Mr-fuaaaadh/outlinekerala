@@ -80,6 +80,10 @@ class News(models.Model):
 
     class Meta:
         ordering = ['-publish_date']
+        indexes = [
+            models.Index(fields=['publish_date']),
+            models.Index(fields=['slug']),
+        ]
 
     def save(self, *args, **kwargs):
         if not self.slug:
@@ -120,3 +124,6 @@ class Like(models.Model):
 
     def __str__(self):
         return f"{self.user.username} likes {self.news.title}"
+    
+
+

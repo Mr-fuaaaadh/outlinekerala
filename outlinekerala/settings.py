@@ -33,23 +33,35 @@ ALLOWED_HOSTS = ["*"]
 # Application definition
 
 INSTALLED_APPS = [
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'graphene_django',
-    'rest_framework',
-    'corsheaders',
-    'user_app',
-    'ckeditor',
-    'ckeditor_uploader',
-    'graphql_jwt',
-    'import_export',
-    'admin_app',
+    "django.contrib.admin",
+    "django.contrib.auth",
+    "django.contrib.contenttypes",
+    "django.contrib.sessions",
+    "django.contrib.messages",
+    "django.contrib.staticfiles",
+
+    # GraphQL
+    "graphene_django",
+    "graphql_jwt",          # JWT auth for GraphQL
+
+    # REST + CORS
+    "rest_framework",
+    "corsheaders",
+
+    # Rich text / uploads
+    "ckeditor",
+    "ckeditor_uploader",
+    "import_export",
+
+    # Your apps
+    "user_app.apps.UserAppConfig", 
+    "admin_app",
+
+    # 🔑 Needed for subscriptions
+    "channels",   # must be added
 
 ]
+
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
@@ -315,3 +327,6 @@ CHANNEL_LAYERS = {
         "CONFIG": {"hosts": [("127.0.0.1", 6379)]},
     },
 }
+
+GRAPHQL_QUERY_MAX_DEPTH = 5   # prevents deep recursion
+GRAPHQL_QUERY_MAX_COMPLEXITY = 1000

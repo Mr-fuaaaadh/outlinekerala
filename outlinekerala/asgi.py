@@ -1,25 +1,18 @@
-"""
-ASGI config for outlinekerala project with WebSocket support.
-"""
-
 import os
-from django.core.asgi import get_asgi_application
+import django
 from channels.routing import ProtocolTypeRouter, URLRouter
 from channels.auth import AuthMiddlewareStack
-from django.urls import path
-from graphene_subscriptions.consumers import GraphqlSubscriptionConsumer
+from django.core.asgi import get_asgi_application
+import outlinekerala.routing
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'outlinekerala.settings')
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "outlinekerala.settings")
+django.setup()
 
-# HTTP -> normal Django
-django_asgi_app = get_asgi_application()
-
-# ASGI application with WebSockets enabled
 application = ProtocolTypeRouter({
-    "http": django_asgi_app,
+    "http": get_asgi_application(),
     "websocket": AuthMiddlewareStack(
-        URLRouter([
-            path("graphql/", GraphqlSubscriptionConsumer.as_asgi()),
-        ])
+        URLRouter(
+            outlinekerala.routing.websocket_urlpatterns
+        )
     ),
 })
