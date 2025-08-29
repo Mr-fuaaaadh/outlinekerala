@@ -207,100 +207,53 @@ class Query(graphene.ObjectType):
 
     # Categories with caching
     def resolve_categories(self, info):
-        categories = cache.get("categories")
-        if categories is None:
-            categories = list(
-                Category.objects.only("id", "name", "slug")
-            )
-            cache.set("categories", categories, CACHE_TIMEOUT)
-        return categories
-
+        return list(Category.objects.only("id", "name", "slug"))
 
     def resolve_category(self, info, id):
-        cache_key = f"category:{id}"
-        category = cache.get(cache_key)
-        if category is None:
-            category = get_object_or_error(Category, id=id)
-            cache.set(cache_key, category, CACHE_TIMEOUT)
-        return category
+        return get_object_or_error(Category, id=id)
     
 
 
     # SubCategories with caching + select_related
     def resolve_subcategories(self, info):
-        subcategories = cache.get("subcategories")
-        if subcategories is None:
-            subcategories = list(
-                SubCategory.objects.select_related("category")
-                .only("id", "name", "slug", "category_id", "category__id", "category__name")
-            )
-            cache.set("subcategories", subcategories, CACHE_TIMEOUT)
-        return subcategories
-    
+        return list(
+            SubCategory.objects.select_related("category")
+            .only("id", "name", "slug", "category_id", "category__id", "category__name")
+        )
 
     def resolve_subcategory(self, info, id):
-        cache_key = f"subcategory:{id}"
-        subcategory = cache.get(cache_key)
-        if subcategory is None:
-            subcategory = get_object_or_error(SubCategory, id=id)
-            cache.set(cache_key, subcategory, CACHE_TIMEOUT)
-        return subcategory
+        return get_object_or_error(SubCategory, id=id)
     
 
 
-    # Tags with caching
     def resolve_tags(self, info):
-        tags = cache.get("tags")
-        if tags is None:
-            tags = list(Tag.objects.only("id", "name", "slug"))
-            cache.set("tags", tags, CACHE_TIMEOUT)
-        return tags
+        return list(Tag.objects.only("id", "name", "slug"))
 
     def resolve_tag(self, info, id):
-        cache_key = f"tag:{id}"
-        tag = cache.get(cache_key)
-        if tag is None:
-            tag = get_object_or_error(Tag, id=id)
-            cache.set(cache_key, tag, CACHE_TIMEOUT)
-        return tag
+        return get_object_or_error(Tag, id=id)
 
     # Query with optimization, pagination & caching
     def resolve_newses(self, info, page=1, page_size=10):
-
-        cache_key = f"news_page_{page}_{page_size}"
-        newses = cache.get(cache_key)
-
-        if newses is None:
-            qs = (
-                News.objects.select_related("category", "author")  # FK optimized
-                .prefetch_related("tags", "comments", "likes")     # M2M optimized
-                .only("id", "title", "slug", "publish_date", "status", "author_id", "category_id")  
-                .order_by("-publish_date")  # fast because of Meta + index
-            )
-            start = (page - 1) * page_size
-            end = start + page_size
-            newses = list(qs[start:end])
-            cache.set(cache_key, newses, 60)  # cache for 1 minute
-
-        return newses
+        qs = (
+            News.objects.select_related("category", "author")
+            .prefetch_related("tags", "comments", "likes")
+            .only("id", "title", "slug", "publish_date", "status", "author_id", "category_id")
+            .order_by("-publish_date")
+        )
+        start = (page - 1) * page_size
+        end = start + page_size
+        return list(qs[start:end])
 
 
     def resolve_news(self, info, id):
+        return (
+            News.objects.select_related("category", "author")
+            .prefetch_related("tags", "comments", "likes")
+            .only("id", "title", "slug", "content", "publish_date", "status", "author_id", "category_id")
+            .filter(id=id)
+            .first()
+        )
 
-        cache_key = f"news_{id}"
-        news = cache.get(cache_key)
-
-        if news is None:
-            news = (
-                News.objects.select_related("category", "author")
-                .prefetch_related("tags", "comments", "likes")
-                .only("id", "title", "slug", "content", "publish_date", "status", "author_id", "category_id")
-                .filter(id=id)
-                .first()
-            )
-            if news:
-                cache.set(cache_key, news, 60)
-        return news
 
 
     # Comments (dynamic, cache is optional)
