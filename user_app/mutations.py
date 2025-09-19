@@ -209,11 +209,7 @@ class Query(graphene.ObjectType):
         cached = cache.get("subcategories")
         if cached:
             return cached
-        qs = list(
-            SubCategory.objects.select_related("category")
-            .only("id", "name", "slug", "category_id", "category__id", "category__name")
-            .values("id", "name", "slug", "category_id", "category__name")
-        )
+        qs = SubCategory.objects.all()
         cache.set("subcategories", qs, CACHE_TIMEOUT)
         return qs
 
