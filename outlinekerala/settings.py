@@ -94,6 +94,7 @@ CORS_ALLOWED_ORIGINS = [
 ]
 
 CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOW_ALL_ORIGINS = True  # or set specific origins
 
 
 CSRF_TRUSTED_ORIGINS = [
@@ -148,9 +149,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'outline_db',
-        'USER': 'outline_user',
-        'PASSWORD': 'outline@123',
-        'HOST': '103.253.178.26',
+        'USER': 'outline_db',
+        'PASSWORD': 'outlinedb@123!!@@',
+        'HOST': '103.253.178.27',
         'PORT': '5432',
         'OPTIONS': {
             'sslmode': 'require',
@@ -158,17 +159,6 @@ DATABASES = {
     }
 }
 
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'outlinekerala_db',
-#         'USER': 'postgres',
-#         'PASSWORD': '252562',
-#         'HOST': 'localhost',
-#         'PORT': '5432',
-#     }
-# }
 
 
 

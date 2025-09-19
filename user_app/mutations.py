@@ -173,13 +173,10 @@ class LoggedInUser(graphene.ObjectType):
         raise GraphQLError("User is not authenticated.")
     
     
-    
 
 
 class Query(graphene.ObjectType):
-
     node = graphene.relay.Node.Field()
-
 
     categories = graphene.List(lambda: CategoryType)
     category = graphene.Field(CategoryType, id=graphene.Int(required=True))
@@ -190,89 +187,106 @@ class Query(graphene.ObjectType):
     tags = graphene.List(TagType)
     tag = graphene.Field(TagType, id=graphene.Int(required=True))
 
-    newses = graphene.List(NewsType)
+    newses = graphene.List(NewsType, page=graphene.Int(), page_size=graphene.Int())
     news = graphene.Field(NewsType, id=graphene.Int(required=True))
 
-    comments = graphene.List(lambda: CommentType, news_id=graphene.ID(required=True))
+    comments = graphene.List(lambda: CommentType, news_id=graphene.ID(required=True), page=graphene.Int(), page_size=graphene.Int())
     comment = graphene.List(CommentType, news_id=graphene.Int(required=True))
 
     me = graphene.Field(UserType)
 
-    users = graphene.List(UserType)
-    all_main_categories = graphene.List(CategoryType)
-    all_subcategories = graphene.List(SubCategoryType)
+    # ---------------- Safe Caching Resolvers ----------------
 
-
-    # ---------------- Resolvers ----------------
-
-    # Categories with caching
     def resolve_categories(self, info):
-        return list(Category.objects.only("id", "name", "slug"))
+        cached = cache.get("categories")
+        if cached:
+            return cached
+        qs = Category.objects.all()
+        cache.set("categories", qs, CACHE_TIMEOUT)
+        return qs
+
+    def resolve_subcategories(self, info):
+        cached = cache.get("subcategories")
+        if cached:
+            return cached
+        qs = list(
+            SubCategory.objects.select_related("category")
+            .only("id", "name", "slug", "category_id", "category__id", "category__name")
+            .values("id", "name", "slug", "category_id", "category__name")
+        )
+        cache.set("subcategories", qs, CACHE_TIMEOUT)
+        return qs
+
+    def resolve_tags(self, info):
+        cached = cache.get("tags")
+        if cached:
+            return cached
+        qs = list(Tag.objects.only("id", "name", "slug").values())
+        cache.set("tags", qs, CACHE_TIMEOUT)
+        return qs
+
+    def resolve_newses(self, info, page=1, page_size=10):
+        cache_key = f"news_page_{page}_{page_size}"
+        cached = cache.get(cache_key)
+        if cached:
+            return cached
+
+        qs = (
+            News.objects.select_related("category", "author")
+            .prefetch_related("tags")
+            .only("id", "title", "slug", "publish_date", "status", "author_id", "category_id")
+            .order_by("-publish_date")
+            .values("id", "title", "slug", "publish_date", "status", "author_id", "category_id")
+        )
+        start = (page - 1) * page_size
+        end = start + page_size
+        paginated = list(qs[start:end])
+        cache.set(cache_key, paginated, 300)  # 5 min cache
+        return paginated
+
+    def resolve_comments(self, info, news_id, page=1, page_size=20):
+        cache_key = f"comments_news_{news_id}_page_{page}"
+        cached = cache.get(cache_key)
+        if cached:
+            return cached
+
+        qs = Comment.objects.filter(news_id=news_id, approved=True)\
+            .select_related("user")\
+            .only("id", "text", "created_at", "user_id")\
+            .order_by("-created_at")\
+            .values("id", "text", "created_at", "user_id", "user__username")
+
+        start = (page - 1) * page_size
+        end = start + page_size
+        paginated = list(qs[start:end])
+        cache.set(cache_key, paginated, 300)
+        return paginated
 
     def resolve_category(self, info, id):
         return get_object_or_error(Category, id=id)
-    
-
-
-    # SubCategories with caching + select_related
-    def resolve_subcategories(self, info):
-        return list(
-            SubCategory.objects.select_related("category")
-            .only("id", "name", "slug", "category_id", "category__id", "category__name")
-        )
 
     def resolve_subcategory(self, info, id):
         return get_object_or_error(SubCategory, id=id)
-    
-
-
-    def resolve_tags(self, info):
-        return list(Tag.objects.only("id", "name", "slug"))
 
     def resolve_tag(self, info, id):
         return get_object_or_error(Tag, id=id)
 
-    # Query with optimization, pagination & caching
-    def resolve_newses(self, info, page=1, page_size=10):
-        qs = (
-            News.objects.select_related("category", "author")
-            .prefetch_related("tags", "comments", "likes")
-            .only("id", "title", "slug", "publish_date", "status", "author_id", "category_id")
-            .order_by("-publish_date")
-        )
-        start = (page - 1) * page_size
-        end = start + page_size
-        return list(qs[start:end])
-
-
     def resolve_news(self, info, id):
-        return (
-            News.objects.select_related("category", "author")
-            .prefetch_related("tags", "comments", "likes")
-            .only("id", "title", "slug", "content", "publish_date", "status", "author_id", "category_id")
-            .filter(id=id)
-            .first()
-        )
-
-
-
-    # Comments (dynamic, cache is optional)
-    def resolve_comments(self, info, news_id):
-        return Comment.objects.filter(
-            news_id=news_id, approved=True
-        ).select_related("user").only("id", "text", "created_at", "user_id").order_by("-created_at")
+        return News.objects.select_related("category", "author")\
+            .prefetch_related("tags")\
+            .only("id", "title", "slug", "content", "publish_date", "status", "author_id", "category_id")\
+            .filter(id=id).first()
 
     def resolve_comment(self, info, news_id):
         news = get_object_or_error(News, id=news_id)
         return news.comment.all().select_related("user")
 
-    # Current user
     def resolve_me(self, info):
         user = info.context.user
         if user.is_authenticated:
             return user
         raise GraphQLError("You are not logged in!")
-    
+
 
 
     
