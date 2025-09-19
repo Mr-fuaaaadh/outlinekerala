@@ -150,7 +150,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'outlinekerala_db',
         'USER': 'outline_user',
-        'PASSWORD': 'outlinedb@123!!@@',
+        'PASSWORD': 'outlinedb@123',
         'HOST': 'localhost',
         'PORT': '5432',
         'OPTIONS': {
