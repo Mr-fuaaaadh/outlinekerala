@@ -32,17 +32,13 @@ class UserType(DjangoObjectType):
 class CategoryType(DjangoObjectType):
     class Meta:
         model = Category
-        fields = ("id", "name", "slug", "profile_picture")
+        fields = ("id", "name", "slug", "image")
 
-    def resolve_profile_picture_url(self, info):
-        if self.profile_picture:
-            return f"{settings.MEDIA_URL}{self.profile_picture}"
-        return None
 
 class SubCategoryType(DjangoObjectType):
     class Meta:
         model = SubCategory
-        fields = ("id", "name", "slug", "category")
+        fields = ("id", "name", "slug", "category","image")
 
 class TagType(DjangoObjectType):
     class Meta:
