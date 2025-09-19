@@ -148,14 +148,11 @@ WSGI_APPLICATION = 'outlinekerala.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'outline_db',
-        'USER': 'outline_db',
+        'NAME': 'outlinekerala_db',
+        'USER': 'outline_user',
         'PASSWORD': 'outlinedb@123!!@@',
         'HOST': 'localhost',
         'PORT': '5432',
-        'OPTIONS': {
-            'sslmode': 'require',
-            }
     }
 }
 
