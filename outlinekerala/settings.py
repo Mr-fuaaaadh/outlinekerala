@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-@5zhj15)!_uf&@m1%h3&fiz8z1(oiaefs_2z4vre5ex+tzze!4
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["outlinekerala.com", "www.outlinekerala.com", "backend.outlinekerala.com", "www.backend.outlinekerala.com"]
+ALLOWED_HOSTS = ["outlinekerala.com", "www.outlinekerala.com", "backend.outlinekerala.com", "www.backend.outlinekerala.com", "103.253.178.27"]
 
 
 # Application definition
