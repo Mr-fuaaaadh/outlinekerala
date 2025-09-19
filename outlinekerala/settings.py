@@ -151,7 +151,7 @@ DATABASES = {
         'NAME': 'outline_db',
         'USER': 'outline_db',
         'PASSWORD': 'outlinedb@123!!@@',
-        'HOST': 'loaclhost',
+        'HOST': 'localhost',
         'PORT': '5432',
         'OPTIONS': {
             'sslmode': 'require',
