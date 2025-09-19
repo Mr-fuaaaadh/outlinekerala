@@ -225,24 +225,29 @@ class Query(graphene.ObjectType):
         cache.set("tags", qs, CACHE_TIMEOUT)
         return qs
 
-    def resolve_newses(self, info, page=1, page_size=10):
-        cache_key = f"news_page_{page}_{page_size}"
-        cached = cache.get(cache_key)
-        if cached:
-            return cached
+    def resolve_newses(self, info):
+        cache_key = "all_news"
+        cached_ids = cache.get(cache_key)
 
-        qs = (
-            News.objects.select_related("category", "author")
-            .prefetch_related("tags")
-            .only("id", "title", "slug", "publish_date", "status", "author_id", "category_id")
-            .order_by("-publish_date")
-            .values("id", "title", "slug", "publish_date", "status", "author_id", "category_id")
-        )
-        start = (page - 1) * page_size
-        end = start + page_size
-        paginated = list(qs[start:end])
-        cache.set(cache_key, paginated, 300)  # 5 min cache
-        return paginated
+        if cached_ids:
+            # Fetch News instances by cached IDs, preserving order
+            qs = News.objects.filter(id__in=cached_ids).select_related("category", "author").prefetch_related("tags")
+            id_order = {id_: i for i, id_ in enumerate(cached_ids)}
+            return sorted(qs, key=lambda x: id_order[x.id])
+
+        # Query all News objects
+        qs = News.objects.select_related("category", "author").prefetch_related("tags").order_by("-publish_date")
+        all_news = list(qs)
+
+        # Cache only the IDs for 5 minutes
+        cache.set(cache_key, [n.id for n in all_news], 300)
+
+        return all_news
+
+
+
+
+
 
     def resolve_comments(self, info, news_id, page=1, page_size=20):
         cache_key = f"comments_news_{news_id}_page_{page}"
@@ -272,10 +277,14 @@ class Query(graphene.ObjectType):
         return get_object_or_error(Tag, id=id)
 
     def resolve_news(self, info, id):
-        return News.objects.select_related("category", "author")\
-            .prefetch_related("tags")\
-            .only("id", "title", "slug", "content", "publish_date", "status", "author_id", "category_id")\
-            .filter(id=id).first()
+        try:
+            news = News.objects.select_related("category", "author") \
+                .prefetch_related("tags") \
+                .only("id", "title", "slug", "content", "publish_date", "status", "author_id", "category_id") \
+                .get(id=id)
+            return news
+        except News.DoesNotExist:
+            return None
 
     def resolve_comment(self, info, news_id):
         news = get_object_or_error(News, id=news_id)
