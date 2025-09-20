@@ -74,6 +74,10 @@ class CommentType(DjangoObjectType):
         model = Comment
         fields = ("id", "content", "approved", "created_at", "user", "parent", "news")
 
+    def resolve_createdAt(self, info):
+        return self.created_at
+
+
 class LikeType(DjangoObjectType):
     user = graphene.Field(UserType)
 
@@ -90,13 +94,15 @@ class NewsType(DjangoObjectType):
 
     class Meta:
         model = News
-        fields = ("id", "title", "slug", "content", "image", "publish_date", "status", "author", "category", "tags", "likes")
+        fields = ("id", "title", "slug", "content", "image", "publish_date", "status", "author", "category", "tags", "likes", "comments")
 
 
     # ------------------ Resolvers ------------------
     def resolve_comments(self, info):
-        loader = CommentsByNewsLoader()
-        return loader.load(self.id)
+        # Example fix
+        if self.comments is None:
+            return []
+        return self.comments.all()
 
     def resolve_likes_count(self, info):
         cache_key = f"news_{self.id}_likes_count"
