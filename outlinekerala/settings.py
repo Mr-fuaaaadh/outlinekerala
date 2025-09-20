@@ -145,30 +145,30 @@ WSGI_APPLICATION = 'outlinekerala.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databasesswswswswswsw
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'outlinekerala_db',
-        'USER': 'outline_user',
-        'PASSWORD': 'outlinedb@123',
-        'HOST': 'localhost',
-        'PORT': '5432',
-        'OPTIONS': {
-            'sslmode': 'require',
-            }
-    }
-}
-
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'outline_local',
-#         'USER': 'postgres',
-#         'PASSWORD': '252562',
+#         'NAME': 'outlinekerala_db',
+#         'USER': 'outline_user',
+#         'PASSWORD': 'outlinedb@123',
 #         'HOST': 'localhost',
 #         'PORT': '5432',
+#         'OPTIONS': {
+#             'sslmode': 'require',
+#             }
 #     }
 # }
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'outline_local',
+        'USER': 'postgres',
+        'PASSWORD': '252562',
+        'HOST': 'localhost',
+        'PORT': '5432',
+    }
+}
 
 
 

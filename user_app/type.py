@@ -1,11 +1,12 @@
 import graphene
 from graphene_django import DjangoObjectType
 from .models import *
-from .models import CustomUser as User
 from django.conf import settings
 from django.core.cache import cache
 from promise import Promise
 from promise.dataloader import DataLoader
+
+CACHE_TIMEOUT = 300  # 5 minutes
 
 # ------------------ DataLoaders ------------------
 class CommentsByNewsLoader(DataLoader):
@@ -21,36 +22,57 @@ class UserType(DjangoObjectType):
     profile_picture_url = graphene.String()
 
     class Meta:
-        model = User
-        fields = ("id", "username", "email", "role", "profile_picture", "bio")
+        model = CustomUser
+        fields = ("id", "username", "email", "role", "bio", "profile_picture")
 
     def resolve_profile_picture_url(self, info):
         if self.profile_picture:
             return f"{settings.MEDIA_URL}{self.profile_picture}"
         return None
 
-class CategoryType(DjangoObjectType):
-    class Meta:
-        model = Category
-        fields = ("id", "name", "slug", "image")
-
-
-class SubCategoryType(DjangoObjectType):
-    class Meta:
-        model = SubCategory
-        fields = ("id", "name", "slug", "category","image")
-
 class TagType(DjangoObjectType):
     class Meta:
         model = Tag
         fields = ("id", "name", "slug")
+
+class CategoryType(DjangoObjectType):
+    subcategories = graphene.List(lambda: SubCategoryType)
+
+    class Meta:
+        model = Category
+        fields = ("id", "name", "slug", "image")
+
+    def resolve_subcategories(self, info):
+        cache_key = f"category_{self.id}_subcategories"
+        cached = cache.get(cache_key)
+        if cached:
+            return cached
+        qs = list(self.subcategories.all())
+        cache.set(cache_key, qs, CACHE_TIMEOUT)
+        return qs
+
+class SubCategoryType(DjangoObjectType):
+    news = graphene.List(lambda: NewsType)
+
+    class Meta:
+        model = SubCategory
+        fields = ("id", "name", "slug", "category", "image")
+
+    def resolve_news(self, info):
+        cache_key = f"subcategory_{self.id}_news"
+        cached = cache.get(cache_key)
+        if cached:
+            return cached
+        qs = list(self.news.all())
+        cache.set(cache_key, qs, CACHE_TIMEOUT)
+        return qs
 
 class CommentType(DjangoObjectType):
     user = graphene.Field(UserType)
 
     class Meta:
         model = Comment
-        fields = ("id", "text", "created_at", "user", "news")
+        fields = ("id", "content", "approved", "created_at", "user", "parent", "news")
 
 class LikeType(DjangoObjectType):
     user = graphene.Field(UserType)
@@ -64,10 +86,12 @@ class NewsType(DjangoObjectType):
     likes_count = graphene.Int()
     comments_count = graphene.Int()
     tags = graphene.List(TagType)
+    likes = graphene.List(LikeType)  # Add this
 
     class Meta:
         model = News
-        fields = ("id", "title", "slug", "content", "publish_date", "status", "author", "category", "tags")
+        fields = ("id", "title", "slug", "content", "image", "publish_date", "status", "author", "category", "tags", "likes")
+
 
     # ------------------ Resolvers ------------------
     def resolve_comments(self, info):
@@ -80,7 +104,7 @@ class NewsType(DjangoObjectType):
         if cached is not None:
             return cached
         count = self.likes.count()
-        cache.set(cache_key, count, 300)
+        cache.set(cache_key, count, CACHE_TIMEOUT)
         return count
 
     def resolve_comments_count(self, info):
@@ -88,9 +112,19 @@ class NewsType(DjangoObjectType):
         cached = cache.get(cache_key)
         if cached is not None:
             return cached
-        count = self.comment_set.filter(approved=True).count()
-        cache.set(cache_key, count, 300)
+        count = self.comments.filter(approved=True).count()
+        cache.set(cache_key, count, CACHE_TIMEOUT)
         return count
 
     def resolve_tags(self, info):
-        return list(self.tags.all().values("id", "name"))
+        cache_key = f"news_{self.id}_tags"
+        cached = cache.get(cache_key)
+        if cached:
+            return cached
+        qs = list(self.tags.all())
+        cache.set(cache_key, qs, CACHE_TIMEOUT)
+        return qs
+    
+    # Resolver for likes
+    def resolve_likes(self, info):
+        return self.likes.all()

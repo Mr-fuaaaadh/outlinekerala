@@ -181,8 +181,10 @@ class Query(graphene.ObjectType):
     categories = graphene.List(lambda: CategoryType)
     category = graphene.Field(CategoryType, id=graphene.Int(required=True))
 
+    
     subcategories = graphene.List(lambda: SubCategoryType)
     subcategory = graphene.Field(SubCategoryType, id=graphene.Int(required=True))
+
 
     tags = graphene.List(TagType)
     tag = graphene.Field(TagType, id=graphene.Int(required=True))
@@ -201,7 +203,7 @@ class Query(graphene.ObjectType):
         cached = cache.get("categories")
         if cached:
             return cached
-        qs = Category.objects.all()
+        qs = list(Category.objects.all())  # force evaluation
         cache.set("categories", qs, CACHE_TIMEOUT)
         return qs
 
@@ -209,17 +211,19 @@ class Query(graphene.ObjectType):
         cached = cache.get("subcategories")
         if cached:
             return cached
-        qs = SubCategory.objects.all()
+        qs = list(SubCategory.objects.all())  # force evaluation
         cache.set("subcategories", qs, CACHE_TIMEOUT)
         return qs
+
 
     def resolve_tags(self, info):
         cached = cache.get("tags")
         if cached:
             return cached
-        qs = list(Tag.objects.only("id", "name", "slug").values())
+        qs = list(Tag.objects.only("id", "name", "slug"))  # model instances
         cache.set("tags", qs, CACHE_TIMEOUT)
         return qs
+
 
     def resolve_newses(self, info):
         cache_key = "all_news"
@@ -239,10 +243,6 @@ class Query(graphene.ObjectType):
         cache.set(cache_key, [n.id for n in all_news], 300)
 
         return all_news
-
-
-
-
 
 
     def resolve_comments(self, info, news_id, page=1, page_size=20):
