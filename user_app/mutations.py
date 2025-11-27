@@ -3,7 +3,7 @@ from django.contrib.auth import get_user_model
 from django.core.cache import cache
 from graphene_django.filter import DjangoFilterConnectionField
 from graphql import GraphQLError
-from .type import UserType, CategoryType, TagType , NewsType, CommentType, LikeType, SubCategoryType
+from .type import UserType, CategoryType, TagType , NewsType, CommentType, LikeType, SubCategoryType, CommentType
 from .models import Category, Tag ,News, Comment, Like, SubCategory
 from graphene_file_upload.scalars import Upload
 from graphql_jwt.decorators import login_required
@@ -178,15 +178,15 @@ class LoggedInUser(graphene.ObjectType):
 class Query(graphene.ObjectType):
     node = graphene.relay.Node.Field()
 
-    categories = graphene.List(lambda: CategoryType)
+    categories = graphene.List(lambda: CategoryType, page=graphene.Int(), page_size=graphene.Int())
     category = graphene.Field(CategoryType, id=graphene.Int(required=True))
 
     
-    subcategories = graphene.List(lambda: SubCategoryType)
+    subcategories = graphene.List(lambda: SubCategoryType, page=graphene.Int(), page_size=graphene.Int())
     subcategory = graphene.Field(SubCategoryType, id=graphene.Int(required=True))
 
 
-    tags = graphene.List(TagType)
+    tags = graphene.List(TagType, page=graphene.Int(), page_size=graphene.Int())
     tag = graphene.Field(TagType, id=graphene.Int(required=True))
 
     newses = graphene.List(NewsType, page=graphene.Int(), page_size=graphene.Int())
@@ -199,50 +199,73 @@ class Query(graphene.ObjectType):
 
     # ---------------- Safe Caching Resolvers ----------------
 
-    def resolve_categories(self, info):
-        cached = cache.get("categories")
+    def resolve_categories(self, info, page=1, page_size=10):
+        cache_key = f"categories_page_{page}_size_{page_size}"
+        cached = cache.get(cache_key)
         if cached:
             return cached
-        qs = list(Category.objects.all())  # force evaluation
-        cache.set("categories", qs, CACHE_TIMEOUT)
-        return qs
+        
+        qs = Category.objects.only("id", "name", "slug", "image")
+        
+        start = (page - 1) * page_size
+        end = start + page_size
+        
+        paginated = list(qs[start:end])
+        cache.set(cache_key, paginated, CACHE_TIMEOUT)
+        return paginated
 
-    def resolve_subcategories(self, info):
-        cached = cache.get("subcategories")
+    def resolve_subcategories(self, info, page=1, page_size=10):
+        cache_key = f"subcategories_page_{page}_size_{page_size}"
+        cached = cache.get(cache_key)
         if cached:
             return cached
-        qs = list(SubCategory.objects.all())  # force evaluation
-        cache.set("subcategories", qs, CACHE_TIMEOUT)
-        return qs
+            
+        qs = SubCategory.objects.select_related("category").only("id", "name", "slug", "image", "category")
+        
+        start = (page - 1) * page_size
+        end = start + page_size
+        
+        paginated = list(qs[start:end])
+        cache.set(cache_key, paginated, CACHE_TIMEOUT)
+        return paginated
 
 
-    def resolve_tags(self, info):
-        cached = cache.get("tags")
+    def resolve_tags(self, info, page=1, page_size=10):
+        cache_key = f"tags_page_{page}_size_{page_size}"
+        cached = cache.get(cache_key)
         if cached:
             return cached
-        qs = list(Tag.objects.only("id", "name", "slug"))  # model instances
-        cache.set("tags", qs, CACHE_TIMEOUT)
-        return qs
+        
+        qs = Tag.objects.only("id", "name", "slug")
+        
+        start = (page - 1) * page_size
+        end = start + page_size
+        
+        paginated = list(qs[start:end])
+        cache.set(cache_key, paginated, CACHE_TIMEOUT)
+        return paginated
 
 
-    def resolve_newses(self, info):
-        cache_key = "all_news"
-        cached_ids = cache.get(cache_key)
+    def resolve_newses(self, info, page=1, page_size=10):
+        cache_key = f"news_page_{page}_size_{page_size}"
+        cached_data = cache.get(cache_key)
 
-        if cached_ids:
-            # Fetch News instances by cached IDs, preserving order
-            qs = News.objects.filter(id__in=cached_ids).select_related("category", "author").prefetch_related("tags")
-            id_order = {id_: i for i, id_ in enumerate(cached_ids)}
-            return sorted(qs, key=lambda x: id_order[x.id])
+        if cached_data:
+            return cached_data
 
-        # Query all News objects
-        qs = News.objects.select_related("category", "author").prefetch_related("tags").order_by("-publish_date")
-        all_news = list(qs)
-
-        # Cache only the IDs for 5 minutes
-        cache.set(cache_key, [n.id for n in all_news], 300)
-
-        return all_news
+        # Defer content for list view to improve performance
+        qs = News.objects.select_related("category", "author") \
+            .prefetch_related("tags") \
+            .defer("content") \
+            .order_by("-publish_date")
+        
+        start = (page - 1) * page_size
+        end = start + page_size
+        
+        paginated_news = list(qs[start:end])
+        
+        cache.set(cache_key, paginated_news, 300)
+        return paginated_news
 
 
     def resolve_comments(self, info, news_id, page=1, page_size=20):
@@ -251,11 +274,11 @@ class Query(graphene.ObjectType):
         if cached:
             return cached
 
+        # Fixed: 'text' -> 'content'
         qs = Comment.objects.filter(news_id=news_id, approved=True)\
             .select_related("user")\
-            .only("id", "text", "created_at", "user_id")\
-            .order_by("-created_at")\
-            .values("id", "text", "created_at", "user_id", "user__username")
+            .only("id", "content", "created_at", "user_id")\
+            .order_by("-created_at")
 
         start = (page - 1) * page_size
         end = start + page_size
@@ -263,11 +286,6 @@ class Query(graphene.ObjectType):
         cache.set(cache_key, paginated, 300)
         return paginated
 
-    def resolve_category(self, info, id):
-        return get_object_or_error(Category, id=id)
-
-    def resolve_subcategory(self, info, id):
-        return get_object_or_error(SubCategory, id=id)
 
     def resolve_tag(self, info, id):
         return get_object_or_error(Tag, id=id)

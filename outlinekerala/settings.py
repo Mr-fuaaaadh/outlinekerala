@@ -162,7 +162,7 @@ DATABASES = {
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'outline_local',
+#         'NAME': 'outlinekerala_db',
 #         'USER': 'postgres',
 #         'PASSWORD': '252562',
 #         'HOST': 'localhost',

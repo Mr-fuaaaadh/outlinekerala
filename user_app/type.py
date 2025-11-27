@@ -1,3 +1,4 @@
+
 import graphene
 from graphene_django import DjangoObjectType
 from .models import *
@@ -15,6 +16,14 @@ class CommentsByNewsLoader(DataLoader):
         news_map = {news_id: [] for news_id in news_ids}
         for comment in qs:
             news_map[comment.news_id].append(comment)
+        return Promise.resolve([news_map[nid] for nid in news_ids])
+
+class LikesByNewsLoader(DataLoader):
+    def batch_load_fn(self, news_ids):
+        qs = Like.objects.filter(news_id__in=news_ids).select_related("user")
+        news_map = {news_id: [] for news_id in news_ids}
+        for like in qs:
+            news_map[like.news_id].append(like)
         return Promise.resolve([news_map[nid] for nid in news_ids])
 
 # ------------------ GraphQL Types ------------------
@@ -35,37 +44,49 @@ class TagType(DjangoObjectType):
         model = Tag
         fields = ("id", "name", "slug")
 
-class CategoryType(DjangoObjectType):
-    subcategories = graphene.List(lambda: SubCategoryType)
-
-    class Meta:
-        model = Category
-        fields = ("id", "name", "slug", "image")
-
-    def resolve_subcategories(self, info):
-        cache_key = f"category_{self.id}_subcategories"
-        cached = cache.get(cache_key)
-        if cached:
-            return cached
-        qs = list(self.subcategories.all())
-        cache.set(cache_key, qs, CACHE_TIMEOUT)
-        return qs
-
 class SubCategoryType(DjangoObjectType):
-    news = graphene.List(lambda: NewsType)
+    news = graphene.List(lambda: NewsType, page=graphene.Int(), page_size=graphene.Int())
 
     class Meta:
         model = SubCategory
         fields = ("id", "name", "slug", "category", "image")
 
-    def resolve_news(self, info):
-        cache_key = f"subcategory_{self.id}_news"
+    def resolve_news(self, info, page=1, page_size=10):
+        cache_key = f"subcategory_{self.id}_news_page_{page}"
         cached = cache.get(cache_key)
         if cached:
             return cached
-        qs = list(self.news.all())
-        cache.set(cache_key, qs, CACHE_TIMEOUT)
-        return qs
+            
+        qs = self.news.select_related("category", "author").prefetch_related("tags").defer("content").order_by("-publish_date")
+        
+        start = (page - 1) * page_size
+        end = start + page_size
+        
+        paginated = list(qs[start:end])
+        cache.set(cache_key, paginated, CACHE_TIMEOUT)
+        return paginated
+
+class CategoryType(DjangoObjectType):
+    subcategories = graphene.List(lambda: SubCategoryType, page=graphene.Int(), page_size=graphene.Int())
+
+    class Meta:
+        model = Category
+        fields = ("id", "name", "slug", "image")
+
+    def resolve_subcategories(self, info, page=1, page_size=10):
+        cache_key = f"category_{self.id}_subcategories_page_{page}"
+        cached = cache.get(cache_key)
+        if cached:
+            return cached
+            
+        qs = list(self.subcategories.all())
+        
+        start = (page - 1) * page_size
+        end = start + page_size
+        
+        paginated = qs[start:end]
+        cache.set(cache_key, paginated, CACHE_TIMEOUT)
+        return paginated
 
 class CommentType(DjangoObjectType):
     user = graphene.Field(UserType)
@@ -76,7 +97,6 @@ class CommentType(DjangoObjectType):
 
     def resolve_createdAt(self, info):
         return self.created_at
-
 
 class LikeType(DjangoObjectType):
     user = graphene.Field(UserType)
@@ -90,21 +110,20 @@ class NewsType(DjangoObjectType):
     likes_count = graphene.Int()
     comments_count = graphene.Int()
     tags = graphene.List(TagType)
-    likes = graphene.List(LikeType)  # Add this
+    likes = graphene.List(LikeType)
 
     class Meta:
         model = News
         fields = ("id", "title", "slug", "content", "image", "publish_date", "status", "author", "category", "tags", "likes", "comments")
 
-
     # ------------------ Resolvers ------------------
     def resolve_comments(self, info):
-        # Example fix
-        if self.comments is None:
-            return []
-        return self.comments.all()
+        return CommentsByNewsLoader(info.context).load(self.id)
 
     def resolve_likes_count(self, info):
+        if hasattr(self, 'likes_count'):
+            return self.likes_count
+            
         cache_key = f"news_{self.id}_likes_count"
         cached = cache.get(cache_key)
         if cached is not None:
@@ -114,6 +133,9 @@ class NewsType(DjangoObjectType):
         return count
 
     def resolve_comments_count(self, info):
+        if hasattr(self, 'comments_count'):
+            return self.comments_count
+
         cache_key = f"news_{self.id}_comments_count"
         cached = cache.get(cache_key)
         if cached is not None:
@@ -123,6 +145,9 @@ class NewsType(DjangoObjectType):
         return count
 
     def resolve_tags(self, info):
+        if hasattr(self, '_prefetched_objects_cache') and 'tags' in self._prefetched_objects_cache:
+             return self.tags.all()
+
         cache_key = f"news_{self.id}_tags"
         cached = cache.get(cache_key)
         if cached:
@@ -131,6 +156,5 @@ class NewsType(DjangoObjectType):
         cache.set(cache_key, qs, CACHE_TIMEOUT)
         return qs
     
-    # Resolver for likes
     def resolve_likes(self, info):
-        return self.likes.all()
+        return LikesByNewsLoader(info.context).load(self.id)
