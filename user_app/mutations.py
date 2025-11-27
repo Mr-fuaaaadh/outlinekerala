@@ -3,7 +3,7 @@ from django.contrib.auth import get_user_model
 from django.core.cache import cache
 from graphene_django.filter import DjangoFilterConnectionField
 from graphql import GraphQLError
-from .type import UserType, CategoryType, TagType , NewsType, CommentType, LikeType, SubCategoryType, CommentType
+from .type import UserType, CategoryType, TagType , NewsType, CommentType, LikeType, SubCategoryType
 from .models import Category, Tag ,News, Comment, Like, SubCategory
 from graphene_file_upload.scalars import Upload
 from graphql_jwt.decorators import login_required

@@ -5,6 +5,12 @@ from django.contrib.auth import update_session_auth_hash
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.contrib.auth import get_user_model
 from graphql_jwt.utils import jwt_encode, jwt_payload
+from .cache_utils import (
+    invalidate_comments_cache,
+    invalidate_likes_cache,
+    invalidate_user_cache,
+    invalidate_news_cache
+)
 
 
 User = get_user_model()
@@ -76,6 +82,10 @@ class CommentService:
                 parent=parent
             )
             comment.save()
+            
+            # Invalidate comments cache for this news
+            invalidate_comments_cache(news.id)
+            
             return comment
         except Exception as e:
             raise GraphQLError(f"Failed to add comment: {str(e)}")
@@ -124,6 +134,9 @@ class UserService:
             user.profile_picture = profile_picture
 
         user.save()
+        
+        # Invalidate user cache
+        invalidate_user_cache(user.id)
 
         # ✅ JWT Token
         token = jwt_encode(jwt_payload(user)) if sensitive_change else None
@@ -171,6 +184,9 @@ class UserService:
             target_user.profile_picture = profile_picture
 
         target_user.save()
+        
+        # Invalidate user cache
+        invalidate_user_cache(target_user.id)
 
         return target_user, "User profile updated successfully."
     
@@ -202,7 +218,11 @@ class LikeService:
 
         if like:
             like.delete()
+            # Invalidate likes cache
+            invalidate_likes_cache(news.id)
             return None, False
         else:
             new_like = Like.objects.create(user=user, news=news)
+            # Invalidate likes cache
+            invalidate_likes_cache(news.id)
             return new_like, True

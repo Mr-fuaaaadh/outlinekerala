@@ -1,0 +1,16 @@
+INFO 2025-11-28 02:59:42,910 autoreload 11964 15080 Watching for file changes with StatReloader
+INFO 2025-11-28 03:00:46,614 autoreload 11964 15080 C:\Users\FUHAD\outlinekerala\outlinekerala\settings.py changed, reloading.
+INFO 2025-11-28 03:00:48,695 autoreload 15896 10576 Watching for file changes with StatReloader
+INFO 2025-11-28 03:00:55,607 autoreload 15896 10576 C:\Users\FUHAD\outlinekerala\outlinekerala\settings.py changed, reloading.
+INFO 2025-11-28 03:01:35,966 autoreload 10500 7104 Watching for file changes with StatReloader
+INFO 2025-11-28 03:03:58,041 basehttp 10500 3488 "POST /api/graphql/ HTTP/1.1" 200 4958
+INFO 2025-11-28 03:03:59,071 basehttp 10500 3488 "POST /api/graphql/ HTTP/1.1" 200 4958
+INFO 2025-11-28 03:03:59,766 basehttp 10500 3488 "POST /api/graphql/ HTTP/1.1" 200 4958
+INFO 2025-11-28 03:04:46,266 basehttp 10500 3488 "POST /api/graphql/ HTTP/1.1" 200 4958
+INFO 2025-11-28 03:04:46,993 basehttp 10500 3488 "POST /api/graphql/ HTTP/1.1" 200 4958
+INFO 2025-11-28 03:04:47,581 basehttp 10500 3488 "POST /api/graphql/ HTTP/1.1" 200 4958
+INFO 2025-11-28 03:04:48,109 basehttp 10500 3488 "POST /api/graphql/ HTTP/1.1" 200 4958
+INFO 2025-11-28 03:04:48,534 basehttp 10500 3488 "POST /api/graphql/ HTTP/1.1" 200 4958
+INFO 2025-11-28 03:04:48,915 basehttp 10500 3488 "POST /api/graphql/ HTTP/1.1" 200 4958
+INFO 2025-11-28 03:08:05,696 autoreload 10500 7104 C:\Users\FUHAD\outlinekerala\outlinekerala\settings.py changed, reloading.
+INFO 2025-11-28 03:08:07,984 autoreload 9076 4204 Watching for file changes with StatReloader
