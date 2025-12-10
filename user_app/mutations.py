@@ -195,6 +195,8 @@ class Query(graphene.ObjectType):
     comments = graphene.List(lambda: CommentType, news_id=graphene.ID(required=True), page=graphene.Int(), page_size=graphene.Int())
     comment = graphene.List(CommentType, news_id=graphene.Int(required=True))
 
+    likes = graphene.List(LikeType, news_id=graphene.Int(required=True))
+
     me = graphene.Field(UserType)
 
     # ---------------- Safe Caching Resolvers ----------------
@@ -275,7 +277,7 @@ class Query(graphene.ObjectType):
             return cached
 
         # Fixed: 'text' -> 'content'
-        qs = Comment.objects.filter(news_id=news_id, approved=True)\
+        qs = Comment.objects.filter(news_id=news_id)\
             .select_related("user")\
             .only("id", "content", "created_at", "user_id")\
             .order_by("-created_at")
@@ -303,6 +305,24 @@ class Query(graphene.ObjectType):
     def resolve_comment(self, info, news_id):
         news = get_object_or_error(News, id=news_id)
         return news.comment.all().select_related("user")
+    
+
+
+    def resolve_likes(self, info, news_id):
+        cache_key = f"likes_news_{news_id}"
+        cached = cache.get(cache_key)
+
+        if cached:
+            return cached
+
+        qs = Like.objects.filter(news_id=news_id)\
+                        .select_related("user", "news")\
+                        .only("id", "user_id", "news_id")
+
+        data = list(qs)
+        cache.set(cache_key, data, 300)  # 5 min cache
+        return data
+
 
     def resolve_me(self, info):
         user = info.context.user

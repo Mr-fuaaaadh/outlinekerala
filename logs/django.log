@@ -14,3 +14,111 @@ INFO 2025-11-28 03:04:48,534 basehttp 10500 3488 "POST /api/graphql/ HTTP/1.1" 2
 INFO 2025-11-28 03:04:48,915 basehttp 10500 3488 "POST /api/graphql/ HTTP/1.1" 200 4958
 INFO 2025-11-28 03:08:05,696 autoreload 10500 7104 C:\Users\FUHAD\outlinekerala\outlinekerala\settings.py changed, reloading.
 INFO 2025-11-28 03:08:07,984 autoreload 9076 4204 Watching for file changes with StatReloader
+INFO 2025-12-10 11:17:03,991 autoreload 7380 25952 Watching for file changes with StatReloader
+INFO 2025-12-10 11:28:03,718 autoreload 13236 23112 Watching for file changes with StatReloader
+INFO 2025-12-10 11:30:10,631 autoreload 13236 23112 C:\Users\USER\outlinekerala\outlinekerala\settings.py changed, reloading.
+INFO 2025-12-10 11:30:14,459 autoreload 24836 10372 Watching for file changes with StatReloader
+INFO 2025-12-10 11:30:17,745 autoreload 24836 10372 C:\Users\USER\outlinekerala\outlinekerala\settings.py changed, reloading.
+INFO 2025-12-10 11:30:27,459 autoreload 24848 22364 Watching for file changes with StatReloader
+INFO 2025-12-10 11:34:10,640 autoreload 24848 22364 C:\Users\USER\outlinekerala\outlinekerala\settings.py changed, reloading.
+INFO 2025-12-10 11:34:14,635 autoreload 20380 13128 Watching for file changes with StatReloader
+INFO 2025-12-10 11:35:06,584 autoreload 10512 17348 Watching for file changes with StatReloader
+WARNING 2025-12-10 11:35:16,275 log 10512 13560 Not Found: /
+WARNING 2025-12-10 11:35:16,277 basehttp 10512 13560 "GET / HTTP/1.1" 404 2790
+WARNING 2025-12-10 11:35:16,450 log 10512 13560 Not Found: /favicon.ico
+WARNING 2025-12-10 11:35:16,451 basehttp 10512 13560 "GET /favicon.ico HTTP/1.1" 404 2841
+WARNING 2025-12-10 12:35:52,621 log 10512 2792 Not Found: /
+WARNING 2025-12-10 12:35:52,624 basehttp 10512 2792 "GET / HTTP/1.1" 404 2790
+INFO 2025-12-10 12:36:01,849 basehttp 10512 2792 "GET /api/graphql/ HTTP/1.1" 200 2611
+INFO 2025-12-10 12:36:02,025 basehttp 10512 2792 "GET /static/graphene_django/graphiql.js HTTP/1.1" 200 4037
+INFO 2025-12-10 12:36:04,848 basehttp 10512 2792 "POST /api/graphql/ HTTP/1.1" 200 41573
+INFO 2025-12-10 12:41:09,417 autoreload 10512 17348 C:\Users\USER\outlinekerala\user_app\mutations.py changed, reloading.
+INFO 2025-12-10 12:41:13,334 autoreload 22104 17844 Watching for file changes with StatReloader
+WARNING 2025-12-10 12:41:59,575 log 22104 26288 Bad Request: /api/graphql/
+WARNING 2025-12-10 12:41:59,576 basehttp 22104 26288 "POST /api/graphql/ HTTP/1.1" 400 113
+WARNING 2025-12-10 12:42:01,098 log 22104 26288 Bad Request: /api/graphql/
+WARNING 2025-12-10 12:42:01,099 basehttp 22104 26288 "POST /api/graphql/ HTTP/1.1" 400 113
+WARNING 2025-12-10 12:42:20,582 log 22104 26288 Bad Request: /api/graphql/
+WARNING 2025-12-10 12:42:20,583 basehttp 22104 26288 "POST /api/graphql/ HTTP/1.1" 400 127
+WARNING 2025-12-10 12:42:21,700 log 22104 26288 Bad Request: /api/graphql/
+WARNING 2025-12-10 12:42:21,703 basehttp 22104 26288 "POST /api/graphql/ HTTP/1.1" 400 127
+WARNING 2025-12-10 12:42:22,508 log 22104 26288 Bad Request: /api/graphql/
+WARNING 2025-12-10 12:42:22,510 basehttp 22104 26288 "POST /api/graphql/ HTTP/1.1" 400 127
+WARNING 2025-12-10 12:42:28,985 log 22104 26288 Bad Request: /api/graphql/
+WARNING 2025-12-10 12:42:28,986 basehttp 22104 26288 "POST /api/graphql/ HTTP/1.1" 400 128
+WARNING 2025-12-10 12:42:29,764 log 22104 26288 Bad Request: /api/graphql/
+WARNING 2025-12-10 12:42:29,765 basehttp 22104 26288 "POST /api/graphql/ HTTP/1.1" 400 128
+WARNING 2025-12-10 12:42:30,043 log 22104 26288 Bad Request: /api/graphql/
+WARNING 2025-12-10 12:42:30,044 basehttp 22104 26288 "POST /api/graphql/ HTTP/1.1" 400 128
+WARNING 2025-12-10 12:42:30,316 log 22104 26288 Bad Request: /api/graphql/
+WARNING 2025-12-10 12:42:30,318 basehttp 22104 26288 "POST /api/graphql/ HTTP/1.1" 400 128
+WARNING 2025-12-10 12:42:30,447 log 22104 26288 Bad Request: /api/graphql/
+WARNING 2025-12-10 12:42:30,450 basehttp 22104 26288 "POST /api/graphql/ HTTP/1.1" 400 128
+WARNING 2025-12-10 12:42:30,604 log 22104 26288 Bad Request: /api/graphql/
+WARNING 2025-12-10 12:42:30,605 basehttp 22104 26288 "POST /api/graphql/ HTTP/1.1" 400 128
+WARNING 2025-12-10 12:42:30,765 log 22104 26288 Bad Request: /api/graphql/
+WARNING 2025-12-10 12:42:30,766 basehttp 22104 26288 "POST /api/graphql/ HTTP/1.1" 400 128
+WARNING 2025-12-10 12:45:03,910 log 22104 12052 Bad Request: /api/graphql/
+WARNING 2025-12-10 12:45:03,911 basehttp 22104 12052 "POST /api/graphql/ HTTP/1.1" 400 113
+WARNING 2025-12-10 12:45:04,524 log 22104 12052 Bad Request: /api/graphql/
+WARNING 2025-12-10 12:45:04,526 basehttp 22104 12052 "POST /api/graphql/ HTTP/1.1" 400 113
+WARNING 2025-12-10 12:45:04,723 log 22104 12052 Bad Request: /api/graphql/
+WARNING 2025-12-10 12:45:04,724 basehttp 22104 12052 "POST /api/graphql/ HTTP/1.1" 400 113
+WARNING 2025-12-10 12:45:04,923 log 22104 12052 Bad Request: /api/graphql/
+WARNING 2025-12-10 12:45:04,924 basehttp 22104 12052 "POST /api/graphql/ HTTP/1.1" 400 113
+WARNING 2025-12-10 12:45:05,107 log 22104 12052 Bad Request: /api/graphql/
+WARNING 2025-12-10 12:45:05,108 basehttp 22104 12052 "POST /api/graphql/ HTTP/1.1" 400 113
+WARNING 2025-12-10 12:45:05,279 log 22104 12052 Bad Request: /api/graphql/
+WARNING 2025-12-10 12:45:05,281 basehttp 22104 12052 "POST /api/graphql/ HTTP/1.1" 400 113
+WARNING 2025-12-10 12:45:05,458 log 22104 12052 Bad Request: /api/graphql/
+WARNING 2025-12-10 12:45:05,459 basehttp 22104 12052 "POST /api/graphql/ HTTP/1.1" 400 113
+WARNING 2025-12-10 12:45:05,633 log 22104 12052 Bad Request: /api/graphql/
+WARNING 2025-12-10 12:45:05,636 basehttp 22104 12052 "POST /api/graphql/ HTTP/1.1" 400 113
+INFO 2025-12-10 12:45:11,855 basehttp 22104 12052 "POST /api/graphql/ HTTP/1.1" 200 219
+INFO 2025-12-10 12:48:11,670 basehttp 22104 12052 "POST /api/graphql/ HTTP/1.1" 200 219
+INFO 2025-12-10 12:59:10,464 basehttp 22104 3700 "POST /api/graphql/ HTTP/1.1" 200 138
+INFO 2025-12-10 12:59:11,199 basehttp 22104 3700 "POST /api/graphql/ HTTP/1.1" 200 138
+INFO 2025-12-10 12:59:11,808 basehttp 22104 3700 "POST /api/graphql/ HTTP/1.1" 200 138
+INFO 2025-12-10 12:59:20,655 basehttp 22104 3700 "POST /api/graphql/ HTTP/1.1" 200 138
+INFO 2025-12-10 12:59:20,814 basehttp 22104 3700 "POST /api/graphql/ HTTP/1.1" 200 138
+INFO 2025-12-10 12:59:21,306 basehttp 22104 3700 "POST /api/graphql/ HTTP/1.1" 200 138
+INFO 2025-12-10 12:59:21,661 basehttp 22104 3700 "POST /api/graphql/ HTTP/1.1" 200 138
+INFO 2025-12-10 12:59:21,861 basehttp 22104 3700 "POST /api/graphql/ HTTP/1.1" 200 138
+INFO 2025-12-10 12:59:22,085 basehttp 22104 3700 "POST /api/graphql/ HTTP/1.1" 200 138
+INFO 2025-12-10 12:59:22,268 basehttp 22104 3700 "POST /api/graphql/ HTTP/1.1" 200 138
+INFO 2025-12-10 12:59:22,700 basehttp 22104 3700 "POST /api/graphql/ HTTP/1.1" 200 138
+INFO 2025-12-10 12:59:23,129 basehttp 22104 3700 "POST /api/graphql/ HTTP/1.1" 200 138
+INFO 2025-12-10 12:59:23,965 basehttp 22104 3700 "POST /api/graphql/ HTTP/1.1" 200 138
+WARNING 2025-12-10 12:59:27,907 log 22104 3700 Bad Request: /api/graphql/
+WARNING 2025-12-10 12:59:27,908 basehttp 22104 3700 "POST /api/graphql/ HTTP/1.1" 400 113
+WARNING 2025-12-10 12:59:28,569 log 22104 3700 Bad Request: /api/graphql/
+WARNING 2025-12-10 12:59:28,570 basehttp 22104 3700 "POST /api/graphql/ HTTP/1.1" 400 113
+WARNING 2025-12-10 12:59:28,872 log 22104 3700 Bad Request: /api/graphql/
+WARNING 2025-12-10 12:59:28,874 basehttp 22104 3700 "POST /api/graphql/ HTTP/1.1" 400 113
+WARNING 2025-12-10 12:59:29,081 log 22104 3700 Bad Request: /api/graphql/
+WARNING 2025-12-10 12:59:29,082 basehttp 22104 3700 "POST /api/graphql/ HTTP/1.1" 400 113
+WARNING 2025-12-10 12:59:29,248 log 22104 3700 Bad Request: /api/graphql/
+WARNING 2025-12-10 12:59:29,250 basehttp 22104 3700 "POST /api/graphql/ HTTP/1.1" 400 113
+WARNING 2025-12-10 12:59:29,386 log 22104 3700 Bad Request: /api/graphql/
+WARNING 2025-12-10 12:59:29,388 basehttp 22104 3700 "POST /api/graphql/ HTTP/1.1" 400 113
+INFO 2025-12-10 12:59:44,406 basehttp 22104 3700 "POST /api/graphql/ HTTP/1.1" 200 138
+INFO 2025-12-10 12:59:45,103 basehttp 22104 3700 "POST /api/graphql/ HTTP/1.1" 200 138
+INFO 2025-12-10 12:59:45,337 basehttp 22104 3700 "POST /api/graphql/ HTTP/1.1" 200 138
+INFO 2025-12-10 12:59:45,565 basehttp 22104 3700 "POST /api/graphql/ HTTP/1.1" 200 138
+INFO 2025-12-10 12:59:45,758 basehttp 22104 3700 "POST /api/graphql/ HTTP/1.1" 200 138
+INFO 2025-12-10 12:59:45,957 basehttp 22104 3700 "POST /api/graphql/ HTTP/1.1" 200 138
+INFO 2025-12-10 12:59:46,126 basehttp 22104 3700 "POST /api/graphql/ HTTP/1.1" 200 138
+INFO 2025-12-10 12:59:46,276 basehttp 22104 3700 "POST /api/graphql/ HTTP/1.1" 200 138
+INFO 2025-12-10 12:59:46,454 basehttp 22104 3700 "POST /api/graphql/ HTTP/1.1" 200 138
+INFO 2025-12-10 12:59:46,661 basehttp 22104 3700 "POST /api/graphql/ HTTP/1.1" 200 138
+INFO 2025-12-10 12:59:46,836 basehttp 22104 3700 "POST /api/graphql/ HTTP/1.1" 200 138
+INFO 2025-12-10 13:00:29,375 autoreload 22104 17844 C:\Users\USER\outlinekerala\user_app\mutations.py changed, reloading.
+INFO 2025-12-10 13:00:33,323 autoreload 20912 24544 Watching for file changes with StatReloader
+INFO 2025-12-10 13:00:38,197 basehttp 20912 8556 "POST /api/graphql/ HTTP/1.1" 200 21
+INFO 2025-12-10 13:00:39,138 basehttp 20912 8556 "POST /api/graphql/ HTTP/1.1" 200 21
+INFO 2025-12-10 13:00:39,420 basehttp 20912 8556 "POST /api/graphql/ HTTP/1.1" 200 21
+INFO 2025-12-10 13:00:39,618 basehttp 20912 8556 "POST /api/graphql/ HTTP/1.1" 200 21
+INFO 2025-12-10 13:00:39,810 basehttp 20912 8556 "POST /api/graphql/ HTTP/1.1" 200 21
+INFO 2025-12-10 13:00:40,121 basehttp 20912 8556 "POST /api/graphql/ HTTP/1.1" 200 21
+INFO 2025-12-10 13:03:45,292 autoreload 20912 24544 C:\Users\USER\outlinekerala\user_app\mutations.py changed, reloading.
+INFO 2025-12-10 13:03:48,419 autoreload 23112 6936 Watching for file changes with StatReloader
