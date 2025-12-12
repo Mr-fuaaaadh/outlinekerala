@@ -2,6 +2,7 @@
 import graphene
 from graphene_django import DjangoObjectType
 from .models import *
+from admin_app.models import *
 from django.conf import settings
 from django.core.cache import cache
 from promise import Promise
@@ -25,6 +26,21 @@ class LikesByNewsLoader(DataLoader):
         for like in qs:
             news_map[like.news_id].append(like)
         return Promise.resolve([news_map[nid] for nid in news_ids])
+    
+
+class CandidatesByWardLoader(DataLoader):
+    def batch_load_fn(self, ward_ids):
+        qs = ElectionResult.objects.filter(ward_id__in=ward_ids).only(
+            "id", "name", "party", "vote_count", "ward_id"
+        )
+        ward_map = {wid: [] for wid in ward_ids}
+        for candidate in qs:
+            ward_map[candidate.ward_id].append(candidate)
+        # Return in same order as ward_ids
+        return Promise.resolve([ward_map[wid] for wid in ward_ids])
+
+
+
 
 # ------------------ GraphQL Types ------------------
 class UserType(DjangoObjectType):
@@ -158,3 +174,40 @@ class NewsType(DjangoObjectType):
     
     def resolve_likes(self, info):
         return LikesByNewsLoader(info.context).load(self.id)
+    
+
+
+
+
+class ElectionResultType(DjangoObjectType):
+    candidatePhotoUrl = graphene.String()
+    partyLogoUrl = graphene.String()
+
+    class Meta:
+        model = ElectionResult
+        fields = ("id", "name", "party", "vote_count","party_logo", "candidate_photo")  # only necessary fields
+
+    def resolve_candidatePhotoUrl(self, info):
+        if self.candidate_photo:
+            return info.context.build_absolute_uri(self.candidate_photo.url)
+        return None
+
+    def resolve_partyLogoUrl(self, info):
+        if self.party_logo:
+            return info.context.build_absolute_uri(self.party_logo.url)
+        return None
+
+
+class WardType(DjangoObjectType):
+    candidates = graphene.List(ElectionResultType)
+
+    class Meta:
+        model = Ward
+        fields = ("id", "ward_number", "ward_name", "total_voters", "candidates")
+
+    def resolve_candidates(self, info):
+        return list(self.candidates.all())  # convert QuerySet to list
+
+
+
+

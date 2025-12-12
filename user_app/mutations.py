@@ -1,12 +1,15 @@
 import graphene
 from django.contrib.auth import get_user_model
 from django.core.cache import cache
+from .cache_utils import get_wards_cache_key
 from graphene_django.filter import DjangoFilterConnectionField
 from graphql import GraphQLError
-from .type import UserType, CategoryType, TagType , NewsType, CommentType, LikeType, SubCategoryType
-from .models import Category, Tag ,News, Comment, Like, SubCategory
+from .type import UserType, CategoryType, TagType , NewsType, CommentType, LikeType, SubCategoryType, WardType, ElectionResultType
+from .models import Category, Tag, News, Comment, Like, SubCategory
+from admin_app.models import Ward, ElectionResult  # if models are really here
 from graphene_file_upload.scalars import Upload
 from graphql_jwt.decorators import login_required
+from admin_app.models import *
 from .service import *
 from user_app.db_utils import get_object_or_error
 import logging
@@ -197,6 +200,12 @@ class Query(graphene.ObjectType):
 
     likes = graphene.List(LikeType, news_id=graphene.Int(required=True))
 
+    wards = graphene.List(lambda: WardType, page=graphene.Int(), page_size=graphene.Int())
+    ward = graphene.Field(WardType, id=graphene.Int(required=True))
+
+    candidates = graphene.List(lambda: ElectionResultType,page=graphene.Int(),page_size=graphene.Int(), ward_id=graphene.Int(), party=graphene.String(),)
+    candidate = graphene.Field(ElectionResultType, id=graphene.Int(required=True))
+
     me = graphene.Field(UserType)
 
     # ---------------- Safe Caching Resolvers ----------------
@@ -329,6 +338,69 @@ class Query(graphene.ObjectType):
         if user.is_authenticated:
             return user
         raise GraphQLError("You are not logged in!")
+    
+
+    def resolve_wards(self, info, page=1, page_size=10):
+        cache_key = get_wards_cache_key(page=page, page_size=page_size)
+        cached = cache.get(cache_key)
+        if cached:
+            return cached
+
+        qs = Ward.objects.only("id", "ward_number", "ward_name", "total_voters").order_by("ward_number")
+        start = (page - 1) * page_size
+        end = start + page_size
+        paginated = list(qs[start:end])
+        cache.set(cache_key, paginated, CACHE_TIMEOUT)
+        return paginated
+
+
+
+    def resolve_ward(self, info, id):
+        cache_key = f"ward_detail_{id}"
+        cached = cache.get(cache_key)
+        if cached:
+            return cached
+        try:
+            ward = Ward.objects.only("id", "ward_number", "ward_name", "total_voters").get(id=id)
+            cache.set(cache_key, ward, CACHE_TIMEOUT)
+            return ward
+        except Ward.DoesNotExist:
+            return None
+
+        
+
+    def resolve_candidates(self, info, page=1, page_size=10, ward_id=None, party=None):
+        cache_key = f"candidates_page_{page}_size_{page_size}_ward_{ward_id}_party_{party}"
+        cached = cache.get(cache_key)
+        if cached:
+            return cached
+
+        qs = ElectionResult.objects.select_related("ward").only("id", "name", "party", "vote_count", "ward_id").order_by("-vote_count")
+
+        if ward_id:
+            qs = qs.filter(ward_id=ward_id)
+        if party:
+            qs = qs.filter(party__iexact=party)
+
+        start = (page - 1) * page_size
+        end = start + page_size
+        paginated = list(qs[start:end])
+
+        cache.set(cache_key, paginated, CACHE_TIMEOUT)
+        return paginated
+
+
+    def resolve_candidate(self, info, id):
+        cache_key = f"candidate_detail_{id}"
+        cached = cache.get(cache_key)
+        if cached:
+            return cached
+        try:
+            candidate = ElectionResult.objects.select_related("ward").get(id=id)
+            cache.set(cache_key, candidate, CACHE_TIMEOUT)
+            return candidate
+        except ElectionResult.DoesNotExist:
+            return None
 
 
 

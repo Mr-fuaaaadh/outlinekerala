@@ -62,6 +62,12 @@ def get_user_cache_key(user_id):
     """Generate cache key for user profile"""
     return f"user_profile_{user_id}"
 
+# ==================== Cache Key Generators ====================
+
+def get_wards_cache_key(page=1, page_size=10):
+    """Generate cache key for wards list"""
+    return f"wards_page_{page}_size_{page_size}"
+
 # ==================== Cache Invalidation Functions ====================
 
 def invalidate_news_list_cache():
