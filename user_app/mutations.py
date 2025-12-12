@@ -341,41 +341,29 @@ class Query(graphene.ObjectType):
     
 
     def resolve_wards(self, info, page=1, page_size=10):
-        cache_key = get_wards_cache_key(page=page, page_size=page_size)
-        cached = cache.get(cache_key)
-        if cached:
-            return cached
-
         qs = Ward.objects.only("id", "ward_number", "ward_name", "total_voters").order_by("ward_number")
         start = (page - 1) * page_size
         end = start + page_size
         paginated = list(qs[start:end])
-        cache.set(cache_key, paginated, CACHE_TIMEOUT)
         return paginated
 
 
 
+
     def resolve_ward(self, info, id):
-        cache_key = f"ward_detail_{id}"
-        cached = cache.get(cache_key)
-        if cached:
-            return cached
         try:
             ward = Ward.objects.only("id", "ward_number", "ward_name", "total_voters").get(id=id)
-            cache.set(cache_key, ward, CACHE_TIMEOUT)
             return ward
         except Ward.DoesNotExist:
             return None
 
+
         
 
     def resolve_candidates(self, info, page=1, page_size=10, ward_id=None, party=None):
-        cache_key = f"candidates_page_{page}_size_{page_size}_ward_{ward_id}_party_{party}"
-        cached = cache.get(cache_key)
-        if cached:
-            return cached
-
-        qs = ElectionResult.objects.select_related("ward").only("id", "name", "party", "vote_count", "ward_id").order_by("-vote_count")
+        qs = ElectionResult.objects.select_related("ward").only(
+            "id", "name", "party", "vote_count", "ward_id"
+        ).order_by("-vote_count")
 
         if ward_id:
             qs = qs.filter(ward_id=ward_id)
@@ -385,22 +373,17 @@ class Query(graphene.ObjectType):
         start = (page - 1) * page_size
         end = start + page_size
         paginated = list(qs[start:end])
-
-        cache.set(cache_key, paginated, CACHE_TIMEOUT)
         return paginated
 
 
+
     def resolve_candidate(self, info, id):
-        cache_key = f"candidate_detail_{id}"
-        cached = cache.get(cache_key)
-        if cached:
-            return cached
         try:
             candidate = ElectionResult.objects.select_related("ward").get(id=id)
-            cache.set(cache_key, candidate, CACHE_TIMEOUT)
             return candidate
         except ElectionResult.DoesNotExist:
             return None
+
 
 
 

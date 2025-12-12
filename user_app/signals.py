@@ -14,3 +14,6 @@ def clear_subcategory_cache(sender, **kwargs):
 @receiver([post_save, post_delete], sender=Tag)
 def clear_tag_cache(sender, **kwargs):
     cache.delete("tags")
+
+
+
