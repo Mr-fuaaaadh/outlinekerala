@@ -442,3 +442,31 @@ class UpdateNewsView(APIView):
         return Response(status=status.HTTP_204_NO_CONTENT)
     
 
+from rest_framework import generics
+from .models import Ward, ElectionResult
+from .serializers import WardSerializer, ElectionResultSerializer
+
+
+# -------------------- Ward CRUD --------------------
+
+class WardListCreateView(generics.ListCreateAPIView):
+    queryset = Ward.objects.all().order_by("ward_number")
+    serializer_class = WardSerializer
+
+
+class WardDetailEditDeleteView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Ward.objects.all()
+    serializer_class = WardSerializer
+
+
+# -------------------- Election Result CRUD --------------------
+
+class ElectionResultListCreateView(generics.ListCreateAPIView):
+    queryset = ElectionResult.objects.select_related("ward").all().order_by("-vote_count")
+    serializer_class = ElectionResultSerializer
+
+
+class ElectionResultDetailEditDeleteView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = ElectionResult.objects.select_related("ward").all()
+    serializer_class = ElectionResultSerializer
+

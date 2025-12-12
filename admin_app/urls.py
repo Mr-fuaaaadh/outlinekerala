@@ -19,4 +19,13 @@ urlpatterns = [
     path('users/', UserListView.as_view(), name='user_list'),
     path('users/<int:pk>/', UserDetailView.as_view(), name='user_detail'),
 
+
+    # ----- WARD -----
+    path("wards/", WardListCreateView.as_view(), name="ward_list_create"),
+    path("wards/<int:pk>/", WardDetailEditDeleteView.as_view(), name="ward_detail"),
+
+    # ----- CANDIDATES / ELECTION RESULTS -----
+    path("candidates/", ElectionResultListCreateView.as_view(), name="candidate_list_create"),
+    path("candidates/<int:pk>/", ElectionResultDetailEditDeleteView.as_view(), name="candidate_detail"),
+
 ]
