@@ -3896,3 +3896,475 @@ INFO 2025-12-13 10:03:12,860 autoreload 14196 21772 C:\Users\USER\outlinekerala\
 INFO 2025-12-13 10:03:17,066 autoreload 668 15200 Watching for file changes with StatReloader
 INFO 2025-12-13 10:15:36,990 autoreload 668 15200 C:\Users\USER\outlinekerala\outlinekerala\settings.py changed, reloading.
 INFO 2025-12-13 10:15:40,325 autoreload 17252 10692 Watching for file changes with StatReloader
+INFO 2025-12-13 10:40:06,431 autoreload 39880 31656 Watching for file changes with StatReloader
+INFO 2025-12-13 10:40:18,106 autoreload 39880 31656 C:\Users\USER\outlinekerala\outlinekerala\settings.py changed, reloading.
+INFO 2025-12-13 10:40:19,655 autoreload 10132 20952 Watching for file changes with StatReloader
+WARNING 2025-12-13 10:40:25,706 log 10132 36976 Not Found: /
+WARNING 2025-12-13 10:40:25,707 basehttp 10132 36976 "GET / HTTP/1.1" 404 2790
+WARNING 2025-12-13 10:40:25,796 log 10132 36976 Not Found: /favicon.ico
+WARNING 2025-12-13 10:40:25,797 basehttp 10132 36976 "GET /favicon.ico HTTP/1.1" 404 2841
+INFO 2025-12-13 10:40:36,454 basehttp 10132 36976 "GET /api/graphql/ HTTP/1.1" 200 2611
+INFO 2025-12-13 10:40:36,488 basehttp 10132 36976 "GET /static/graphene_django/graphiql.js HTTP/1.1" 304 0
+INFO 2025-12-13 10:40:36,603 basehttp 10132 36976 "POST /api/graphql/ HTTP/1.1" 200 46241
+WARNING 2025-12-13 10:43:10,445 log 10132 36976 Bad Request: /api/graphql/
+WARNING 2025-12-13 10:43:10,446 basehttp 10132 36976 "POST /api/graphql/ HTTP/1.1" 400 102
+INFO 2025-12-13 10:43:23,706 basehttp 10132 36976 "POST /api/graphql/ HTTP/1.1" 200 229
+INFO 2025-12-13 10:45:37,006 basehttp 10132 4032 "POST /api/graphql/ HTTP/1.1" 200 229
+INFO 2025-12-13 10:45:48,295 basehttp 10132 4032 "POST /api/graphql/ HTTP/1.1" 200 26
+INFO 2025-12-13 10:45:48,915 basehttp 10132 4032 "POST /api/graphql/ HTTP/1.1" 200 26
+INFO 2025-12-13 10:45:49,140 basehttp 10132 4032 "POST /api/graphql/ HTTP/1.1" 200 26
+INFO 2025-12-13 10:45:49,337 basehttp 10132 4032 "POST /api/graphql/ HTTP/1.1" 200 26
+INFO 2025-12-13 10:45:49,486 basehttp 10132 4032 "POST /api/graphql/ HTTP/1.1" 200 26
+INFO 2025-12-13 10:45:49,642 basehttp 10132 4032 "POST /api/graphql/ HTTP/1.1" 200 26
+INFO 2025-12-13 10:45:49,819 basehttp 10132 4032 "POST /api/graphql/ HTTP/1.1" 200 26
+INFO 2025-12-13 10:45:50,011 basehttp 10132 4032 "POST /api/graphql/ HTTP/1.1" 200 26
+INFO 2025-12-13 10:45:50,388 basehttp 10132 4032 "POST /api/graphql/ HTTP/1.1" 200 26
+INFO 2025-12-13 10:45:50,542 basehttp 10132 4032 "POST /api/graphql/ HTTP/1.1" 200 26
+INFO 2025-12-13 10:45:50,689 basehttp 10132 4032 "POST /api/graphql/ HTTP/1.1" 200 26
+INFO 2025-12-13 10:45:50,974 basehttp 10132 4032 "POST /api/graphql/ HTTP/1.1" 200 26
+INFO 2025-12-13 10:50:06,258 basehttp 10132 30488 "GET /admin/ HTTP/1.1" 302 0
+INFO 2025-12-13 10:50:06,494 basehttp 10132 30488 "GET /admin/login/?next=/admin/ HTTP/1.1" 200 4192
+INFO 2025-12-13 10:50:06,529 basehttp 10132 30488 "GET /static/admin/css/base.css HTTP/1.1" 304 0
+INFO 2025-12-13 10:50:06,529 basehttp 10132 23612 "GET /static/admin/css/dark_mode.css HTTP/1.1" 304 0
+INFO 2025-12-13 10:50:06,534 basehttp 10132 23612 "GET /static/admin/css/responsive.css HTTP/1.1" 304 0
+INFO 2025-12-13 10:50:06,534 basehttp 10132 16356 "GET /static/admin/css/nav_sidebar.css HTTP/1.1" 304 0
+INFO 2025-12-13 10:50:06,534 basehttp 10132 12252 "GET /static/admin/js/theme.js HTTP/1.1" 304 0
+INFO 2025-12-13 10:50:06,540 basehttp 10132 12252 "GET /static/admin/js/nav_sidebar.js HTTP/1.1" 304 0
+INFO 2025-12-13 10:50:06,615 basehttp 10132 3268 "GET /static/admin/css/login.css HTTP/1.1" 200 951
+INFO 2025-12-13 10:50:09,902 basehttp 10132 3268 "POST /admin/login/?next=/admin/ HTTP/1.1" 302 0
+INFO 2025-12-13 10:50:10,010 basehttp 10132 3268 "GET /admin/ HTTP/1.1" 200 13849
+INFO 2025-12-13 10:50:10,040 basehttp 10132 3268 "GET /static/admin/css/dashboard.css HTTP/1.1" 304 0
+INFO 2025-12-13 10:50:10,047 basehttp 10132 3268 "GET /static/admin/img/icon-changelink.svg HTTP/1.1" 304 0
+INFO 2025-12-13 10:50:10,047 basehttp 10132 12252 "GET /static/admin/img/icon-addlink.svg HTTP/1.1" 304 0
+INFO 2025-12-13 10:50:12,245 basehttp 10132 12252 "GET /admin/user_app/category/ HTTP/1.1" 200 12073
+INFO 2025-12-13 10:50:12,280 basehttp 10132 23612 "GET /static/admin/js/vendor/jquery/jquery.js HTTP/1.1" 304 0
+INFO 2025-12-13 10:50:12,280 basehttp 10132 16356 "GET /static/admin/js/jquery.init.js HTTP/1.1" 304 0
+INFO 2025-12-13 10:50:12,280 basehttp 10132 30488 "GET /static/admin/js/core.js HTTP/1.1" 304 0
+INFO 2025-12-13 10:50:12,281 basehttp 10132 12252 "GET /static/admin/css/changelists.css HTTP/1.1" 304 0
+INFO 2025-12-13 10:50:12,283 basehttp 10132 20440 "GET /static/admin/js/admin/RelatedObjectLookups.js HTTP/1.1" 304 0
+INFO 2025-12-13 10:50:12,286 basehttp 10132 23612 "GET /static/admin/js/actions.js HTTP/1.1" 304 0
+INFO 2025-12-13 10:50:12,287 basehttp 10132 16356 "GET /static/admin/js/urlify.js HTTP/1.1" 304 0
+INFO 2025-12-13 10:50:12,287 basehttp 10132 30488 "GET /static/admin/js/prepopulate.js HTTP/1.1" 304 0
+INFO 2025-12-13 10:50:12,288 basehttp 10132 12252 "GET /static/admin/js/vendor/xregexp/xregexp.js HTTP/1.1" 304 0
+INFO 2025-12-13 10:50:12,295 basehttp 10132 12252 "GET /static/admin/js/filters.js HTTP/1.1" 304 0
+INFO 2025-12-13 10:50:12,368 basehttp 10132 3268 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-13 10:50:12,393 basehttp 10132 3268 "GET /static/admin/img/tooltag-add.svg HTTP/1.1" 304 0
+INFO 2025-12-13 10:50:14,079 basehttp 10132 3268 "GET /admin/user_app/category/add/ HTTP/1.1" 200 24043
+INFO 2025-12-13 10:50:14,105 basehttp 10132 12252 "GET /static/admin/css/forms.css HTTP/1.1" 304 0
+INFO 2025-12-13 10:50:14,105 basehttp 10132 30488 "GET /static/admin/js/inlines.js HTTP/1.1" 304 0
+INFO 2025-12-13 10:50:14,111 basehttp 10132 30488 "GET /static/admin/js/prepopulate_init.js HTTP/1.1" 304 0
+INFO 2025-12-13 10:50:14,116 basehttp 10132 30488 "GET /static/admin/css/widgets.css HTTP/1.1" 304 0
+INFO 2025-12-13 10:50:14,121 basehttp 10132 30488 "GET /static/admin/js/change_form.js HTTP/1.1" 304 0
+INFO 2025-12-13 10:50:14,181 basehttp 10132 3268 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-13 10:50:14,242 basehttp 10132 3268 "GET /static/admin/img/inline-delete.svg HTTP/1.1" 304 0
+INFO 2025-12-13 10:50:21,892 basehttp 10132 3268 "POST /admin/user_app/category/add/ HTTP/1.1" 200 24480
+INFO 2025-12-13 10:50:21,974 basehttp 10132 3268 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-13 10:50:28,014 basehttp 10132 3268 "POST /admin/user_app/category/add/ HTTP/1.1" 302 0
+INFO 2025-12-13 10:50:28,098 basehttp 10132 3268 "GET /admin/user_app/category/add/ HTTP/1.1" 200 24281
+INFO 2025-12-13 10:50:28,178 basehttp 10132 3268 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-13 10:50:28,192 basehttp 10132 3268 "GET /static/admin/img/icon-yes.svg HTTP/1.1" 304 0
+INFO 2025-12-13 10:50:40,367 basehttp 10132 3268 "GET /api/graphql/ HTTP/1.1" 200 2611
+INFO 2025-12-13 10:50:40,550 basehttp 10132 3268 "POST /api/graphql/ HTTP/1.1" 200 46241
+INFO 2025-12-13 10:50:52,424 basehttp 10132 3268 "POST /api/graphql/ HTTP/1.1" 200 36
+INFO 2025-12-13 10:50:57,056 basehttp 10132 3268 "POST /api/graphql/ HTTP/1.1" 200 36
+INFO 2025-12-13 10:51:11,447 autoreload 10132 20952 C:\Users\USER\outlinekerala\user_app\mutations.py changed, reloading.
+INFO 2025-12-13 10:51:13,370 autoreload 21688 28424 Watching for file changes with StatReloader
+INFO 2025-12-13 10:51:18,236 basehttp 21688 16540 "POST /api/graphql/ HTTP/1.1" 200 36
+INFO 2025-12-13 10:51:24,307 basehttp 21688 16540 "POST /api/graphql/ HTTP/1.1" 200 36
+INFO 2025-12-13 10:51:24,707 basehttp 21688 16540 "POST /api/graphql/ HTTP/1.1" 200 36
+INFO 2025-12-13 10:51:24,965 basehttp 21688 16540 "POST /api/graphql/ HTTP/1.1" 200 36
+INFO 2025-12-13 10:51:25,204 basehttp 21688 16540 "POST /api/graphql/ HTTP/1.1" 200 36
+INFO 2025-12-13 10:51:25,336 basehttp 21688 16540 "POST /api/graphql/ HTTP/1.1" 200 36
+INFO 2025-12-13 10:51:31,221 basehttp 21688 16540 "GET /admin/user_app/subcategory/ HTTP/1.1" 200 13741
+INFO 2025-12-13 10:51:31,310 basehttp 21688 16540 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-13 10:51:33,467 basehttp 21688 16540 "GET /admin/user_app/category/add/ HTTP/1.1" 200 24043
+INFO 2025-12-13 10:51:36,646 basehttp 21688 16540 "GET /admin/user_app/category/ HTTP/1.1" 200 13510
+INFO 2025-12-13 10:51:36,733 basehttp 21688 16540 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-13 10:51:38,898 basehttp 21688 16540 "GET /admin/user_app/category/add/ HTTP/1.1" 200 24043
+INFO 2025-12-13 10:51:38,978 basehttp 21688 16540 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-13 10:51:49,050 basehttp 21688 16540 "POST /admin/user_app/category/add/ HTTP/1.1" 200 24521
+INFO 2025-12-13 10:51:49,138 basehttp 21688 16540 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-13 10:51:55,724 basehttp 21688 16540 "POST /admin/user_app/category/add/ HTTP/1.1" 302 0
+INFO 2025-12-13 10:51:55,878 basehttp 21688 16540 "GET /admin/user_app/category/add/ HTTP/1.1" 200 24281
+INFO 2025-12-13 10:51:56,034 basehttp 21688 16540 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-13 10:51:58,387 basehttp 21688 16540 "POST /api/graphql/ HTTP/1.1" 200 36
+INFO 2025-12-13 10:51:59,108 basehttp 21688 16540 "POST /api/graphql/ HTTP/1.1" 200 36
+INFO 2025-12-13 10:51:59,514 basehttp 21688 16540 "POST /api/graphql/ HTTP/1.1" 200 36
+INFO 2025-12-13 10:51:59,757 basehttp 21688 16540 "POST /api/graphql/ HTTP/1.1" 200 36
+INFO 2025-12-13 10:51:59,965 basehttp 21688 16540 "POST /api/graphql/ HTTP/1.1" 200 36
+INFO 2025-12-13 10:52:00,152 basehttp 21688 16540 "POST /api/graphql/ HTTP/1.1" 200 36
+INFO 2025-12-13 10:52:00,351 basehttp 21688 16540 "POST /api/graphql/ HTTP/1.1" 200 36
+INFO 2025-12-13 10:52:00,543 basehttp 21688 16540 "POST /api/graphql/ HTTP/1.1" 200 36
+INFO 2025-12-13 10:52:00,727 basehttp 21688 16540 "POST /api/graphql/ HTTP/1.1" 200 36
+INFO 2025-12-13 10:52:00,895 basehttp 21688 16540 "POST /api/graphql/ HTTP/1.1" 200 36
+INFO 2025-12-13 10:52:01,066 basehttp 21688 16540 "POST /api/graphql/ HTTP/1.1" 200 36
+INFO 2025-12-13 10:52:01,267 basehttp 21688 16540 "POST /api/graphql/ HTTP/1.1" 200 36
+INFO 2025-12-13 10:52:01,431 basehttp 21688 16540 "POST /api/graphql/ HTTP/1.1" 200 36
+INFO 2025-12-13 10:52:01,770 basehttp 21688 16540 "POST /api/graphql/ HTTP/1.1" 200 36
+INFO 2025-12-13 10:52:01,943 basehttp 21688 16540 "POST /api/graphql/ HTTP/1.1" 200 36
+INFO 2025-12-13 10:52:02,145 basehttp 21688 16540 "POST /api/graphql/ HTTP/1.1" 200 36
+INFO 2025-12-13 10:52:02,349 basehttp 21688 16540 "POST /api/graphql/ HTTP/1.1" 200 36
+INFO 2025-12-13 10:52:02,545 basehttp 21688 16540 "POST /api/graphql/ HTTP/1.1" 200 36
+INFO 2025-12-13 10:52:02,718 basehttp 21688 16540 "POST /api/graphql/ HTTP/1.1" 200 36
+INFO 2025-12-13 10:52:08,452 basehttp 21688 16540 "POST /api/graphql/ HTTP/1.1" 200 36
+INFO 2025-12-13 10:52:08,868 basehttp 21688 16540 "POST /api/graphql/ HTTP/1.1" 200 36
+INFO 2025-12-13 10:52:09,109 basehttp 21688 16540 "POST /api/graphql/ HTTP/1.1" 200 36
+INFO 2025-12-13 10:52:09,293 basehttp 21688 16540 "POST /api/graphql/ HTTP/1.1" 200 36
+INFO 2025-12-13 10:52:09,462 basehttp 21688 16540 "POST /api/graphql/ HTTP/1.1" 200 36
+INFO 2025-12-13 10:53:15,084 autoreload 21688 28424 C:\Users\USER\outlinekerala\user_app\signals.py changed, reloading.
+INFO 2025-12-13 10:53:16,828 autoreload 14924 740 Watching for file changes with StatReloader
+INFO 2025-12-13 10:53:18,734 basehttp 14924 30844 "POST /api/graphql/ HTTP/1.1" 200 36
+INFO 2025-12-13 10:53:19,228 basehttp 14924 30844 "POST /api/graphql/ HTTP/1.1" 200 36
+INFO 2025-12-13 10:53:19,451 basehttp 14924 30844 "POST /api/graphql/ HTTP/1.1" 200 36
+INFO 2025-12-13 10:53:19,629 basehttp 14924 30844 "POST /api/graphql/ HTTP/1.1" 200 36
+INFO 2025-12-13 10:53:19,810 basehttp 14924 30844 "POST /api/graphql/ HTTP/1.1" 200 36
+INFO 2025-12-13 10:53:19,991 basehttp 14924 30844 "POST /api/graphql/ HTTP/1.1" 200 36
+INFO 2025-12-13 10:53:20,158 basehttp 14924 30844 "POST /api/graphql/ HTTP/1.1" 200 36
+INFO 2025-12-13 10:53:22,802 autoreload 14924 740 C:\Users\USER\outlinekerala\user_app\signals.py changed, reloading.
+INFO 2025-12-13 10:53:24,387 autoreload 25276 34912 Watching for file changes with StatReloader
+INFO 2025-12-13 10:53:28,678 basehttp 25276 31952 "GET /api/graphql/ HTTP/1.1" 200 2611
+INFO 2025-12-13 10:53:28,848 basehttp 25276 31952 "POST /api/graphql/ HTTP/1.1" 200 46241
+INFO 2025-12-13 10:53:30,394 basehttp 25276 31952 "POST /api/graphql/ HTTP/1.1" 200 36
+INFO 2025-12-13 10:53:31,222 basehttp 25276 31952 "POST /api/graphql/ HTTP/1.1" 200 36
+INFO 2025-12-13 10:53:31,590 basehttp 25276 31952 "POST /api/graphql/ HTTP/1.1" 200 36
+INFO 2025-12-13 10:53:34,717 basehttp 25276 31952 "GET /admin/user_app/category/ HTTP/1.1" 200 13802
+INFO 2025-12-13 10:53:34,795 basehttp 25276 31952 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-13 10:53:38,744 basehttp 25276 31952 "POST /api/graphql/ HTTP/1.1" 200 36
+INFO 2025-12-13 10:53:39,290 basehttp 25276 31952 "POST /api/graphql/ HTTP/1.1" 200 36
+INFO 2025-12-13 10:53:39,511 basehttp 25276 31952 "POST /api/graphql/ HTTP/1.1" 200 36
+INFO 2025-12-13 10:53:39,693 basehttp 25276 31952 "POST /api/graphql/ HTTP/1.1" 200 36
+INFO 2025-12-13 10:53:39,881 basehttp 25276 31952 "POST /api/graphql/ HTTP/1.1" 200 36
+INFO 2025-12-13 10:53:40,080 basehttp 25276 31952 "POST /api/graphql/ HTTP/1.1" 200 36
+INFO 2025-12-13 10:53:40,249 basehttp 25276 31952 "POST /api/graphql/ HTTP/1.1" 200 36
+INFO 2025-12-13 10:53:40,411 basehttp 25276 31952 "POST /api/graphql/ HTTP/1.1" 200 36
+INFO 2025-12-13 10:53:40,939 basehttp 25276 31952 "POST /api/graphql/ HTTP/1.1" 200 36
+INFO 2025-12-13 10:53:41,123 basehttp 25276 31952 "POST /api/graphql/ HTTP/1.1" 200 36
+INFO 2025-12-13 10:53:41,277 basehttp 25276 31952 "POST /api/graphql/ HTTP/1.1" 200 36
+INFO 2025-12-13 10:53:41,455 basehttp 25276 31952 "POST /api/graphql/ HTTP/1.1" 200 36
+INFO 2025-12-13 10:53:41,623 basehttp 25276 31952 "POST /api/graphql/ HTTP/1.1" 200 36
+INFO 2025-12-13 10:53:48,164 basehttp 25276 31952 "POST /admin/user_app/category/ HTTP/1.1" 200 12090
+INFO 2025-12-13 10:53:48,295 basehttp 25276 31952 "GET /static/admin/js/cancel.js HTTP/1.1" 200 884
+INFO 2025-12-13 10:53:49,466 basehttp 25276 31952 "POST /admin/user_app/category/ HTTP/1.1" 302 0
+INFO 2025-12-13 10:53:49,533 basehttp 25276 31952 "GET /admin/user_app/category/ HTTP/1.1" 200 13648
+INFO 2025-12-13 10:53:49,604 basehttp 25276 31952 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-13 10:53:51,594 basehttp 25276 31952 "POST /api/graphql/ HTTP/1.1" 200 36
+INFO 2025-12-13 10:53:52,116 basehttp 25276 31952 "POST /api/graphql/ HTTP/1.1" 200 36
+INFO 2025-12-13 10:53:52,331 basehttp 25276 31952 "POST /api/graphql/ HTTP/1.1" 200 36
+INFO 2025-12-13 10:53:52,537 basehttp 25276 31952 "POST /api/graphql/ HTTP/1.1" 200 36
+INFO 2025-12-13 10:53:52,696 basehttp 25276 31952 "POST /api/graphql/ HTTP/1.1" 200 36
+INFO 2025-12-13 10:53:52,881 basehttp 25276 31952 "POST /api/graphql/ HTTP/1.1" 200 36
+INFO 2025-12-13 10:53:53,032 basehttp 25276 31952 "POST /api/graphql/ HTTP/1.1" 200 36
+INFO 2025-12-13 10:53:58,957 autoreload 25276 34912 C:\Users\USER\outlinekerala\user_app\signals.py changed, reloading.
+INFO 2025-12-13 10:54:00,605 autoreload 21936 39620 Watching for file changes with StatReloader
+INFO 2025-12-13 10:54:29,711 autoreload 21936 39620 C:\Users\USER\outlinekerala\user_app\signals.py changed, reloading.
+INFO 2025-12-13 10:54:31,336 autoreload 29436 11132 Watching for file changes with StatReloader
+INFO 2025-12-13 10:57:39,340 basehttp 29436 14232 "POST /api/graphql/ HTTP/1.1" 200 36
+INFO 2025-12-13 10:57:39,799 basehttp 29436 14232 "POST /api/graphql/ HTTP/1.1" 200 36
+INFO 2025-12-13 10:58:40,058 autoreload 29436 11132 C:\Users\USER\outlinekerala\user_app\__init__.py changed, reloading.
+INFO 2025-12-13 10:58:41,584 autoreload 12236 6172 Watching for file changes with StatReloader
+INFO 2025-12-13 10:58:59,903 autoreload 12236 6172 C:\Users\USER\outlinekerala\user_app\signals.py changed, reloading.
+INFO 2025-12-13 10:59:01,643 autoreload 27312 30256 Watching for file changes with StatReloader
+INFO 2025-12-13 10:59:03,842 autoreload 27312 30256 C:\Users\USER\outlinekerala\user_app\signals.py changed, reloading.
+INFO 2025-12-13 10:59:05,508 autoreload 16344 17100 Watching for file changes with StatReloader
+INFO 2025-12-13 10:59:07,793 autoreload 16344 17100 C:\Users\USER\outlinekerala\user_app\signals.py changed, reloading.
+INFO 2025-12-13 10:59:09,550 autoreload 22864 6072 Watching for file changes with StatReloader
+INFO 2025-12-13 10:59:11,640 autoreload 22864 6072 C:\Users\USER\outlinekerala\user_app\signals.py changed, reloading.
+INFO 2025-12-13 10:59:13,126 autoreload 25232 10284 Watching for file changes with StatReloader
+INFO 2025-12-13 10:59:16,432 autoreload 25232 10284 C:\Users\USER\outlinekerala\user_app\signals.py changed, reloading.
+INFO 2025-12-13 10:59:18,331 autoreload 36052 31976 Watching for file changes with StatReloader
+INFO 2025-12-13 10:59:20,690 autoreload 36052 31976 C:\Users\USER\outlinekerala\user_app\signals.py changed, reloading.
+INFO 2025-12-13 10:59:22,287 autoreload 16108 22260 Watching for file changes with StatReloader
+INFO 2025-12-13 10:59:29,011 basehttp 16108 31416 "POST /api/graphql/ HTTP/1.1" 200 36
+INFO 2025-12-13 10:59:29,509 basehttp 16108 31416 "POST /api/graphql/ HTTP/1.1" 200 36
+INFO 2025-12-13 10:59:35,221 basehttp 16108 31416 "POST /api/graphql/ HTTP/1.1" 200 36
+INFO 2025-12-13 10:59:35,424 basehttp 16108 31416 "POST /api/graphql/ HTTP/1.1" 200 36
+INFO 2025-12-13 10:59:35,620 basehttp 16108 31416 "POST /api/graphql/ HTTP/1.1" 200 36
+INFO 2025-12-13 10:59:35,776 basehttp 16108 31416 "POST /api/graphql/ HTTP/1.1" 200 36
+INFO 2025-12-13 10:59:35,959 basehttp 16108 31416 "POST /api/graphql/ HTTP/1.1" 200 36
+INFO 2025-12-13 10:59:53,078 autoreload 16108 22260 C:\Users\USER\outlinekerala\user_app\mutations.py changed, reloading.
+INFO 2025-12-13 10:59:54,757 autoreload 12608 25096 Watching for file changes with StatReloader
+INFO 2025-12-13 10:59:59,499 basehttp 12608 39872 "POST /api/graphql/ HTTP/1.1" 200 36
+INFO 2025-12-13 11:00:05,639 basehttp 12608 39872 "POST /api/graphql/ HTTP/1.1" 200 36
+INFO 2025-12-13 11:00:06,346 basehttp 12608 39872 "POST /api/graphql/ HTTP/1.1" 200 36
+INFO 2025-12-13 11:00:06,512 basehttp 12608 39872 "POST /api/graphql/ HTTP/1.1" 200 36
+INFO 2025-12-13 11:00:12,597 basehttp 12608 39872 "POST /api/graphql/ HTTP/1.1" 200 36
+INFO 2025-12-13 11:00:21,081 basehttp 12608 39872 "GET /admin/user_app/category/add/ HTTP/1.1" 200 24043
+INFO 2025-12-13 11:00:21,179 basehttp 12608 39872 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-13 11:00:38,283 basehttp 12608 39872 "POST /admin/user_app/category/add/ HTTP/1.1" 302 0
+INFO 2025-12-13 11:00:38,363 basehttp 12608 39872 "GET /admin/user_app/category/add/ HTTP/1.1" 200 24284
+INFO 2025-12-13 11:00:38,453 basehttp 12608 39872 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-13 11:00:40,998 basehttp 12608 39872 "POST /api/graphql/ HTTP/1.1" 200 47
+INFO 2025-12-13 11:01:08,395 autoreload 12608 25096 C:\Users\USER\outlinekerala\user_app\mutations.py changed, reloading.
+INFO 2025-12-13 11:01:10,190 autoreload 12284 17156 Watching for file changes with StatReloader
+INFO 2025-12-13 11:03:30,971 basehttp 12284 14680 "POST /api/graphql/ HTTP/1.1" 200 47
+INFO 2025-12-13 11:03:31,197 basehttp 12284 14680 "POST /api/graphql/ HTTP/1.1" 200 47
+INFO 2025-12-13 11:03:31,392 basehttp 12284 14680 "POST /api/graphql/ HTTP/1.1" 200 47
+INFO 2025-12-13 11:03:31,567 basehttp 12284 14680 "POST /api/graphql/ HTTP/1.1" 200 47
+INFO 2025-12-13 11:03:31,866 basehttp 12284 14680 "POST /api/graphql/ HTTP/1.1" 200 47
+INFO 2025-12-13 11:03:32,197 basehttp 12284 14680 "POST /api/graphql/ HTTP/1.1" 200 47
+INFO 2025-12-13 11:03:32,386 basehttp 12284 14680 "POST /api/graphql/ HTTP/1.1" 200 47
+INFO 2025-12-13 11:03:37,974 basehttp 12284 14680 "GET /admin/admin_app/ward/ HTTP/1.1" 200 14939
+INFO 2025-12-13 11:03:38,014 basehttp 12284 27344 "GET /static/admin/img/search.svg HTTP/1.1" 304 0
+INFO 2025-12-13 11:03:38,051 basehttp 12284 14680 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-13 11:03:43,633 basehttp 12284 14680 "GET /admin/admin_app/ward/ HTTP/1.1" 200 14939
+INFO 2025-12-13 11:03:43,709 basehttp 12284 14680 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-13 11:03:44,396 basehttp 12284 14680 "GET /admin/admin_app/ward/ HTTP/1.1" 200 14939
+INFO 2025-12-13 11:03:44,465 basehttp 12284 14680 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-13 11:03:50,836 basehttp 12284 14680 "GET /admin/user_app/category/ HTTP/1.1" 200 13810
+INFO 2025-12-13 11:03:50,910 basehttp 12284 14680 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-13 11:03:58,661 basehttp 12284 14680 "POST /admin/user_app/category/ HTTP/1.1" 200 12331
+INFO 2025-12-13 11:03:59,938 basehttp 12284 14680 "POST /admin/user_app/category/ HTTP/1.1" 302 0
+INFO 2025-12-13 11:04:00,002 basehttp 12284 14680 "GET /admin/user_app/category/ HTTP/1.1" 200 12212
+INFO 2025-12-13 11:04:00,078 basehttp 12284 14680 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-13 11:04:01,906 basehttp 12284 14680 "POST /api/graphql/ HTTP/1.1" 200 26
+INFO 2025-12-13 11:04:18,935 autoreload 12284 17156 C:\Users\USER\outlinekerala\user_app\signals.py changed, reloading.
+INFO 2025-12-13 11:04:20,523 autoreload 33164 4088 Watching for file changes with StatReloader
+INFO 2025-12-13 11:04:23,690 autoreload 33164 4088 C:\Users\USER\outlinekerala\user_app\signals.py changed, reloading.
+INFO 2025-12-13 11:04:25,281 autoreload 36616 24616 Watching for file changes with StatReloader
+INFO 2025-12-13 11:04:27,357 autoreload 36616 24616 C:\Users\USER\outlinekerala\user_app\signals.py changed, reloading.
+INFO 2025-12-13 11:04:28,931 autoreload 31424 19460 Watching for file changes with StatReloader
+INFO 2025-12-13 11:04:32,323 autoreload 31424 19460 C:\Users\USER\outlinekerala\user_app\signals.py changed, reloading.
+INFO 2025-12-13 11:04:34,337 autoreload 35740 15072 Watching for file changes with StatReloader
+INFO 2025-12-13 11:04:37,302 autoreload 35740 15072 C:\Users\USER\outlinekerala\user_app\signals.py changed, reloading.
+INFO 2025-12-13 11:04:38,955 autoreload 8524 37808 Watching for file changes with StatReloader
+INFO 2025-12-13 11:04:47,368 autoreload 8524 37808 C:\Users\USER\outlinekerala\user_app\signals.py changed, reloading.
+INFO 2025-12-13 11:04:48,933 autoreload 23076 20440 Watching for file changes with StatReloader
+INFO 2025-12-13 11:04:50,689 autoreload 23076 20440 C:\Users\USER\outlinekerala\user_app\signals.py changed, reloading.
+INFO 2025-12-13 11:04:52,122 autoreload 25360 30008 Watching for file changes with StatReloader
+INFO 2025-12-13 11:04:53,744 autoreload 25360 30008 C:\Users\USER\outlinekerala\user_app\signals.py changed, reloading.
+INFO 2025-12-13 11:04:55,457 autoreload 31412 19380 Watching for file changes with StatReloader
+INFO 2025-12-13 11:04:57,197 autoreload 31412 19380 C:\Users\USER\outlinekerala\user_app\signals.py changed, reloading.
+INFO 2025-12-13 11:04:58,837 autoreload 26040 15600 Watching for file changes with StatReloader
+INFO 2025-12-13 11:05:02,760 autoreload 26040 15600 C:\Users\USER\outlinekerala\user_app\signals.py changed, reloading.
+INFO 2025-12-13 11:05:04,346 autoreload 9184 9080 Watching for file changes with StatReloader
+INFO 2025-12-13 11:05:08,285 autoreload 9184 9080 C:\Users\USER\outlinekerala\user_app\signals.py changed, reloading.
+INFO 2025-12-13 11:05:09,830 autoreload 17016 27080 Watching for file changes with StatReloader
+INFO 2025-12-13 11:05:11,615 autoreload 17016 27080 C:\Users\USER\outlinekerala\user_app\signals.py changed, reloading.
+INFO 2025-12-13 11:05:13,101 autoreload 22252 34992 Watching for file changes with StatReloader
+INFO 2025-12-13 11:05:15,786 autoreload 22252 34992 C:\Users\USER\outlinekerala\user_app\signals.py changed, reloading.
+INFO 2025-12-13 11:05:17,316 autoreload 35536 19368 Watching for file changes with StatReloader
+INFO 2025-12-13 11:05:20,219 autoreload 35536 19368 C:\Users\USER\outlinekerala\user_app\signals.py changed, reloading.
+INFO 2025-12-13 11:05:21,821 autoreload 20136 2684 Watching for file changes with StatReloader
+INFO 2025-12-13 11:05:23,635 autoreload 20136 2684 C:\Users\USER\outlinekerala\user_app\signals.py changed, reloading.
+INFO 2025-12-13 11:05:25,152 autoreload 19164 20668 Watching for file changes with StatReloader
+INFO 2025-12-13 11:05:27,052 autoreload 19164 20668 C:\Users\USER\outlinekerala\user_app\signals.py changed, reloading.
+INFO 2025-12-13 11:05:28,733 autoreload 35748 2532 Watching for file changes with StatReloader
+INFO 2025-12-13 11:05:30,351 autoreload 35748 2532 C:\Users\USER\outlinekerala\user_app\signals.py changed, reloading.
+INFO 2025-12-13 11:05:32,017 autoreload 19964 15652 Watching for file changes with StatReloader
+INFO 2025-12-13 11:05:36,989 autoreload 19964 15652 C:\Users\USER\outlinekerala\user_app\signals.py changed, reloading.
+INFO 2025-12-13 11:05:38,988 autoreload 4180 5736 Watching for file changes with StatReloader
+INFO 2025-12-13 11:05:45,074 autoreload 4180 5736 C:\Users\USER\outlinekerala\user_app\signals.py changed, reloading.
+INFO 2025-12-13 11:05:46,584 autoreload 35712 35296 Watching for file changes with StatReloader
+INFO 2025-12-13 11:05:48,241 autoreload 35712 35296 C:\Users\USER\outlinekerala\user_app\signals.py changed, reloading.
+INFO 2025-12-13 11:05:49,678 autoreload 36708 36008 Watching for file changes with StatReloader
+INFO 2025-12-13 11:05:55,733 autoreload 36708 36008 C:\Users\USER\outlinekerala\user_app\signals.py changed, reloading.
+INFO 2025-12-13 11:05:57,249 autoreload 26244 13080 Watching for file changes with StatReloader
+INFO 2025-12-13 11:06:11,267 autoreload 26244 13080 C:\Users\USER\outlinekerala\user_app\signals.py changed, reloading.
+INFO 2025-12-13 11:06:12,785 autoreload 6376 32212 Watching for file changes with StatReloader
+INFO 2025-12-13 11:08:22,412 autoreload 6376 32212 C:\Users\USER\outlinekerala\user_app\signals.py changed, reloading.
+INFO 2025-12-13 11:08:23,891 autoreload 26856 18948 Watching for file changes with StatReloader
+INFO 2025-12-13 11:08:30,114 basehttp 26856 19324 "POST /api/graphql/ HTTP/1.1" 200 22
+INFO 2025-12-13 11:08:31,483 basehttp 26856 19324 "POST /api/graphql/ HTTP/1.1" 200 22
+INFO 2025-12-13 11:08:32,281 basehttp 26856 19324 "POST /api/graphql/ HTTP/1.1" 200 22
+INFO 2025-12-13 11:08:32,475 basehttp 26856 19324 "POST /api/graphql/ HTTP/1.1" 200 22
+INFO 2025-12-13 11:08:32,656 basehttp 26856 19324 "POST /api/graphql/ HTTP/1.1" 200 22
+INFO 2025-12-13 11:08:32,971 basehttp 26856 19324 "POST /api/graphql/ HTTP/1.1" 200 22
+INFO 2025-12-13 11:08:33,138 basehttp 26856 19324 "POST /api/graphql/ HTTP/1.1" 200 22
+INFO 2025-12-13 11:08:33,303 basehttp 26856 19324 "POST /api/graphql/ HTTP/1.1" 200 22
+INFO 2025-12-13 11:08:37,754 autoreload 26856 18948 C:\Users\USER\outlinekerala\user_app\signals.py changed, reloading.
+INFO 2025-12-13 11:08:39,454 autoreload 34328 11948 Watching for file changes with StatReloader
+INFO 2025-12-13 11:08:42,278 autoreload 34328 11948 C:\Users\USER\outlinekerala\user_app\signals.py changed, reloading.
+INFO 2025-12-13 11:08:43,843 autoreload 4928 34160 Watching for file changes with StatReloader
+INFO 2025-12-13 11:08:47,736 autoreload 4928 34160 C:\Users\USER\outlinekerala\user_app\signals.py changed, reloading.
+INFO 2025-12-13 11:08:49,298 autoreload 18308 21716 Watching for file changes with StatReloader
+INFO 2025-12-13 11:10:11,089 autoreload 18308 21716 C:\Users\USER\outlinekerala\user_app\signals.py changed, reloading.
+INFO 2025-12-13 11:10:12,739 autoreload 32892 32952 Watching for file changes with StatReloader
+INFO 2025-12-13 11:10:15,565 autoreload 32892 32952 C:\Users\USER\outlinekerala\user_app\signals.py changed, reloading.
+INFO 2025-12-13 11:10:17,226 autoreload 27704 6240 Watching for file changes with StatReloader
+INFO 2025-12-13 11:10:18,934 autoreload 27704 6240 C:\Users\USER\outlinekerala\user_app\signals.py changed, reloading.
+INFO 2025-12-13 11:10:20,540 autoreload 27772 1208 Watching for file changes with StatReloader
+INFO 2025-12-13 11:10:56,905 autoreload 27772 1208 C:\Users\USER\outlinekerala\user_app\signals.py changed, reloading.
+INFO 2025-12-13 11:10:58,558 autoreload 6376 37464 Watching for file changes with StatReloader
+INFO 2025-12-13 11:11:00,889 autoreload 6376 37464 C:\Users\USER\outlinekerala\user_app\signals.py changed, reloading.
+INFO 2025-12-13 11:11:02,419 autoreload 26428 13280 Watching for file changes with StatReloader
+INFO 2025-12-13 11:11:04,602 autoreload 26428 13280 C:\Users\USER\outlinekerala\user_app\signals.py changed, reloading.
+INFO 2025-12-13 11:11:06,154 autoreload 5744 11804 Watching for file changes with StatReloader
+INFO 2025-12-13 11:11:32,927 basehttp 5744 36656 "POST /api/graphql/ HTTP/1.1" 200 22
+INFO 2025-12-13 11:11:33,564 basehttp 5744 36656 "POST /api/graphql/ HTTP/1.1" 200 22
+INFO 2025-12-13 11:11:33,752 basehttp 5744 36656 "POST /api/graphql/ HTTP/1.1" 200 22
+INFO 2025-12-13 11:11:33,944 basehttp 5744 36656 "POST /api/graphql/ HTTP/1.1" 200 22
+INFO 2025-12-13 11:11:34,164 basehttp 5744 36656 "POST /api/graphql/ HTTP/1.1" 200 22
+INFO 2025-12-13 11:11:34,292 basehttp 5744 36656 "POST /api/graphql/ HTTP/1.1" 200 22
+INFO 2025-12-13 11:11:34,451 basehttp 5744 36656 "POST /api/graphql/ HTTP/1.1" 200 22
+INFO 2025-12-13 11:11:34,634 basehttp 5744 36656 "POST /api/graphql/ HTTP/1.1" 200 22
+INFO 2025-12-13 11:11:34,799 basehttp 5744 36656 "POST /api/graphql/ HTTP/1.1" 200 22
+INFO 2025-12-13 11:12:54,730 autoreload 5744 11804 C:\Users\USER\outlinekerala\user_app\mutations.py changed, reloading.
+INFO 2025-12-13 11:12:56,454 autoreload 8960 30516 Watching for file changes with StatReloader
+INFO 2025-12-13 11:14:01,234 autoreload 8960 30516 C:\Users\USER\outlinekerala\user_app\signals.py changed, reloading.
+INFO 2025-12-13 11:14:03,162 autoreload 23176 21992 Watching for file changes with StatReloader
+INFO 2025-12-13 11:14:09,681 autoreload 23176 21992 C:\Users\USER\outlinekerala\user_app\signals.py changed, reloading.
+INFO 2025-12-13 11:14:11,299 autoreload 19276 6248 Watching for file changes with StatReloader
+INFO 2025-12-13 11:16:08,617 autoreload 19276 6248 C:\Users\USER\outlinekerala\user_app\signals.py changed, reloading.
+INFO 2025-12-13 11:16:10,225 autoreload 33656 39208 Watching for file changes with StatReloader
+INFO 2025-12-13 11:16:12,997 autoreload 33656 39208 C:\Users\USER\outlinekerala\user_app\signals.py changed, reloading.
+INFO 2025-12-13 11:16:14,708 autoreload 22940 17244 Watching for file changes with StatReloader
+INFO 2025-12-13 11:18:05,673 autoreload 22940 17244 C:\Users\USER\outlinekerala\user_app\signals.py changed, reloading.
+INFO 2025-12-13 11:18:07,401 autoreload 11084 13192 Watching for file changes with StatReloader
+INFO 2025-12-13 11:18:11,694 autoreload 11084 13192 C:\Users\USER\outlinekerala\user_app\signals.py changed, reloading.
+INFO 2025-12-13 11:18:13,769 autoreload 34700 35516 Watching for file changes with StatReloader
+INFO 2025-12-13 11:18:15,943 autoreload 34700 35516 C:\Users\USER\outlinekerala\user_app\signals.py changed, reloading.
+INFO 2025-12-13 11:18:17,463 autoreload 13668 4932 Watching for file changes with StatReloader
+INFO 2025-12-13 11:18:24,046 autoreload 13668 4932 C:\Users\USER\outlinekerala\user_app\signals.py changed, reloading.
+INFO 2025-12-13 11:18:25,941 autoreload 36988 24056 Watching for file changes with StatReloader
+INFO 2025-12-13 11:18:28,205 autoreload 36988 24056 C:\Users\USER\outlinekerala\user_app\signals.py changed, reloading.
+INFO 2025-12-13 11:18:29,752 autoreload 10396 15596 Watching for file changes with StatReloader
+INFO 2025-12-13 11:18:31,959 autoreload 10396 15596 C:\Users\USER\outlinekerala\user_app\signals.py changed, reloading.
+INFO 2025-12-13 11:18:33,850 autoreload 21128 18336 Watching for file changes with StatReloader
+INFO 2025-12-13 11:18:38,331 autoreload 21128 18336 C:\Users\USER\outlinekerala\user_app\signals.py changed, reloading.
+INFO 2025-12-13 11:18:40,110 autoreload 37420 15660 Watching for file changes with StatReloader
+INFO 2025-12-13 11:18:42,248 autoreload 37420 15660 C:\Users\USER\outlinekerala\user_app\signals.py changed, reloading.
+INFO 2025-12-13 11:18:43,843 autoreload 1608 2416 Watching for file changes with StatReloader
+INFO 2025-12-13 11:18:47,146 autoreload 1608 2416 C:\Users\USER\outlinekerala\user_app\signals.py changed, reloading.
+INFO 2025-12-13 11:18:48,854 autoreload 456 17280 Watching for file changes with StatReloader
+INFO 2025-12-13 11:18:50,926 autoreload 456 17280 C:\Users\USER\outlinekerala\user_app\signals.py changed, reloading.
+INFO 2025-12-13 11:18:52,563 autoreload 11936 5576 Watching for file changes with StatReloader
+INFO 2025-12-13 11:18:54,811 autoreload 11936 5576 C:\Users\USER\outlinekerala\user_app\signals.py changed, reloading.
+INFO 2025-12-13 11:18:56,454 autoreload 38072 22636 Watching for file changes with StatReloader
+INFO 2025-12-13 11:19:00,920 autoreload 38072 22636 C:\Users\USER\outlinekerala\user_app\signals.py changed, reloading.
+INFO 2025-12-13 11:19:02,420 autoreload 21276 21088 Watching for file changes with StatReloader
+INFO 2025-12-13 11:19:04,595 autoreload 21276 21088 C:\Users\USER\outlinekerala\user_app\signals.py changed, reloading.
+INFO 2025-12-13 11:19:06,143 autoreload 10876 23004 Watching for file changes with StatReloader
+INFO 2025-12-13 11:19:08,324 autoreload 10876 23004 C:\Users\USER\outlinekerala\user_app\signals.py changed, reloading.
+INFO 2025-12-13 11:19:09,917 autoreload 37772 23540 Watching for file changes with StatReloader
+INFO 2025-12-13 11:19:12,094 autoreload 37772 23540 C:\Users\USER\outlinekerala\user_app\signals.py changed, reloading.
+INFO 2025-12-13 11:19:13,651 autoreload 35404 11704 Watching for file changes with StatReloader
+INFO 2025-12-13 11:19:18,170 autoreload 35404 11704 C:\Users\USER\outlinekerala\user_app\signals.py changed, reloading.
+INFO 2025-12-13 11:19:19,811 autoreload 39032 19424 Watching for file changes with StatReloader
+INFO 2025-12-13 11:19:22,055 autoreload 39032 19424 C:\Users\USER\outlinekerala\user_app\signals.py changed, reloading.
+INFO 2025-12-13 11:19:23,652 autoreload 8204 2228 Watching for file changes with StatReloader
+INFO 2025-12-13 11:19:26,908 autoreload 8204 2228 C:\Users\USER\outlinekerala\user_app\signals.py changed, reloading.
+INFO 2025-12-13 11:19:28,527 autoreload 29632 32016 Watching for file changes with StatReloader
+INFO 2025-12-13 11:19:38,394 autoreload 29632 32016 C:\Users\USER\outlinekerala\user_app\signals.py changed, reloading.
+INFO 2025-12-13 11:19:40,033 autoreload 14596 33124 Watching for file changes with StatReloader
+INFO 2025-12-13 11:19:45,515 autoreload 14596 33124 C:\Users\USER\outlinekerala\user_app\signals.py changed, reloading.
+INFO 2025-12-13 11:19:47,068 autoreload 21540 3212 Watching for file changes with StatReloader
+INFO 2025-12-13 11:19:51,440 autoreload 21540 3212 C:\Users\USER\outlinekerala\user_app\signals.py changed, reloading.
+INFO 2025-12-13 11:19:53,009 autoreload 26484 33812 Watching for file changes with StatReloader
+INFO 2025-12-13 11:19:55,230 autoreload 26484 33812 C:\Users\USER\outlinekerala\user_app\signals.py changed, reloading.
+INFO 2025-12-13 11:19:56,920 autoreload 4960 13788 Watching for file changes with StatReloader
+INFO 2025-12-13 11:19:59,043 autoreload 4960 13788 C:\Users\USER\outlinekerala\user_app\signals.py changed, reloading.
+INFO 2025-12-13 11:20:00,681 autoreload 4240 16904 Watching for file changes with StatReloader
+INFO 2025-12-13 11:20:03,142 basehttp 4240 9956 "POST /api/graphql/ HTTP/1.1" 200 26
+INFO 2025-12-13 11:20:03,672 basehttp 4240 9956 "POST /api/graphql/ HTTP/1.1" 200 26
+INFO 2025-12-13 11:20:03,862 basehttp 4240 9956 "POST /api/graphql/ HTTP/1.1" 200 26
+INFO 2025-12-13 11:20:04,018 basehttp 4240 9956 "POST /api/graphql/ HTTP/1.1" 200 26
+INFO 2025-12-13 11:20:37,974 basehttp 4240 9956 "GET /admin/user_app/category/import/ HTTP/1.1" 200 12384
+INFO 2025-12-13 11:20:38,066 basehttp 4240 28460 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-13 11:20:38,106 basehttp 4240 9956 "GET /static/import_export/import.css HTTP/1.1" 200 3342
+INFO 2025-12-13 11:20:38,133 basehttp 4240 34736 "GET /static/import_export/guess_format.js HTTP/1.1" 200 711
+INFO 2025-12-13 11:20:46,331 basehttp 4240 34736 "POST /admin/user_app/category/import/ HTTP/1.1" 200 21690
+INFO 2025-12-13 11:20:46,428 basehttp 4240 34736 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-13 11:20:49,346 basehttp 4240 34736 "POST /admin/user_app/category/process_import/ HTTP/1.1" 302 0
+INFO 2025-12-13 11:20:49,466 basehttp 4240 34736 "GET /admin/user_app/category/ HTTP/1.1" 200 19913
+INFO 2025-12-13 11:20:49,554 basehttp 4240 34736 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-13 11:20:52,192 basehttp 4240 34736 "POST /api/graphql/ HTTP/1.1" 200 861
+INFO 2025-12-13 11:21:10,236 autoreload 23772 2224 Watching for file changes with StatReloader
+INFO 2025-12-13 11:21:16,315 basehttp 23772 15352 "POST /api/graphql/ HTTP/1.1" 200 861
+INFO 2025-12-13 11:23:04,128 basehttp 23772 15352 "POST /api/graphql/ HTTP/1.1" 200 861
+INFO 2025-12-13 11:23:11,666 basehttp 23772 15352 "GET /admin/user_app/subcategory/ HTTP/1.1" 200 12105
+INFO 2025-12-13 11:23:11,746 basehttp 23772 15352 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-13 11:23:29,027 basehttp 23772 15352 "GET /admin/user_app/subcategory/ HTTP/1.1" 200 12105
+INFO 2025-12-13 11:23:29,097 basehttp 23772 15352 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-13 11:23:30,387 basehttp 23772 15352 "GET /admin/user_app/subcategory/import/ HTTP/1.1" 200 12404
+INFO 2025-12-13 11:23:30,477 basehttp 23772 15352 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-13 11:23:35,751 basehttp 23772 15352 "POST /admin/user_app/subcategory/import/ HTTP/1.1" 200 32519
+INFO 2025-12-13 11:23:35,830 basehttp 23772 15352 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-13 11:23:40,152 basehttp 23772 15352 "POST /admin/user_app/subcategory/process_import/ HTTP/1.1" 302 0
+INFO 2025-12-13 11:23:40,243 basehttp 23772 15352 "GET /admin/user_app/subcategory/ HTTP/1.1" 200 29526
+INFO 2025-12-13 11:23:40,317 basehttp 23772 15352 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-13 11:24:30,979 basehttp 23772 15352 "POST /api/graphql/ HTTP/1.1" 200 3861
+INFO 2025-12-13 11:24:38,626 basehttp 23772 15352 "POST /api/graphql/ HTTP/1.1" 200 3861
+INFO 2025-12-13 11:25:07,540 basehttp 23772 15352 "POST /api/graphql/ HTTP/1.1" 200 1020
+INFO 2025-12-13 11:25:23,612 autoreload 23772 2224 C:\Users\USER\outlinekerala\user_app\mutations.py changed, reloading.
+INFO 2025-12-13 11:25:25,321 autoreload 11980 34124 Watching for file changes with StatReloader
+INFO 2025-12-13 11:25:29,957 basehttp 11980 33604 "POST /api/graphql/ HTTP/1.1" 200 1020
+INFO 2025-12-13 11:25:41,458 autoreload 11980 34124 C:\Users\USER\outlinekerala\user_app\mutations.py changed, reloading.
+INFO 2025-12-13 11:25:43,151 autoreload 31496 27900 Watching for file changes with StatReloader
+INFO 2025-12-13 11:25:51,265 basehttp 31496 34220 "GET /admin/user_app/tag/ HTTP/1.1" 200 12028
+INFO 2025-12-13 11:25:51,356 basehttp 31496 34220 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-13 11:26:10,669 basehttp 31496 34220 "GET /admin/user_app/tag/import/ HTTP/1.1" 200 12362
+INFO 2025-12-13 11:26:10,741 basehttp 31496 34220 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-13 11:26:15,390 basehttp 31496 34220 "POST /admin/user_app/tag/import/ HTTP/1.1" 200 39133
+INFO 2025-12-13 11:26:15,465 basehttp 31496 34220 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-13 11:26:22,355 basehttp 31496 34220 "POST /admin/user_app/tag/process_import/ HTTP/1.1" 302 0
+INFO 2025-12-13 11:26:22,458 basehttp 31496 34220 "GET /admin/user_app/tag/ HTTP/1.1" 200 33885
+INFO 2025-12-13 11:26:22,533 basehttp 31496 34220 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-13 11:26:59,797 basehttp 31496 34220 "POST /api/graphql/ HTTP/1.1" 200 393
+INFO 2025-12-13 11:27:07,616 basehttp 31496 34220 "POST /api/graphql/ HTTP/1.1" 200 393
+INFO 2025-12-13 11:27:21,687 basehttp 31496 34220 "POST /admin/user_app/tag/ HTTP/1.1" 200 11936
+INFO 2025-12-13 11:27:22,982 basehttp 31496 34220 "POST /admin/user_app/tag/ HTTP/1.1" 302 0
+INFO 2025-12-13 11:27:23,082 basehttp 31496 34220 "GET /admin/user_app/tag/ HTTP/1.1" 200 33523
+INFO 2025-12-13 11:27:23,160 basehttp 31496 34220 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-13 11:27:29,952 basehttp 31496 34220 "POST /api/graphql/ HTTP/1.1" 200 390
+INFO 2025-12-13 11:27:38,374 basehttp 31496 34220 "GET /admin/user_app/news/ HTTP/1.1" 200 17601
+INFO 2025-12-13 11:27:38,475 basehttp 31496 34220 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-13 11:27:38,590 basehttp 31496 34220 "GET /static/admin/img/icon-viewlink.svg HTTP/1.1" 200 581
+INFO 2025-12-13 11:27:39,765 basehttp 31496 34220 "GET /admin/user_app/subcategory/ HTTP/1.1" 200 29346
+INFO 2025-12-13 11:27:39,867 basehttp 31496 34220 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-13 11:27:41,014 basehttp 31496 34220 "GET /admin/user_app/news/ HTTP/1.1" 200 17601
+INFO 2025-12-13 11:27:41,088 basehttp 31496 34220 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-13 11:28:05,747 basehttp 31496 34220 "GET /admin/user_app/news/add/ HTTP/1.1" 200 28799
+INFO 2025-12-13 11:28:05,781 basehttp 31496 3956 "GET /static/ckeditor/ckeditor.css HTTP/1.1" 200 672
+INFO 2025-12-13 11:28:05,809 basehttp 31496 3956 "GET /static/ckeditor/fixups.js HTTP/1.1" 200 168
+INFO 2025-12-13 11:28:05,816 basehttp 31496 33280 "GET /static/ckeditor/ckeditor-init.js HTTP/1.1" 200 1526
+INFO 2025-12-13 11:28:05,817 basehttp 31496 15572 "GET /static/admin/js/calendar.js HTTP/1.1" 200 9141
+INFO 2025-12-13 11:28:05,820 basehttp 31496 25832 "GET /static/admin/js/admin/DateTimeShortcuts.js HTTP/1.1" 200 19319
+INFO 2025-12-13 11:28:05,833 basehttp 31496 34220 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-13 11:28:05,854 basehttp 31496 34220 "GET /static/admin/img/icon-deletelink.svg HTTP/1.1" 200 392
+INFO 2025-12-13 11:28:06,033 basehttp 31496 12460 "GET /static/ckeditor/ckeditor/ckeditor.js HTTP/1.1" 200 759716
+INFO 2025-12-13 11:28:06,126 basehttp 31496 34220 "GET /static/admin/img/icon-clock.svg HTTP/1.1" 200 677
+INFO 2025-12-13 11:28:06,127 basehttp 31496 12460 "GET /static/admin/img/icon-calendar.svg HTTP/1.1" 200 1086
+INFO 2025-12-13 11:28:06,152 basehttp 31496 25832 "GET /static/ckeditor/ckeditor/config.js?t=N5UC HTTP/1.1" 200 336
+INFO 2025-12-13 11:28:06,165 basehttp 31496 25832 "GET /static/ckeditor/ckeditor/skins/moono-lisa/editor.css?t=N5UC HTTP/1.1" 200 48309
+INFO 2025-12-13 11:28:06,209 basehttp 31496 12460 "GET /static/ckeditor/ckeditor/lang/en.js?t=N5UC HTTP/1.1" 200 18228
+INFO 2025-12-13 11:28:06,247 basehttp 31496 12460 "GET /static/ckeditor/ckeditor/styles.js?t=N5UC HTTP/1.1" 200 5577
+INFO 2025-12-13 11:28:06,257 basehttp 31496 12460 "GET /static/ckeditor/ckeditor/plugins/scayt/skins/moono-lisa/scayt.css?t=N5UC HTTP/1.1" 200 381
+INFO 2025-12-13 11:28:06,257 basehttp 31496 25832 "GET /static/ckeditor/ckeditor/plugins/scayt/dialogs/dialog.css?t=N5UC HTTP/1.1" 200 419
+INFO 2025-12-13 11:28:06,257 basehttp 31496 34220 "GET /static/ckeditor/ckeditor/plugins/tableselection/styles/tableselection.css?t=N5UC HTTP/1.1" 200 1145
+INFO 2025-12-13 11:28:06,259 basehttp 31496 15572 "GET /static/ckeditor/ckeditor/plugins/dialog/styles/dialog.css?t=N5UC HTTP/1.1" 200 249
+INFO 2025-12-13 11:28:06,263 basehttp 31496 15572 "GET /static/ckeditor/ckeditor/plugins/copyformatting/styles/copyformatting.css?t=N5UC HTTP/1.1" 200 1511
+INFO 2025-12-13 11:28:06,284 basehttp 31496 15572 "GET /static/ckeditor/ckeditor/skins/moono-lisa/icons.png?t=4a1fb11f44 HTTP/1.1" 200 12237
+INFO 2025-12-13 11:28:06,303 basehttp 31496 15572 "GET /static/ckeditor/ckeditor/contents.css?t=N5UC HTTP/1.1" 200 3092
+INFO 2025-12-13 11:28:15,024 basehttp 31496 15572 "GET /admin/user_app/news/ HTTP/1.1" 200 17601
+INFO 2025-12-13 11:28:15,101 basehttp 31496 15572 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-13 11:37:04,769 basehttp 31496 31100 "GET /admin/admin_app/ward/ HTTP/1.1" 200 14939
+INFO 2025-12-13 11:37:04,844 basehttp 31496 31100 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-13 11:37:06,620 basehttp 31496 31100 "GET /admin/admin_app/ward/add/ HTTP/1.1" 200 19793
+INFO 2025-12-13 11:37:06,724 basehttp 31496 31100 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-13 11:37:19,103 basehttp 31496 31100 "GET /admin/admin_app/ward/ HTTP/1.1" 200 14939
+INFO 2025-12-13 11:37:19,178 basehttp 31496 31100 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-13 11:37:21,393 basehttp 31496 31100 "GET /admin/admin_app/ward/4/change/ HTTP/1.1" 200 20109
+INFO 2025-12-13 11:37:21,472 basehttp 31496 31100 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-13 11:38:21,718 basehttp 31496 31100 "GET /admin/user_app/news/ HTTP/1.1" 200 17601
+INFO 2025-12-13 11:38:21,793 basehttp 31496 31100 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-13 11:38:23,181 basehttp 31496 31100 "GET /admin/user_app/news/add/ HTTP/1.1" 200 28799
+INFO 2025-12-13 11:38:23,255 basehttp 31496 31100 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-13 11:38:24,962 basehttp 31496 31100 "GET /admin/user_app/news/ HTTP/1.1" 200 17601
+INFO 2025-12-13 11:38:26,128 basehttp 31496 31100 "GET /admin/user_app/news/import/ HTTP/1.1" 200 12452
+INFO 2025-12-13 11:38:26,203 basehttp 31496 31100 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-13 11:38:50,045 basehttp 31496 31100 "POST /admin/user_app/news/import/ HTTP/1.1" 200 35209
+INFO 2025-12-13 11:38:50,128 basehttp 31496 31100 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-13 11:39:02,232 basehttp 31496 31100 "GET /admin/user_app/customuser/ HTTP/1.1" 200 15674
+INFO 2025-12-13 11:39:02,309 basehttp 31496 31100 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-13 11:39:05,117 basehttp 31496 31100 "GET /admin/user_app/customuser/1/change/ HTTP/1.1" 200 28663
+INFO 2025-12-13 11:39:05,196 basehttp 31496 31100 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-13 11:39:59,790 basehttp 31496 31100 "GET /admin/user_app/news/ HTTP/1.1" 200 17601
+INFO 2025-12-13 11:39:59,954 basehttp 31496 31100 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-13 11:40:01,808 basehttp 31496 31100 "GET /admin/user_app/news/import/ HTTP/1.1" 200 12452
+INFO 2025-12-13 11:40:01,954 basehttp 31496 31100 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-13 11:40:34,031 basehttp 31496 31100 "POST /admin/user_app/news/import/ HTTP/1.1" 200 35209
+INFO 2025-12-13 11:40:34,113 basehttp 31496 31100 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-13 11:50:41,077 basehttp 31496 39768 "GET /admin/user_app/news/ HTTP/1.1" 200 17601
+INFO 2025-12-13 11:50:41,160 basehttp 31496 39768 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-13 11:50:42,865 basehttp 31496 39768 "GET /admin/user_app/news/add/ HTTP/1.1" 200 28799
+INFO 2025-12-13 11:50:42,944 basehttp 31496 39768 "GET /admin/jsi18n/ HTTP/1.1" 200 3342

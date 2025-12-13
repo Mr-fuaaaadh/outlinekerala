@@ -15,8 +15,9 @@ from user_app.db_utils import get_object_or_error
 import logging
 logger = logging.getLogger(__name__)
 
-User = get_user_model()
 CACHE_TIMEOUT = 60 * 60  # 1 hour
+
+User = get_user_model()
 class RegisterUser(graphene.Mutation):
     user = graphene.Field(UserType)
     token = graphene.String()
@@ -211,131 +212,180 @@ class Query(graphene.ObjectType):
     # ---------------- Safe Caching Resolvers ----------------
 
     def resolve_categories(self, info, page=1, page_size=10):
-        cache_key = f"categories_page_{page}_size_{page_size}"
+        version = cache.get("categories_version", 1)
+        cache_key = f"categories_v{version}_p{page}_s{page_size}"
+
         cached = cache.get(cache_key)
         if cached:
             return cached
-        
-        qs = Category.objects.only("id", "name", "slug", "image")
-        
-        start = (page - 1) * page_size
-        end = start + page_size
-        
-        paginated = list(qs[start:end])
-        cache.set(cache_key, paginated, CACHE_TIMEOUT)
-        return paginated
+
+        qs = Category.objects.only("id", "name", "slug", "image").order_by("id")
+        data = list(qs[(page-1)*page_size : page*page_size])
+        cache.set(cache_key, data, CACHE_TIMEOUT)
+        return data
+
 
     def resolve_subcategories(self, info, page=1, page_size=10):
-        cache_key = f"subcategories_page_{page}_size_{page_size}"
+        version = cache.get("subcategories_version", 1)
+        cache_key = f"subcategories_v{version}_p{page}_s{page_size}"
+
         cached = cache.get(cache_key)
         if cached:
             return cached
-            
-        qs = SubCategory.objects.select_related("category").only("id", "name", "slug", "image", "category")
-        
-        start = (page - 1) * page_size
-        end = start + page_size
-        
-        paginated = list(qs[start:end])
-        cache.set(cache_key, paginated, CACHE_TIMEOUT)
-        return paginated
+
+        qs = SubCategory.objects.select_related("category") \
+            .only("id", "name", "slug", "image", "category") \
+            .order_by("id")
+
+        data = list(qs[(page-1)*page_size : page*page_size])
+        cache.set(cache_key, data, CACHE_TIMEOUT)
+        return data
 
 
     def resolve_tags(self, info, page=1, page_size=10):
-        cache_key = f"tags_page_{page}_size_{page_size}"
+        version = cache.get("tags_version", 1)
+        cache_key = f"tags_v{version}_p{page}_s{page_size}"
+
         cached = cache.get(cache_key)
         if cached:
             return cached
-        
-        qs = Tag.objects.only("id", "name", "slug")
-        
-        start = (page - 1) * page_size
-        end = start + page_size
-        
-        paginated = list(qs[start:end])
-        cache.set(cache_key, paginated, CACHE_TIMEOUT)
-        return paginated
+
+        qs = Tag.objects.only("id", "name", "slug").order_by("id")
+        data = list(qs[(page-1)*page_size : page*page_size])
+        cache.set(cache_key, data, CACHE_TIMEOUT)
+        return data
+
 
 
     def resolve_newses(self, info, page=1, page_size=10):
-        cache_key = f"news_page_{page}_size_{page_size}"
-        cached_data = cache.get(cache_key)
+        version = cache.get("news_version", 1)
+        cache_key = f"news_v{version}_p{page}_s{page_size}"
 
-        if cached_data:
-            return cached_data
-
-        # Defer content for list view to improve performance
-        qs = News.objects.select_related("category", "author") \
-            .prefetch_related("tags") \
-            .defer("content") \
-            .order_by("-publish_date")
-        
-        start = (page - 1) * page_size
-        end = start + page_size
-        
-        paginated_news = list(qs[start:end])
-        
-        cache.set(cache_key, paginated_news, 300)
-        return paginated_news
-
-
-    def resolve_comments(self, info, news_id, page=1, page_size=20):
-        cache_key = f"comments_news_{news_id}_page_{page}"
         cached = cache.get(cache_key)
         if cached:
             return cached
 
-        # Fixed: 'text' -> 'content'
-        qs = Comment.objects.filter(news_id=news_id)\
-            .select_related("user")\
-            .only("id", "content", "created_at", "user_id")\
-            .order_by("-created_at")
+        qs = (
+            News.objects
+            .select_related("category", "author")
+            .prefetch_related("tags")
+            .defer("content")
+            .order_by("-publish_date")
+        )
 
         start = (page - 1) * page_size
         end = start + page_size
-        paginated = list(qs[start:end])
-        cache.set(cache_key, paginated, 300)
-        return paginated
+
+        data = list(qs[start:end])
+        cache.set(cache_key, data, CACHE_TIMEOUT)
+        return data
+
+
+
+    def resolve_comments(self, info, news_id, page=1, page_size=20):
+        version = cache.get(f"comments_news_{news_id}_version", 1)
+        cache_key = f"comments_news_{news_id}_v{version}_p{page}_s{page_size}"
+
+        cached = cache.get(cache_key)
+        if cached:
+            return cached
+
+        qs = (
+            Comment.objects
+            .filter(news_id=news_id)
+            .select_related("user")
+            .only("id", "content", "created_at", "user_id")
+            .order_by("-created_at")
+        )
+
+        start = (page - 1) * page_size
+        end = start + page_size
+
+        data = list(qs[start:end])
+        cache.set(cache_key, data, CACHE_TIMEOUT)
+        return data
+
 
 
     def resolve_tag(self, info, id):
-        return get_object_or_error(Tag, id=id)
+        version = cache.get("tags_version", 1)
+        cache_key = f"tag_{id}_v{version}"
+
+        cached = cache.get(cache_key)
+        if cached:
+            return cached
+
+        tag = get_object_or_error(Tag, id=id)
+        cache.set(cache_key, tag, CACHE_TIMEOUT)
+        return tag
+
 
     def resolve_news(self, info, id):
+        version = cache.get("news_version", 1)
+        cache_key = f"news_{id}_v{version}"
+
+        cached = cache.get(cache_key)
+        if cached:
+            return cached
+
         try:
-            news = News.objects.select_related("category", "author") \
-                .prefetch_related("tags") \
-                .only("id", "title", "slug", "content", "publish_date", "status", "author_id", "category_id") \
+            news = (
+                News.objects
+                .select_related("category", "author")
+                .prefetch_related("tags")
+                .only(
+                    "id", "title", "slug", "content",
+                    "publish_date", "status",
+                    "author_id", "category_id"
+                )
                 .get(id=id)
+            )
+            cache.set(cache_key, news, CACHE_TIMEOUT)
             return news
         except News.DoesNotExist:
             return None
 
+
     def resolve_comment(self, info, news_id):
+        version = cache.get(f"comments_news_{news_id}_version", 1)
+        cache_key = f"comments_news_{news_id}_v{version}_all"
+
+        cached = cache.get(cache_key)
+        if cached:
+            return cached
+
         news = get_object_or_error(News, id=news_id)
-        return news.comment.all().select_related("user")
+
+        comments = (
+            news.comment
+            .select_related("user")
+            .only("id", "content", "created_at", "user_id")
+            .order_by("-created_at")
+        )
+
+        data = list(comments)
+        cache.set(cache_key, data, CACHE_TIMEOUT)
+        return data
+
     
 
-
-    # def resolve_likes(self, info, news_id):
-    #     cache_key = f"likes_news_{news_id}"
-    #     cached = cache.get(cache_key)
-
-    #     if cached:
-    #         return cached
-
-    #     qs = Like.objects.filter(news_id=news_id)\
-    #                     .select_related("user", "news")\
-    #                     .only("id", "user_id", "news_id")
-
-    #     data = list(qs)
-    #     cache.set(cache_key, data, 300)  # 5 min cache
-    #     return data
-
     def resolve_likes(self, info, news_id):
-        return Like.objects.filter(news_id=news_id) \
-            .select_related("user", "news") \
+        version = cache.get(f"likes_news_{news_id}_version", 1)
+        cache_key = f"likes_news_{news_id}_v{version}_list"
+
+        cached = cache.get(cache_key)
+        if cached:
+            return cached
+
+        likes = list(
+            Like.objects.filter(news_id=news_id)
+            .select_related("user")
             .only("id", "user_id", "news_id")
+        )
+
+        cache.set(cache_key, likes, CACHE_TIMEOUT)
+        return likes
+
 
 
 
@@ -352,8 +402,6 @@ class Query(graphene.ObjectType):
         end = start + page_size
         paginated = list(qs[start:end])
         return paginated
-
-
 
 
     def resolve_ward(self, info, id):
