@@ -3891,3 +3891,8 @@ INFO 2025-12-12 17:02:19,474 autoreload 4848 5456 C:\Users\USER\outlinekerala\ou
 INFO 2025-12-12 17:02:21,685 autoreload 10964 26676 Watching for file changes with StatReloader
 INFO 2025-12-12 17:02:24,079 autoreload 10964 26676 C:\Users\USER\outlinekerala\outlinekerala\settings.py changed, reloading.
 INFO 2025-12-12 17:02:26,013 autoreload 20128 14160 Watching for file changes with StatReloader
+INFO 2025-12-13 10:02:47,393 autoreload 14196 21772 Watching for file changes with StatReloader
+INFO 2025-12-13 10:03:12,860 autoreload 14196 21772 C:\Users\USER\outlinekerala\outlinekerala\settings.py changed, reloading.
+INFO 2025-12-13 10:03:17,066 autoreload 668 15200 Watching for file changes with StatReloader
+INFO 2025-12-13 10:15:36,990 autoreload 668 15200 C:\Users\USER\outlinekerala\outlinekerala\settings.py changed, reloading.
+INFO 2025-12-13 10:15:40,325 autoreload 17252 10692 Watching for file changes with StatReloader

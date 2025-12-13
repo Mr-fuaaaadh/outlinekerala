@@ -317,20 +317,26 @@ class Query(graphene.ObjectType):
     
 
 
+    # def resolve_likes(self, info, news_id):
+    #     cache_key = f"likes_news_{news_id}"
+    #     cached = cache.get(cache_key)
+
+    #     if cached:
+    #         return cached
+
+    #     qs = Like.objects.filter(news_id=news_id)\
+    #                     .select_related("user", "news")\
+    #                     .only("id", "user_id", "news_id")
+
+    #     data = list(qs)
+    #     cache.set(cache_key, data, 300)  # 5 min cache
+    #     return data
+
     def resolve_likes(self, info, news_id):
-        cache_key = f"likes_news_{news_id}"
-        cached = cache.get(cache_key)
+        return Like.objects.filter(news_id=news_id) \
+            .select_related("user", "news") \
+            .only("id", "user_id", "news_id")
 
-        if cached:
-            return cached
-
-        qs = Like.objects.filter(news_id=news_id)\
-                        .select_related("user", "news")\
-                        .only("id", "user_id", "news_id")
-
-        data = list(qs)
-        cache.set(cache_key, data, 300)  # 5 min cache
-        return data
 
 
     def resolve_me(self, info):
